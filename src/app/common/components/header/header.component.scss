@@ -1,0 +1,23 @@
+.menu-btn {
+  --background: none;
+  --box-shadow: none;
+}
+
+.menu-icon {
+  background: var(--ion-flied-primary);
+  padding: 7px;
+  border-radius: 8px;
+  width: 2.4rem;
+}
+.search-icon {
+  background: var(--ion-flied-primary);
+  padding: 10px;
+  border-radius: 8px;
+  width: 2.4rem;
+}
+.header-con {
+  display: flex;
+}
+.header-heading {
+  padding: 0px;
+}

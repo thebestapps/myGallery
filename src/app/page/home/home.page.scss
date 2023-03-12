@@ -1,0 +1,112 @@
+* {
+  margin: 0px;
+}
+.home-page {
+  margin: 0px 18px;
+}
+.header-txt-con {
+  background: var(--ion-box-primary);
+  position: relative;
+  display: flex;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 12px;
+}
+.para-txt {
+  width: 50%;
+  color: #747474;
+  font-size: 13px;
+}
+
+.qoutes-txt {
+  font-size: 50px;
+  margin-top: -20px !important;
+  margin-right: 7px;
+  color: #000;
+}
+.header-img {
+  border-radius: 100px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  position: absolute;
+  right: 0;
+
+  top: 8px;
+  bottom: 0px;
+}
+
+.photo-content {
+  margin-top: 30px;
+}
+
+.heading {
+  margin-bottom: 12px;
+}
+.date-txt,
+.day-txt {
+  font-size: 13px;
+}
+.card {
+  background: var(--ion-box-primary);
+  border-radius: 6px;
+  padding: 5px;
+}
+.content-img {
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.txt-content {
+  display: flex;
+}
+.note-txt {
+  font-size: 10px;
+  line-height: 15px;
+  color: #747474;
+}
+.mic-icon {
+  background: #fff;
+  border-radius: 60px;
+  height: 30px;
+  width: 30px;
+  padding: 4px;
+  margin: auto auto 0px auto;
+}
+
+.ion-footer {
+  text-align: center;
+}
+
+.camera-btn {
+  --background: #1c50ff;
+  width: 100px;
+  height: 48px;
+  --border-radius: 35px;
+  --box-shadow: none;
+}
+.footer-md::before {
+  background-image: none;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+code {
+  white-space: pre-wrap;
+}
+
+.action-sheet-group {
+  background: #e5e5e5;
+}
+
+/* Works - pass "my-custom-class" in cssClass to increase specificity */
+.my-custom-class .action-sheet-group {
+  background: #e5e5e5;
+}

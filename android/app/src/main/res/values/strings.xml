@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ProGallery</string>
+    <string name="title_activity_main">ProGallery</string>
+    <string name="package_name">com.thebestapps.gallery</string>
+    <string name="custom_url_scheme">com.thebestapps.gallery</string>
+</resources>
