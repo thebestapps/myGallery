@@ -53,7 +53,7 @@
 }
 
 .start-btn {
-  --background: #fff3df;
+  --background: var(--ion-box-primary);
   --border-radius: var(--ion-btn-radius);
   color: #000;
   text-transform: capitalize;
@@ -62,7 +62,7 @@
   --box-shadow: none;
 }
 .txt-content {
-  padding-top: 20rem;
+  padding-top: 2.5rem;
 }
 .login-page {
   text-align: center;
@@ -109,4 +109,18 @@
 .login-icon {
   margin-right: 12px;
   width: 1.5rem;
+}
+
+.login-btn {
+  display: flex;
+  background: var(--ion-flied-primary);
+  border-radius: 15px;
+  color: #000;
+  text-transform: capitalize;
+  height: var(--ion-btn-height);
+  padding: 0px 14px;
+  cursor: pointer;
+}
+.login-txt {
+  margin: auto 0px;
 }

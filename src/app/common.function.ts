@@ -30,9 +30,7 @@ export class CommonService {
   taskCreate: any;
   navigateurlname: any;
   navigate_data_store: any;
-
-  selected_name: any;
-  pdf_data: any;
+  selected_img: any;
   editable_data: any;
   constructor(
     public alertController: AlertController,

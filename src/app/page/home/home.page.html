@@ -17,18 +17,21 @@
 
       <div class="content">
         <ion-row>
-          <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="3" size-lx="3">
+          <ion-col
+            size-xs="6"
+            size-sm="6"
+            size-md="6"
+            size-lg="3"
+            size-lx="3"
+            *ngFor="let item of photo_data"
+          >
             <div class="card">
-              <img
-                src="../../../assets/img/onboarding-img-1.png"
-                class="content-img"
-              />
+              <img [src]="item.img" class="content-img" />
               <div class="txt-content">
-                <!-- <p class="tittle-txt">Title 01</p> -->
-                <p class="note-txt">
-                  This is the Photo clicked with my cousins at sec. 118 Mohali,
-                  Chandigarh.
-                </p>
+                <div class="content">
+                  <p class="tittle-txt">{{item.data.title}}</p>
+                  <p class="note-txt">{{item.data.note}}</p>
+                </div>
                 <img src="../../../assets/icon/mic-icon.svg" class="mic-icon" />
               </div>
             </div>
@@ -40,7 +43,27 @@
 </ion-content>
 <ion-footer [translucent]="true" class="ion-footer">
   <ion-toolbar>
-    <ion-button class="camera-btn" (click)="presentActionSheet()">
+    <ion-button
+      class="camera-btn left-radius-btn"
+      (change)="SelectLogo($event,'1')"
+    >
+      <img
+        src="../../../assets/icon/image-upload-icon.svg"
+        class="camera-img"
+      />
+      <input
+        class="file-upload-btn"
+        name="files"
+        type="file"
+        id="bannerImg"
+        (change)="SelectLogo($event,'1')"
+      />
+    </ion-button>
+
+    <ion-button
+      class="camera-btn right-radius-btn"
+      (click)="addPhotoToGallery()"
+    >
       <img src="../../../assets/icon/camera-icon.svg" class="camera-img" />
     </ion-button>
   </ion-toolbar>

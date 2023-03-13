@@ -1,0 +1,35 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>upload-data</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="upload-data-page">
+    <form class="form-group" [formGroup]="form_details">
+      <img [src]="selected_img" class="selected-img" />
+      <div class="form-container">
+        <div class="inp-bx">
+          <p class="lb-txt">Add label</p>
+          <ion-input
+            formControlName="title"
+            class="ion-input-field"
+          ></ion-input>
+        </div>
+        <div class="inp-bx">
+          <p class="lb-txt">Note</p>
+          <ion-textarea
+            rows="5"
+            formControlName="note"
+            class="ion-input-textarea"
+          ></ion-textarea>
+        </div>
+        <div class="audio-record">
+          <p class="audio-placeholder">Hold to record clip</p>
+          <img src="../../../assets/icon/mic-white-icon.svg" class="mic-icon" />
+        </div>
+      </div>
+    </form>
+    <ion-button class="save-btn" (click)="save_data()"> Save </ion-button>
+  </div>
+</ion-content>
