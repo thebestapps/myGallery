@@ -32,7 +32,13 @@
                   <p class="tittle-txt">{{item.data.title}}</p>
                   <p class="note-txt">{{item.data.note}}</p>
                 </div>
-                <img src="../../../assets/icon/mic-icon.svg" class="mic-icon" />
+                <div class="img-grp">
+                  <ion-icon class="edit-icon" name="pencil-outline" (click)="edit_data(item)"></ion-icon>
+                  <img
+                    src="../../../assets/icon/mic-icon.svg"
+                    class="mic-icon"
+                  />
+                </div>
               </div>
             </div>
           </ion-col>

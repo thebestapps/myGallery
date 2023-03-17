@@ -46,4 +46,11 @@ export class HomePage {
       }
     }
   }
+
+  selectedId: any;
+  edit_data(val) {
+    this.selectedId = val.id;
+    this.config.navigate('upload-data');
+    this.config.editable_data = val;
+  }
 }
