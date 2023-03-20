@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { UploadDataPageRoutingModule } from './upload-data-routing.module';
 
 import { UploadDataPage } from './upload-data.page';
+import { SafePipe } from '../../shared/pipe/safe.pipe';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { UploadDataPage } from './upload-data.page';
     UploadDataPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [UploadDataPage],
+  declarations: [UploadDataPage, SafePipe],
 })
 export class UploadDataPageModule {}

@@ -24,13 +24,45 @@
             class="ion-input-textarea"
           ></ion-textarea>
         </div>
-        <div class="audio-record">
-          <p class="audio-placeholder">Hold to record clip</p>
-          <img src="../../../assets/icon/mic-white-icon.svg" class="mic-icon" />
+        <div class="audio-record" *ngIf="!recording">
+          <p class="audio-placeholder" style="color: green">
+            Click To Start Recording
+          </p>
+          <img
+            src="../../../assets/icon/mic-white-icon.svg"
+            (click)="startRecording()"
+            class="mic-icon"
+          />
         </div>
+        <div class="audio-record" *ngIf="recording">
+          <p class="audio-placeholder" style="color: red">
+            Click To Stop Recording
+          </p>
+          <img
+            src="../../../assets/icon/mic-white-icon.svg"
+            (click)="stopRecording()"
+            class="mic-icon"
+          />
+        </div>
+
+        <audio class="audio-file" controls *ngIf="url">
+          <source [src]="sanitize(url)" type="audio/wav" />
+        </audio>
       </div>
     </form>
-    <ion-button class="save-btn" (click)="save_data()"> Save </ion-button>
-    <ion-button class="save-btn" (click)="update_data()"> Update </ion-button>
+    <ion-button
+      *ngIf="!draft_update_btn"
+      class="save-btn"
+      (click)="save_data()"
+    >
+      Save
+    </ion-button>
+    <ion-button
+      *ngIf="draft_update_btn"
+      class="save-btn"
+      (click)="update_data()"
+    >
+      Update
+    </ion-button>
   </div>
 </ion-content>

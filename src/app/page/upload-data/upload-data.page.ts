@@ -2,31 +2,40 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
+
+declare var $: any;
+import * as RecordRTC from 'recordrtc';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-upload-data',
   templateUrl: './upload-data.page.html',
   styleUrls: ['./upload-data.page.scss'],
 })
 export class UploadDataPage implements OnInit {
+  title = 'micRecorder';
+  record;
+  recording = false;
+  url;
+  error;
+
   selected_img: any;
   form_details: any;
   all_data: any = [];
   editable_data: any;
   audioSource1: any;
-
+  draft_update_btn = false;
+  audio_: any;
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
-    private storage: Storage
+    private storage: Storage,
+    private domSanitizer: DomSanitizer
   ) {
     this.form_details = this.fb.group({
       title: [''],
       note: [''],
     });
   }
-  audio: any;
-  keys: string[] = [];
-  recordAudio() {}
 
   ngOnInit() {
     this.storage.create();
@@ -35,14 +44,14 @@ export class UploadDataPage implements OnInit {
   ionViewWillEnter() {
     if (this.config.editable_data != undefined) {
       this.editable_data = this.config.editable_data;
-      console.log(this.editable_data);
       this.form_details = this.fb.group({
         title: this.editable_data.data.title,
         note: this.editable_data.data.note,
-        // audio: [''],
       });
+
       this.selected_img = this.editable_data.img;
-      console.log(this.selected_img);
+      this.sanitize = this.editable_data.audio;
+      this.draft_update_btn = true;
     }
     if (!this.config.editable_data) {
       this.selected_img = this.config.selected_img;
@@ -50,31 +59,65 @@ export class UploadDataPage implements OnInit {
     }
   }
 
-  save_data() {
-    // console.log(this.form_details.title.value);
+  sanitize(url: string) {
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
 
+  startRecording() {
+    this.recording = true;
+    let mediaConstraints = {
+      video: false,
+      audio: true,
+    };
+    navigator.mediaDevices
+      .getUserMedia(mediaConstraints)
+      .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+  }
+
+  successCallback(stream) {
+    var options = {
+      mimeType: 'audio/wav',
+      // numberOfAudioChannels: 1,
+      // sampleRate: 16000,
+    };
+    var StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
+    this.record = new StereoAudioRecorder(stream, options);
+    this.record.record();
+  }
+
+  stopRecording() {
+    this.recording = false;
+    this.record.stop(this.processRecording.bind(this));
+  }
+
+  processRecording(blob) {
+    this.url = URL.createObjectURL(blob);
+    console.log('blob', blob);
+    console.log('url', this.url);
+  }
+
+  errorCallback(error) {
+    this.error = 'Can not play audio in your browser';
+  }
+
+  save_data() {
     let send = {
       id: this.config.generateUniqueId(),
       data: this.form_details.value,
       img: this.selected_img,
-      audio: this.audioSource1,
+      audio: this.url,
     };
     this.all_data.push(send);
     this.config.storageSave('all_data', this.all_data);
     this.config.navigate('home');
-    console.log(this.all_data);
   }
 
   update_data() {
-    // console.log(this.form_details.);
-
     let all_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
 
     this.all_data = all_data;
-    // debugger
-    // this.draft_invoice_list
     this.all_data.forEach((el) => {
       console.log(el);
       console.log(el.id);
@@ -86,7 +129,7 @@ export class UploadDataPage implements OnInit {
         el.data.title = this.form_details.controls['title'].value;
         el.data.note = this.form_details.controls['note'].value;
         el.img = this.selected_img;
-        // el.audio = this.selected_bill_from;
+        el.audio = this.url;
       }
     });
     console.log(this.all_data);
