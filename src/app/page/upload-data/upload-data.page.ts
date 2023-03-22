@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
 
-declare var $: any;
+// declare var $: any;
 import * as RecordRTC from 'recordrtc';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
@@ -15,9 +15,10 @@ export class UploadDataPage implements OnInit {
   title = 'micRecorder';
   record;
   recording = false;
-  url;
+  url: any;
   error;
 
+  tab: number = 1;
   selected_img: any;
   form_details: any;
   all_data: any = [];
@@ -25,6 +26,10 @@ export class UploadDataPage implements OnInit {
   audioSource1: any;
   draft_update_btn = false;
   audio_: any;
+
+  add_label = true;
+  add_note = false;
+  add_audio = false;
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -50,7 +55,7 @@ export class UploadDataPage implements OnInit {
       });
 
       this.selected_img = this.editable_data.img;
-      this.sanitize = this.editable_data.audio;
+      this.url = this.editable_data.audio;
       this.draft_update_btn = true;
     }
     if (!this.config.editable_data) {
@@ -119,12 +124,7 @@ export class UploadDataPage implements OnInit {
 
     this.all_data = all_data;
     this.all_data.forEach((el) => {
-      console.log(el);
-      console.log(el.id);
-
       if (this.config.editable_data.id == el.id) {
-        console.log(this.config.editable_data.id);
-
         el.id = this.editable_data.id;
         el.data.title = this.form_details.controls['title'].value;
         el.data.note = this.form_details.controls['note'].value;
@@ -132,8 +132,28 @@ export class UploadDataPage implements OnInit {
         el.audio = this.url;
       }
     });
-    console.log(this.all_data);
-
     this.config.storageSave('all_data', this.all_data);
+    this.config.navigate('home');
+  }
+
+  navigate(n: any) {
+    if (n == '1') {
+      this.add_label = true;
+      this.add_note = false;
+      this.add_audio = false;
+    }
+    if (n == '2') {
+      this.add_label = false;
+      this.add_note = true;
+      this.add_audio = false;
+    }
+    if (n == '3') {
+      this.add_note = false;
+      this.add_label = false;
+      this.add_audio = true;
+    }
+  }
+  back() {
+    this.config.navigate('home');
   }
 }

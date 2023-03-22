@@ -2,8 +2,11 @@
   margin: 0px;
 }
 .selected-img {
-  height: 36rem;
+  height: 100vh;
   object-fit: cover;
+  position: absolute;
+  top: 0px;
+  z-index: -1000;
 }
 .lb-txt {
   margin-bottom: 5px;
@@ -51,13 +54,70 @@
 .save-btn {
   --background: var(--ion-btn-primary);
   width: 100%;
-  margin: 35px auto 20px auto;
-  padding: 0px 20px;
+  margin: 0px auto 10px auto;
   height: var(--ion-btn-height);
   --border-radius: 15px;
+  text-transform: capitalize;
+  --box-shadow: none;
+}
+.cancel-btn {
+  --background: var(--ion-flied-primary);
+  width: 100%;
+  margin: 0px auto 10px auto;
+  height: var(--ion-btn-height);
+  --border-radius: 15px;
+  color: #000;
+  text-transform: capitalize;
+
+  --box-shadow: none;
 }
 
+.mic-icon.bg-color {
+  background: red !important;
+}
 .audio-file {
   width: 100%;
   margin-top: 12px;
+}
+
+.fixed-top-tab {
+  display: inline-flex;
+  background: #1c50ff;
+  padding: 10px 10px;
+  border-radius: 44px;
+}
+
+.fixed-icon {
+  margin: 0px 8px;
+  font-size: 30px;
+  padding: 10px;
+  color: #fff;
+}
+.center-tab {
+  text-align: center;
+  // margin-top: 3rem;
+  padding-top: 5rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+.active-tab {
+  background: white;
+  border-radius: 30px;
+  padding: 10px;
+  color: #1c50ff;
+}
+
+.bottom-btn-grp {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  padding: 0px 20px;
+}
+.center-algin {
+  justify-content: center;
+  display: flex;
 }

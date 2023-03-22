@@ -1,68 +1,132 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>upload-data</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
   <div class="upload-data-page">
     <form class="form-group" [formGroup]="form_details">
-      <img [src]="selected_img" class="selected-img" />
+      <div class="center-tab">
+        <div class="fixed-top-tab">
+          <!-- <img
+            [ngClass]="{ 'active-tab': tab == 1 }"
+            (click)="tab = 1"
+            (click)="navigate('1')"
+            src="../../../assets/icon/Label-txt-icon.svg"
+            class="fixed-icon"
+          />
+          <img
+            [ngClass]="{ 'active-tab': tab == 2 }"
+            (click)="tab = 2"
+            (click)="navigate('2')"
+            src="../../../assets/icon/description-txt-icon.svg"
+            class="fixed-icon"
+          />
+          <img
+            [ngClass]="{ 'active-tab': tab == 3 }"
+            (click)="tab = 3"
+            (click)="navigate('3')"
+            src="../../../assets/icon/audio-reacord-icon.svg"
+            class="fixed-icon"
+          /> -->
+          <ion-icon
+            [ngClass]="{ 'active-tab': tab == 1 }"
+            (click)="tab = 1"
+            class="fixed-icon"
+            (click)="navigate('1')"
+            name="chatbox-ellipses"
+          ></ion-icon>
+          <ion-icon
+            [ngClass]="{ 'active-tab': tab == 2 }"
+            (click)="tab = 2"
+            class="fixed-icon"
+            (click)="navigate('2')"
+            name="document-text"
+          ></ion-icon>
+          <ion-icon
+            [ngClass]="{ 'active-tab': tab == 3 }"
+            (click)="tab = 3"
+            (click)="navigate('3')"
+            class="fixed-icon"
+            name="mic"
+          ></ion-icon>
+        </div>
+      </div>
+      <div class="image-conytainer">
+        <img [src]="selected_img" class="selected-img" />
+      </div>
+
       <div class="form-container">
-        <div class="inp-bx">
-          <p class="lb-txt">Add label</p>
+        <div class="inp-bx" *ngIf="add_label">
           <ion-input
             formControlName="title"
             class="ion-input-field"
+            placeholder="Enter label"
           ></ion-input>
         </div>
-        <div class="inp-bx">
-          <p class="lb-txt">Note</p>
+        <div class="inp-bx" *ngIf="add_note">
           <ion-textarea
             rows="5"
             formControlName="note"
             class="ion-input-textarea"
+            placeholder="Enter Note"
           ></ion-textarea>
         </div>
-        <div class="audio-record" *ngIf="!recording">
-          <p class="audio-placeholder" style="color: green">
-            Click To Start Recording
-          </p>
-          <img
-            src="../../../assets/icon/mic-white-icon.svg"
-            (click)="startRecording()"
-            class="mic-icon"
-          />
+        <div class="audio-record-container" *ngIf="add_audio">
+          <div class="audio-record" *ngIf="!recording">
+            <p class="audio-placeholder" style="color: green">
+              Click To Start Recording
+            </p>
+            <img
+              src="../../../assets/icon/mic-white-icon.svg"
+              (click)="startRecording()"
+              class="mic-icon"
+            />
+          </div>
+          <div class="audio-record" *ngIf="recording">
+            <p class="audio-placeholder" style="color: red">
+              Click To Stop Recording
+            </p>
+            <img
+              src="../../../assets/icon/mic-white-icon.svg"
+              (click)="stopRecording()"
+              class="mic-icon bg-color"
+            />
+          </div>
+          <audio class="audio-file" controls *ngIf="url">
+            <source [src]="sanitize(url)" type="audio/wav" />
+          </audio>
         </div>
-        <div class="audio-record" *ngIf="recording">
-          <p class="audio-placeholder" style="color: red">
-            Click To Stop Recording
-          </p>
-          <img
-            src="../../../assets/icon/mic-white-icon.svg"
-            (click)="stopRecording()"
-            class="mic-icon"
-          />
-        </div>
+        <div class="center-algin">
+          <div class="bottom-btn-grp">
+            <ion-button
+              *ngIf="add_label"
+              class="save-btn"
+              (click)="navigate('2')"
+            >
+              Next
+            </ion-button>
+            <ion-button
+              *ngIf="add_note"
+              class="save-btn"
+              (click)="navigate('3')"
+            >
+              Next
+            </ion-button>
+            <ion-button
+              *ngIf="!draft_update_btn && add_audio"
+              class="save-btn"
+              (click)="save_data()"
+            >
+              Save
+            </ion-button>
+            <ion-button
+              *ngIf="draft_update_btn && add_audio"
+              class="save-btn"
+              (click)="update_data()"
+            >
+              Update
+            </ion-button>
 
-        <audio class="audio-file" controls *ngIf="url">
-          <source [src]="sanitize(url)" type="audio/wav" />
-        </audio>
+            <ion-button class="cancel-btn"  (click)=" back()"> Cancel </ion-button>
+          </div>
+        </div>
       </div>
     </form>
-    <ion-button
-      *ngIf="!draft_update_btn"
-      class="save-btn"
-      (click)="save_data()"
-    >
-      Save
-    </ion-button>
-    <ion-button
-      *ngIf="draft_update_btn"
-      class="save-btn"
-      (click)="update_data()"
-    >
-      Update
-    </ion-button>
   </div>
 </ion-content>

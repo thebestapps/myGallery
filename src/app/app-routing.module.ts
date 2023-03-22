@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'upload-data',
     loadChildren: () => import('./page/upload-data/upload-data.module').then( m => m.UploadDataPageModule)
   },
+  {
+    path: 'view-item',
+    loadChildren: () => import('./page/view-item/view-item.module').then( m => m.ViewItemPageModule)
+  },
 
 
 ];

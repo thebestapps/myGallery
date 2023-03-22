@@ -1,76 +1,208 @@
-<app-header></app-header>
+<ion-header *ngIf="ion_header">
+  <ion-toolbar>
+    <!-- <div class="header-con"> -->
+    <ion-button class="menu-btn" slot="start">
+      <img class="menu-icon" src="../../../../assets/icon/menu-icon.svg" />
+    </ion-button>
+
+    <div class="bar-slider">
+      <p
+        [ngClass]="{ 'active-tab': tab == 1 }"
+        (click)="tab = 1"
+        class="slide-txt"
+        (click)="navigate('1')"
+      >
+        All Photos
+      </p>
+      <p
+        [ngClass]="{ 'active-tab': tab == 2 }"
+        (click)="tab = 2"
+        class="slide-txt"
+        (click)="navigate('2')"
+      >
+        Folders
+      </p>
+    </div>
+
+    <ion-button class="menu-btn" slot="end">
+      <img class="search-icon" src="../../../../assets/icon/Search-icon.svg" />
+    </ion-button>
+    <!-- </div> -->
+  </ion-toolbar>
+</ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="home-page">
-    <div class="header-txt-con">
-      <p class="qoutes-txt">"</p>
-      <p class="para-txt">
-        This is the Photo clicked with my cousins at sec. 118 Mohali, Chandigarh
-        This is the Photo clicked with my cousins at se...
-      </p>
-      <img class="header-img" src="../../../assets/img/onboarding-img-1.png" />
-    </div>
-    <div class="photo-content">
-      <h1 class="heading">My photos</h1>
-      <p class="date-txt">6 Jan 2023</p>
-      <p class="day-txt">Wednesday</p>
-
-      <div class="content">
-        <ion-row>
-          <ion-col
-            size-xs="6"
-            size-sm="6"
-            size-md="6"
-            size-lg="3"
-            size-lx="3"
-            *ngFor="let item of photo_data"
-          >
-            <div class="card">
-              <img [src]="item.img" class="content-img" />
-              <div class="txt-content">
-                <div class="content">
-                  <p class="tittle-txt">{{item.data.title}}</p>
-                  <p class="note-txt">{{item.data.note}}</p>
-                </div>
-                <div class="img-grp">
-                  <ion-icon class="edit-icon" name="pencil-outline" (click)="edit_data(item)"></ion-icon>
-                  <img
-                    src="../../../assets/icon/mic-icon.svg"
-                    class="mic-icon"
-                  />
+    <div class="all-photos-section" *ngIf="all_photos">
+      <div class="header-txt-con">
+        <p class="qoutes-txt">"</p>
+        <p class="para-txt">
+          This is the Photo clicked with my cousins at sec. 118 Mohali,
+          Chandigarh This is the Photo clicked with my cousins at se...
+        </p>
+        <img
+          class="header-img"
+          src="../../../assets/img/onboarding-img-1.png"
+        />
+      </div>
+      <div class="photo-content">
+        <h1 class="heading">My photos</h1>
+        <div class="flex-content">
+          <div class="photo-date-details">
+            <p class="date-txt">6 Jan 2023</p>
+            <p class="day-txt">Wednesday</p>
+          </div>
+          <div class="photo-resize">
+            <img
+              *ngIf="!large_grid_active"
+              src="../../../assets/icon/large-grid-img-active.svg"
+              class="large-grid-icon"
+              (click)="active_grid('1')"
+            />
+            <img
+              *ngIf="large_grid_active"
+              src="../../../assets/icon/large-grid-img.svg"
+              class="large-grid-icon"
+              (click)="active_grid('1')"
+            />
+            <img
+              *ngIf="!small_grid_active"
+              src="../../../assets/icon/small-grid-img.svg"
+              class="small-grid-icon"
+              (click)="active_grid('2')"
+            />
+            <img
+              *ngIf="small_grid_active"
+              src="../../../assets/icon/small-grid-img-active.svg"
+              class="small-grid-icon"
+              (click)="active_grid('2')"
+            />
+          </div>
+        </div>
+        <div class="content">
+          <ion-row>
+            <ion-col
+              size-xs="6"
+              size-sm="6"
+              size-md="6"
+              size-lg="3"
+              size-lx="3"
+              *ngFor="let item of photo_data"
+            >
+              <div class="card" (click)="edit_data(item)">
+                <img [src]="item.img" class="content-img" />
+                <div class="txt-content">
+                  <div class="content">
+                    <p class="tittle-txt">{{item.data.title}}</p>
+                    <p class="note-txt">{{item.data.note}}</p>
+                  </div>
+                  <div class="img-grp">
+                    <!-- <ion-icon
+                      class="edit-icon"
+                      name="pencil-outline"
+                      (click)="edit_data(item)"
+                    ></ion-icon> -->
+                    <img
+                      src="../../../assets/icon/home-mic-icon.svg"
+                      class="mic-icon"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </ion-col>
-        </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div>
+    <div class="all-folder-section" *ngIf="all_folders">
+      <div class="flex-content">
+        <p class="recently-txt">Recently</p>
+        <img
+          src="../../../assets/icon/three-dot-icon.svg"
+          class="three-dot-icon"
+          (click)="more_options()"
+        />
+      </div>
+
+      <div class="more-option-popup" *ngIf="folder_option">
+        <p class="option-txt">Settings</p>
+        <p class="option-txt">Favorites</p>
+        <p class="option-txt">Select items</p>
+        <p class="option-txt" (click)="EditFolderName()">Edit folder</p>
+      </div>
+      <div class="all-folder-grid" *ngFor="let item of allFolder">
+        <img [src]="item.img" alt="" class="folder-img" />
+        <div class="folder-content">
+          <p class="folder-name">{{item.folder_name}}</p>
+          <p class="image-number">{{item.total_img}} images</p>
+        </div>
+      </div>
+    </div>
+    <div class="create-folder-section" *ngIf="Create_folder_form">
+      <div class="folder-form-header">
+        <img
+          src="../../../assets/icon/left-arrow-back.svg"
+          (click)="CreateFolder('back')"
+          class="back-icon"
+        />
+        <p class="new-folder-txt">New Folder</p>
+      </div>
+      <div class="inp-bx">
+        <p class="lb-txt">Folder Name</p>
+        <ion-input
+          class="ion-field"
+          placeholder="Enter folder name"
+        ></ion-input>
+      </div>
+      <div class="btn-grp">
+        <ion-button class="create-folder-btn">Create folder</ion-button>
+        <ion-button class="cancel-btn" (click)="CreateFolder('back')"
+          >Cancel</ion-button
+        >
       </div>
     </div>
   </div>
-</ion-content>
-<ion-footer [translucent]="true" class="ion-footer">
-  <ion-toolbar>
-    <ion-button
-      class="camera-btn left-radius-btn"
-      (change)="SelectLogo($event,'1')"
-    >
-      <img
-        src="../../../assets/icon/image-upload-icon.svg"
-        class="camera-img"
-      />
-      <input
-        class="file-upload-btn"
-        name="files"
-        type="file"
-        id="bannerImg"
-        (change)="SelectLogo($event,'1')"
-      />
-    </ion-button>
 
-    <ion-button
-      class="camera-btn right-radius-btn"
-      (click)="addPhotoToGallery()"
-    >
-      <img src="../../../assets/icon/camera-icon.svg" class="camera-img" />
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>
+  <!-- footer tabs  ----- -->
+  <div class="ion-footer" *ngIf="ion_footer">
+    <div class="footer-toolbar">
+      <div class="center-algin">
+        <ion-button
+          class="camera-btn left-radius-btn"
+          (change)="SelectLogo($event,'1')"
+        >
+          <img
+            src="../../../assets/icon/image-upload-icon.svg"
+            class="camera-img"
+          />
+          <input
+            class="file-upload-btn"
+            name="files"
+            type="file"
+            id="bannerImg"
+            (change)="SelectLogo($event,'1')"
+          />
+        </ion-button>
+
+        <ion-button
+          class="camera-btn right-radius-btn"
+          (click)="addPhotoToGallery()"
+        >
+          <img src="../../../assets/icon/camera-icon.svg" class="camera-img" />
+        </ion-button>
+
+        <ion-button
+          *ngIf="all_folders"
+          class="camera-btn right-radius-btn"
+          (click)="CreateFolder('create')"
+        >
+          <img
+            src="../../../assets/icon/create-new-folder.svg"
+            class="camera-img"
+          />
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <!-- footer tabs  ----- -->
+</ion-content>
