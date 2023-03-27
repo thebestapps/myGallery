@@ -8,10 +8,19 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 
+// import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
+import { IonicStorageModule } from '@ionic/storage-angular';
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, LoginPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    LoginPageRoutingModule,
+    IonicStorageModule,
+  ],
   declarations: [LoginPage],
 
-  providers: [],
+  providers: [HTTP],
 })
 export class LoginPageModule {}

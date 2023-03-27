@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
-
+import { HTTP } from '@awesome-cordova-plugins/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +19,10 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     AppRoutingModule,
     SharedModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    // HTTP,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

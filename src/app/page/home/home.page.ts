@@ -62,6 +62,8 @@ export class HomePage {
     this.photo_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
+
+    console.log(this.photo_data);
   }
 
   addPhotoToGallery() {
@@ -98,7 +100,7 @@ export class HomePage {
       this.all_folders = true;
     }
   }
-  
+  // grid_content = false;
   active_grid(n) {
     if (n == 1) {
       this.small_grid_active = false;
@@ -130,7 +132,5 @@ export class HomePage {
       this.ion_footer = true;
     }
   }
-  EditFolderName(){
-    
-  }
+  EditFolderName() {}
 }

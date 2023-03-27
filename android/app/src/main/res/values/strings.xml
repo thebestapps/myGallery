@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">ProGallery</string>
     <string name="title_activity_main">ProGallery</string>
+    <string name="facebook_app_id">168147219362369</string>
+    <string name="fb_login_protocol_scheme">fb168147219362369</string>
     <string name="package_name">com.thebestapps.gallery</string>
     <string name="custom_url_scheme">com.thebestapps.gallery</string>
 </resources>

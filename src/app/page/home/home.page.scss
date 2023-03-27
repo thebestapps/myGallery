@@ -66,6 +66,11 @@
   width: 50%;
   color: #747474;
   font-size: 13px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .qoutes-txt {
@@ -76,13 +81,12 @@
 }
 .header-img {
   border-radius: 100px;
-  width: 120px;
-  height: 120px;
+  width: 145px;
+  height: 145px;
   object-fit: cover;
   position: absolute;
   right: 0;
-
-  top: 8px;
+  top: -10px;
   bottom: 0px;
 }
 
@@ -107,6 +111,12 @@
   height: 8rem;
   object-fit: cover;
   border-radius: 6px;
+}
+.grid-content-img {
+  width: 100%;
+  height: 4.5rem;
+  object-fit: cover;
+  border-radius: 10px;
 }
 .txt-content {
   display: flex;
@@ -271,10 +281,13 @@ code {
   color: #000000;
 }
 
-.ion-field {
+.ion-input-field {
+  height: var(--ion-btn-height);
   background: var(--ion-flied-primary);
   border-radius: 18px;
-  height: var(--ion-btn-height);
+  padding: 0px 10px !important;
+  color: var(--ion-color-step-500);
+  font-weight: normal;
 }
 .inp-bx {
   margin: 50px 0px 10px 0px;

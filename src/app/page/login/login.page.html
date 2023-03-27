@@ -2,7 +2,7 @@
   <ion-toolbar>
     <div class="header">
       <ion-title>LOGO</ion-title>
-      <p slot="end" *ngIf="login_page" class="skip-btn">Skip now</p>
+      <p slot="end" *ngIf="login_page" class="skip-btn" (click)="social_login('skip')">Skip now</p>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -56,7 +56,7 @@
         <p class="forget-txt">Recovery Password</p>
         <ion-button class="login-btn">Sign in</ion-button>
       </div> -->
-      <div class="login-btn" (click)="social_login('login')">
+      <div class="login-btn" (click)="social_login('google')">
         <img class="login-icon" src="../../../assets/icon/Google-icon.svg" />
         <p class="login-txt">Continue With Google</p>
       </div>
@@ -64,7 +64,7 @@
         <img class="login-icon" src="../../../assets/icon/apple-icon.svg" />
         <p class="login-txt">Continue With Apple ID</p>
       </div>
-      <div class="login-btn" (click)="social_login('facebook')">
+      <div class="login-btn" (click)="loginPage()">
         <img class="login-icon" src="../../../assets/icon/facebook-icon.svg" />
         <p class="login-txt">Continue With Facebook</p>
       </div>

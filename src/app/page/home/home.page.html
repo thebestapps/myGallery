@@ -80,7 +80,7 @@
           </div>
         </div>
         <div class="content">
-          <ion-row>
+          <ion-row *ngIf="small_grid_active">
             <ion-col
               size-xs="6"
               size-sm="6"
@@ -109,6 +109,21 @@
                   </div>
                 </div>
               </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf="large_grid_active">
+            <ion-col
+              size-xs="3"
+              size-sm="3"
+              size-md="6"
+              size-lg="3"
+              size-lx="3"
+              *ngFor="let item of photo_data"
+            >
+              
+                <img [src]="item.img" class="grid-content-img" (click)="edit_data(item)"/>
+             
             </ion-col>
           </ion-row>
         </div>
@@ -150,7 +165,7 @@
       <div class="inp-bx">
         <p class="lb-txt">Folder Name</p>
         <ion-input
-          class="ion-field"
+          class="ion-input-field"
           placeholder="Enter folder name"
         ></ion-input>
       </div>

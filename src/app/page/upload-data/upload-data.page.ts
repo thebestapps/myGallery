@@ -106,6 +106,14 @@ export class UploadDataPage implements OnInit {
   }
 
   save_data() {
+    this.all_data = [];
+    let all_data = JSON.parse(
+      this.config.storageGet('all_data')['__zone_symbol__value']
+    );
+    if (all_data != undefined) {
+      this.all_data = all_data;
+    }
+
     let send = {
       id: this.config.generateUniqueId(),
       data: this.form_details.value,
@@ -113,6 +121,7 @@ export class UploadDataPage implements OnInit {
       audio: this.url,
     };
     this.all_data.push(send);
+    console.log(this.all_data);
     this.config.storageSave('all_data', this.all_data);
     this.config.navigate('home');
   }
@@ -138,19 +147,25 @@ export class UploadDataPage implements OnInit {
 
   navigate(n: any) {
     if (n == '1') {
-      this.add_label = true;
+      // this.add_label = true;
       this.add_note = false;
       this.add_audio = false;
+      this.tab = 1;
+      this.add_label = !this.add_label
     }
     if (n == '2') {
       this.add_label = false;
-      this.add_note = true;
+      // this.add_note = true;
       this.add_audio = false;
+      this.tab = 2;
+      this.add_note = !this.add_note
     }
     if (n == '3') {
       this.add_note = false;
       this.add_label = false;
-      this.add_audio = true;
+      // this.add_audio = true;
+      this.tab = 3;
+      this.add_audio = !this.add_audio
     }
   }
   back() {
