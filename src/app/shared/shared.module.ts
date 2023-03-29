@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../common/components/header/header.component';
+import { FilterPipe } from './pipe/filter.pipe';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent,FilterPipe],
   imports: [
     IonicModule,
     CommonModule,
@@ -13,6 +14,6 @@ import { HeaderComponent } from '../common/components/header/header.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent,FilterPipe],
 })
 export class SharedModule {}

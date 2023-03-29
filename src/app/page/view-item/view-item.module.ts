@@ -17,8 +17,7 @@ import { FilterPipe } from '../../shared/pipe/filter.pipe';
     ViewItemPageRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-  
   ],
-  declarations: [ViewItemPage,  FilterPipe],
+  declarations: [ViewItemPage],
 })
 export class ViewItemPageModule {}
