@@ -6,7 +6,7 @@ import { CommonService } from 'src/app/common.function';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  login_page = true;
+  login_page = false;
   onboarding_page = true;
 
   constructor(public config: CommonService) {}
@@ -20,13 +20,13 @@ export class LoginPage implements OnInit {
 
   async social_login(n) {
     if (n == 'google') {
-      // this.config.navigate('home');
+      this.config.navigate('home');
     }
     if (n == 'apple') {
-      // this.config.navigate('home');
+      this.config.navigate('home');
     }
     if (n == 'facebook') {
-      // this.config.navigate('home');
+      this.config.navigate('home');
       // const FACEBOOK_PERMISSIONS = ['email', 'user_birthday'];
       // const result = await Plugins.FacebookLogin.login();
     }

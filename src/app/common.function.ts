@@ -32,6 +32,7 @@ export class CommonService {
   navigate_data_store: any;
   selected_img: any;
   editable_data: any;
+  selected_folder:any
   constructor(
     public alertController: AlertController,
     public navCtrl: NavController,

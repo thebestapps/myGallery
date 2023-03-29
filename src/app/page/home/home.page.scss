@@ -111,6 +111,8 @@
   height: 8rem;
   object-fit: cover;
   border-radius: 6px;
+  
+  background: white;
 }
 .grid-content-img {
   width: 100%;
@@ -317,6 +319,33 @@ code {
   text-transform: capitalize;
 }
 
-// ion-footer.footer-toolbar-padding ion-toolbar:last-of-type {
-//   --background: #ff000000;
-// }
+.img.content {
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  right: 5px;
+  background: #fff3df;
+  top: 5px;
+  border-radius: 30px;
+  padding: 7px;
+  // width: 1.6rem;
+}
+.img-grp {
+  text-align: center;
+}
+
+.delete-icon {
+  background: #fff;
+  border-radius: 60px;
+  height: 18px;
+  width: 18px;
+  padding: 8px;
+  margin: auto auto 0px auto;
+}
+
+.filter-icon {
+  font-size: 22px;
+  margin-left: 6px;
+}

@@ -60,7 +60,7 @@ export class UploadDataPage implements OnInit {
     }
     if (!this.config.editable_data) {
       this.selected_img = this.config.selected_img;
-      console.log(this.selected_img);
+      // console.log(this.selected_img);
     }
   }
 
@@ -116,6 +116,7 @@ export class UploadDataPage implements OnInit {
 
     let send = {
       id: this.config.generateUniqueId(),
+      createAt: new Date(),
       data: this.form_details.value,
       img: this.selected_img,
       audio: this.url,
@@ -151,21 +152,21 @@ export class UploadDataPage implements OnInit {
       this.add_note = false;
       this.add_audio = false;
       this.tab = 1;
-      this.add_label = !this.add_label
+      this.add_label = !this.add_label;
     }
     if (n == '2') {
       this.add_label = false;
       // this.add_note = true;
       this.add_audio = false;
       this.tab = 2;
-      this.add_note = !this.add_note
+      this.add_note = !this.add_note;
     }
     if (n == '3') {
       this.add_note = false;
       this.add_label = false;
       // this.add_audio = true;
       this.tab = 3;
-      this.add_audio = !this.add_audio
+      this.add_audio = !this.add_audio;
     }
   }
   back() {

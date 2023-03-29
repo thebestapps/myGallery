@@ -8,6 +8,7 @@ import { ViewItemPageRoutingModule } from './view-item-routing.module';
 
 import { ViewItemPage } from './view-item.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FilterPipe } from '../../shared/pipe/filter.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +17,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ViewItemPageRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+  
   ],
-  declarations: [ViewItemPage],
+  declarations: [ViewItemPage,  FilterPipe],
 })
 export class ViewItemPageModule {}

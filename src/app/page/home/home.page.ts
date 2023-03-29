@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TakephotoService } from 'src/app/services/takephoto.service';
 import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
+import { ActionSheetController } from '@ionic/angular';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -22,6 +24,7 @@ export class HomePage {
   ion_header = true;
   ion_footer = true;
 
+  searchText = '';
   allFolder: any = [
     {
       id: 1,
@@ -51,7 +54,9 @@ export class HomePage {
   constructor(
     public photoService: TakephotoService,
     public config: CommonService,
-    private storage: Storage
+    private storage: Storage,
+    private domSanitizer: DomSanitizer,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -62,8 +67,45 @@ export class HomePage {
     this.photo_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
+  }
 
-    console.log(this.photo_data);
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      // header: 'Example header',
+      // subHeader: 'Example subheader',
+      cssClass: 'my-custom-class',
+      buttons: [
+        {
+          text: '6 Month',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+        },
+        {
+          text: '1 Year Ago',
+          data: {
+            action: 'share',
+          },
+        },
+        {
+          text: '2 Year Ago',
+          data: {
+            action: 'share',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    actionSheet.present();
   }
 
   addPhotoToGallery() {
@@ -90,7 +132,21 @@ export class HomePage {
     this.config.editable_data = val;
   }
 
-  navigate(n: any) {
+  deleteData(val) {
+    debugger
+    this.selectedId = val.id;
+
+    var un = this.photo_data.filter((val2) => {
+      return val2.id !== val.id;
+    });
+    console.log(un);
+    
+
+    this.photo_data = un;
+    this.config.storageSave('all_data', this.photo_data);
+  }
+
+  navigate(n) {
     if (n == '1') {
       this.all_photos = true;
       this.all_folders = false;
@@ -98,6 +154,13 @@ export class HomePage {
     if (n == '2') {
       this.all_photos = false;
       this.all_folders = true;
+    }
+  }
+
+  navigateFolder(val, n) {
+    if (n == 'open folder') {
+      this.config.selected_folder = val;
+      this.config.navigate('view-item');
     }
   }
   // grid_content = false;
@@ -133,4 +196,36 @@ export class HomePage {
     }
   }
   EditFolderName() {}
+
+  filterItems(event) {
+    const val = event.target.value;
+
+    this.photo_data = this.photo_data.filter((item) => {
+      console.log(item);
+
+      return item.title.toLocaleLowerCase().includes() > -1;
+    });
+  }
+  audioSource: any;
+  async stopPlay(val) {
+    this.selectedId = val.id;
+
+    var Aud = this.photo_data.filter((val2) => {
+      return val2.id == this.selectedId;
+    });
+    this.audioSource = Aud;
+
+    console.log(this.audioSource);
+
+    const file = new File([this.audioSource], 'audio.mp3');
+    console.log(file);
+
+    const frr = URL.createObjectURL(file);
+    console.log(frr);
+
+    var snd = new Audio(frr);
+    console.log(snd);
+
+    snd.play();
+  }
 }

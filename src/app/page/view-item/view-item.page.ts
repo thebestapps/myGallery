@@ -1,59 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../common.function';
-import { TakephotoService } from '../../services/takephoto.service';
-import { Storage } from '@ionic/storage-angular';
-import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-view-item',
   templateUrl: './view-item.page.html',
   styleUrls: ['./view-item.page.scss'],
 })
 export class ViewItemPage implements OnInit {
-  title = 'micRecorder';
-  record;
-  recording = false;
-  url;
-  error;
+  photo_data: any = [];
+  searchText = '';
+  small_grid_active = true;
+  large_grid_active = false;
+  folder_option = false;
+  selected_folder: any;
+  selectedId: any;
+  select_item = false;
 
-  tab: number = 1;
-  selected_img: any;
-  form_details: any;
-  all_data: any = [];
-  editable_data: any;
-  audioSource1: any;
-  draft_update_btn = false;
-  audio_: any;
-
-  constructor(
-    public photoService: TakephotoService,
-    public config: CommonService,
-    private storage: Storage,
-    public fb: FormBuilder
-  ) {
-    this.form_details = this.fb.group({
-      title: [''],
-      note: [''],
-    });
-  }
+  constructor(public config: CommonService) {}
 
   ngOnInit() {}
 
   ionViewWillEnter() {
-    if (this.config.editable_data != undefined) {
-      this.editable_data = this.config.editable_data;
-      console.log(this.editable_data);
-      
-      this.form_details = this.fb.group({
-        title: this.editable_data.data.title,
-        note: this.editable_data.data.note,
-      });
+    this.selected_folder = this.config.selected_folder;
 
-      this.selected_img = this.editable_data.img;
-      this.draft_update_btn = true;
+    this.photo_data = JSON.parse(
+      this.config.storageGet('all_data')['__zone_symbol__value']
+    );
+  }
+
+  edit_data(val) {
+    this.selectedId = val.id;
+    this.config.navigate('upload-data');
+    this.config.editable_data = val;
+  }
+
+  deleteData(val) {
+    this.selectedId = val.id;
+    var un = this.photo_data.filter((val2) => {
+      return val2.id !== val.id;
+    });
+    this.photo_data = un;
+    this.config.storageSave('all_data', this.photo_data);
+  }
+
+  active_grid(n) {
+    if (n == 1) {
+      this.small_grid_active = false;
+      this.large_grid_active = true;
     }
-    if (!this.config.editable_data) {
-      this.selected_img = this.config.selected_img;
-      console.log(this.selected_img);
+    if (n == 2) {
+      this.small_grid_active = true;
+      this.large_grid_active = false;
     }
+  }
+
+  back() {
+    this.config.navigate('home');
+  }
+
+  more_options() {
+    this.folder_option = !this.folder_option;
+  }
+
+  selectItem() {
+    this.select_item = !this.select_item;
+    this.folder_option = false;
+  }
+  selectedItem: any = [];
+  selectData(val) {
+    this.selectedItem.push(val);
+    console.log(this.selectedItem);
+  }
+
+  deleteSelectedItem() {
+    debugger;
+    console.log(this.selectedItem);
+
+    var un = this.photo_data.filter((val2) => {
+      return this.selectedItem.id != val2.id;
+    });
+    console.log(un);
+
+    this.photo_data = un;
+    this.config.storageSave('all_data', this.photo_data);
   }
 }

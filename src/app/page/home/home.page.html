@@ -34,6 +34,12 @@
 <ion-content [fullscreen]="true">
   <div class="home-page">
     <div class="all-photos-section" *ngIf="all_photos">
+      <ion-searchbar
+        placeholder="Search by Label, Date"
+        class="inp-c"
+        style="border-radius: 7px"
+        [(ngModel)]="searchText"
+      ></ion-searchbar>
       <div class="header-txt-con">
         <p class="qoutes-txt">"</p>
         <p class="para-txt">
@@ -77,6 +83,12 @@
               class="small-grid-icon"
               (click)="active_grid('2')"
             />
+
+            <ion-icon
+              name="filter-outline"
+              class="filter-icon"
+              (click)="presentActionSheet()"
+            ></ion-icon>
           </div>
         </div>
         <div class="content">
@@ -87,24 +99,32 @@
               size-md="6"
               size-lg="3"
               size-lx="3"
-              *ngFor="let item of photo_data"
+              *ngFor="let item of photo_data | appFilter: searchText"
             >
-              <div class="card" (click)="edit_data(item)">
-                <img [src]="item.img" class="content-img" />
+              <div class="card">
+                <div class="img content">
+                  <img [src]="item.img" class="content-img" />
+                  <img
+                    src="../../../assets/icon/pencil-icon.svg"
+                    class="edit-icon"
+                    (click)="edit_data(item)"
+                  />
+                </div>
                 <div class="txt-content">
                   <div class="content">
                     <p class="tittle-txt">{{item.data.title}}</p>
                     <p class="note-txt">{{item.data.note}}</p>
                   </div>
                   <div class="img-grp">
-                    <!-- <ion-icon
-                      class="edit-icon"
-                      name="pencil-outline"
-                      (click)="edit_data(item)"
-                    ></ion-icon> -->
+                    <ion-icon
+                      name="trash-outline"
+                      (click)="deleteData(item)"
+                      class="delete-icon"
+                    ></ion-icon>
                     <img
                       src="../../../assets/icon/home-mic-icon.svg"
                       class="mic-icon"
+                      (click)="stopPlay(item)"
                     />
                   </div>
                 </div>
@@ -119,11 +139,13 @@
               size-md="6"
               size-lg="3"
               size-lx="3"
-              *ngFor="let item of photo_data"
+              *ngFor="let item of photo_data | appFilter: searchText"
             >
-              
-                <img [src]="item.img" class="grid-content-img" (click)="edit_data(item)"/>
-             
+              <img
+                [src]="item.img"
+                class="grid-content-img"
+                (click)="edit_data(item)"
+              />
             </ion-col>
           </ion-row>
         </div>
@@ -145,7 +167,11 @@
         <p class="option-txt">Select items</p>
         <p class="option-txt" (click)="EditFolderName()">Edit folder</p>
       </div>
-      <div class="all-folder-grid" *ngFor="let item of allFolder">
+      <div
+        class="all-folder-grid"
+        *ngFor="let item of allFolder"
+        (click)="navigateFolder( item,'open folder')"
+      >
         <img [src]="item.img" alt="" class="folder-img" />
         <div class="folder-content">
           <p class="folder-name">{{item.folder_name}}</p>
