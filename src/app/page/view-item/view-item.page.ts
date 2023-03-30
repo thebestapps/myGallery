@@ -14,7 +14,7 @@ export class ViewItemPage implements OnInit {
   selected_folder: any;
   selectedId: any;
   select_item = false;
-
+  selectedItem: any = [];
   constructor(public config: CommonService) {}
 
   ngOnInit() {}
@@ -65,18 +65,19 @@ export class ViewItemPage implements OnInit {
     this.select_item = !this.select_item;
     this.folder_option = false;
   }
-  selectedItem: any = [];
+
   selectData(val) {
     this.selectedItem.push(val);
     console.log(this.selectedItem);
+   
   }
 
   deleteSelectedItem() {
-    debugger;
+    // debugger;
     console.log(this.selectedItem);
 
     var un = this.photo_data.filter((val2) => {
-      return this.selectedItem.id != val2.id;
+      return val2.id !== this.selectedItem.id;
     });
     console.log(un);
 

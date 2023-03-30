@@ -65,10 +65,13 @@ export class UploadDataPage implements OnInit {
   }
 
   sanitize(url: string) {
+    console.log(url);
+    
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
   startRecording() {
+    // debugger
     this.recording = true;
     let mediaConstraints = {
       video: false,

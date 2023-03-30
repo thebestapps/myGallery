@@ -172,7 +172,8 @@
         *ngFor="let item of allFolder"
         (click)="navigateFolder( item,'open folder')"
       >
-        <img [src]="item.img" alt="" class="folder-img" />
+        <div *ngIf="!item.img" class="not-img folder-img"></div>
+        <img *ngIf="item.img" [src]="item.img" alt="" class="folder-img" />
         <div class="folder-content">
           <p class="folder-name">{{item.folder_name}}</p>
           <p class="image-number">{{item.total_img}} images</p>
@@ -193,10 +194,14 @@
         <ion-input
           class="ion-input-field"
           placeholder="Enter folder name"
+          [(ngModel)]="folder_name"
+          (ngModelChange)="selectData($event)"
         ></ion-input>
       </div>
       <div class="btn-grp">
-        <ion-button class="create-folder-btn">Create folder</ion-button>
+        <ion-button class="create-folder-btn" (click)="CreateFolder('create')"
+          >Create folder</ion-button
+        >
         <ion-button class="cancel-btn" (click)="CreateFolder('back')"
           >Cancel</ion-button
         >
@@ -235,7 +240,7 @@
         <ion-button
           *ngIf="all_folders"
           class="camera-btn right-radius-btn"
-          (click)="CreateFolder('create')"
+          (click)="CreateFolder('folder')"
         >
           <img
             src="../../../assets/icon/create-new-folder.svg"

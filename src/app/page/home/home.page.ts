@@ -25,32 +25,7 @@ export class HomePage {
   ion_footer = true;
 
   searchText = '';
-  allFolder: any = [
-    {
-      id: 1,
-      folder_name: 'My favorites',
-      img: '../../../assets/img/onboarding-img-1.png',
-      total_img: 345,
-    },
-    {
-      id: 2,
-      folder_name: 'Leh Ladakh Trip',
-      img: '../../../assets/img/onboarding-img-2.png',
-      total_img: 35,
-    },
-    {
-      id: 3,
-      folder_name: 'Mathura and Agra Trip',
-      img: '../../../assets/img/onboarding-img-3.png',
-      total_img: 67,
-    },
-    {
-      id: 4,
-      folder_name: 'Dharamshala Himachal Trip',
-      img: '../../../assets/img/onboarding-img-4.png',
-      total_img: 234,
-    },
-  ];
+  allFolder: any = [];
   constructor(
     public photoService: TakephotoService,
     public config: CommonService,
@@ -67,8 +42,11 @@ export class HomePage {
     this.photo_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
-  }
 
+    this.allFolder = JSON.parse(
+      this.config.storageGet('allFolder')['__zone_symbol__value']
+    );
+  }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -82,17 +60,29 @@ export class HomePage {
           data: {
             action: 'delete',
           },
+          handler: () => {
+            this.photo_data.filter((item) => {
+              console.log(item);
+              
+            });
+          },
         },
         {
           text: '1 Year Ago',
           data: {
             action: 'share',
           },
+          handler: () => {
+            console.log('1 Year');
+          },
         },
         {
           text: '2 Year Ago',
           data: {
             action: 'share',
+          },
+          handler: () => {
+            console.log('2 Year');
           },
         },
         {
@@ -133,14 +123,12 @@ export class HomePage {
   }
 
   deleteData(val) {
-    debugger
     this.selectedId = val.id;
 
     var un = this.photo_data.filter((val2) => {
       return val2.id !== val.id;
     });
     console.log(un);
-    
 
     this.photo_data = un;
     this.config.storageSave('all_data', this.photo_data);
@@ -178,9 +166,13 @@ export class HomePage {
   more_options() {
     this.folder_option = !this.folder_option;
   }
+  folder_name: any;
+  selectData(dateVal) {
+    this.folder_name = dateVal;
+  }
 
   CreateFolder(n) {
-    if (n == 'create') {
+    if (n == 'folder') {
       this.Create_folder_form = true;
       this.all_photos = false;
       this.all_folders = false;
@@ -194,7 +186,31 @@ export class HomePage {
       this.ion_header = true;
       this.ion_footer = true;
     }
+    if (n == 'create') {
+      this.allFolder = [];
+      let allFolder = JSON.parse(
+        this.config.storageGet('allFolder')['__zone_symbol__value']
+      );
+      if (allFolder != undefined) {
+        this.allFolder = allFolder;
+      }
+
+      let send = {
+        id: this.config.generateUniqueId(),
+        folder_name: this.folder_name,
+      };
+      this.allFolder.push(send);
+      console.log(this.allFolder);
+      this.config.storageSave('allFolder', this.allFolder);
+      this.folder_name = '';
+      this.Create_folder_form = false;
+      this.all_photos = false;
+      this.all_folders = true;
+      this.ion_header = true;
+      this.ion_footer = true;
+    }
   }
+
   EditFolderName() {}
 
   filterItems(event) {
