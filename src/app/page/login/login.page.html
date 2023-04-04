@@ -2,7 +2,17 @@
   <ion-toolbar>
     <div class="header">
       <ion-title>LOGO</ion-title>
-      <p slot="end" *ngIf="login_page" class="skip-btn" (click)="social_login('skip')">Skip now</p>
+      <p
+        slot="end"
+        *ngIf="login_page"
+        class="skip-btn"
+        (click)="social_login('skip')"
+      >
+        Skip now
+      </p>
+      <!-- <p slot="end" class="skip-btn" *ngIf="user" (click)="signOut()">
+        signOut
+      </p> -->
     </div>
   </ion-toolbar>
 </ion-header>
@@ -15,22 +25,6 @@
           class="onboarding-img"
           src="../../../assets/img/onboarding-img-grp.png"
         />
-        <!-- <img
-          class="onboarding-img-one"
-          src="../../assets/img/onboarding-img-1.png"
-        />
-        <img
-          class="onboarding-img-two"
-          src="../../assets/img/onboarding-img-2.png"
-        />
-        <img
-          class="onboarding-img-three"
-          src="../../assets/img/onboarding-img-3.png"
-        />
-        <img
-          class="onboarding-img-four"
-          src="../../assets/img/onboarding-img-4.png"
-        /> -->
       </div>
       <div class="txt-content">
         <h1 class="onboarding-heading">Explore your Capture.</h1>
@@ -44,27 +38,18 @@
     <div class="login-page" *ngIf="login_page">
       <p class="hello-txt">Hey, Again!</p>
       <p class="small-txt">Welcome back you’ve been missed!</p>
-      <!-- <div class="form-grp">
-        <div class="inp-bx">
-          <p class="lb-txt">Issue date</p>
-          <ion-input class="ion-field"></ion-input>
-        </div>
-        <div class="inp-bx">
-          <p class="lb-txt">Issue date</p>
-          <ion-input class="ion-field"></ion-input>
-        </div>
-        <p class="forget-txt">Recovery Password</p>
-        <ion-button class="login-btn">Sign in</ion-button>
-      </div> -->
-      <div class="login-btn" (click)="social_login('google')">
+
+      <div class="login-btn" (click)="signIn()">
         <img class="login-icon" src="../../../assets/icon/Google-icon.svg" />
         <p class="login-txt">Continue With Google</p>
       </div>
+
       <div class="login-btn" (click)="social_login('apple')">
         <img class="login-icon" src="../../../assets/icon/apple-icon.svg" />
         <p class="login-txt">Continue With Apple ID</p>
       </div>
-      <div class="login-btn" (click)="loginPage()">
+
+      <div class="login-btn" (click)="signInWithFB()">
         <img class="login-icon" src="../../../assets/icon/facebook-icon.svg" />
         <p class="login-txt">Continue With Facebook</p>
       </div>

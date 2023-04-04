@@ -23,7 +23,7 @@ export class HomePage {
   Create_folder_form = false;
   ion_header = true;
   ion_footer = true;
-
+  user: any;
   searchText = '';
   allFolder: any = [];
   constructor(
@@ -33,19 +33,47 @@ export class HomePage {
     private domSanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController
   ) {}
-
+  header_data: any;
   ngOnInit() {
     this.storage.create();
+
+    this.user = JSON.parse(
+      this.config.storageGet('user')['__zone_symbol__value']
+    );
+    if (this.user) {
+      this.photo_data = JSON.parse(
+        this.config.storageGet('all_data')['__zone_symbol__value']
+      );
+
+      this.allFolder = JSON.parse(
+        this.config.storageGet('allFolder')['__zone_symbol__value']
+      );
+      if (this.photo_data) {
+        this.header_data =
+          this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
+      }
+    }
+    console.log(this.user);
   }
-
+ 
   ionViewWillEnter() {
-    this.photo_data = JSON.parse(
-      this.config.storageGet('all_data')['__zone_symbol__value']
+    this.user = JSON.parse(
+      this.config.storageGet('user')['__zone_symbol__value']
     );
+    if (this.user) {
+      this.photo_data = JSON.parse(
+        this.config.storageGet('all_data')['__zone_symbol__value']
+      );
 
-    this.allFolder = JSON.parse(
-      this.config.storageGet('allFolder')['__zone_symbol__value']
-    );
+      this.allFolder = JSON.parse(
+        this.config.storageGet('allFolder')['__zone_symbol__value']
+      );
+      if (this.photo_data) {
+        this.header_data =
+          this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
+      }
+    }
+    // console.log(this.user);
   }
 
   async presentActionSheet() {
@@ -63,7 +91,6 @@ export class HomePage {
           handler: () => {
             this.photo_data.filter((item) => {
               console.log(item);
-              
             });
           },
         },

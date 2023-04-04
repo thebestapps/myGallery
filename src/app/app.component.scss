@@ -1,0 +1,121 @@
+ion-menu.cus-menu-sty.split-pane-side.md.menu-type-overlay.menu-enabled.menu-side-start.hydrated.menu-pane-visible {
+  max-width: 248px !important;
+}
+
+ion-menu.cus-menu-sty.split-pane-side.ios.menu-type-overlay.menu-enabled.menu-side-start.hydrated.menu-pane-visible {
+  max-width: 248px !important;
+}
+
+ion-content.ct-side-menu.md.content-ltr.hydrated {
+  --background: #fff;
+}
+
+ion-content.ct-side-menu.ios.content-ltr.hydrated {
+  --background: #fff;
+}
+.menu-user-card {
+  background: #c9c9c950;
+  border-radius: 10px;
+  display: flex;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.user-logo-img {
+  width: 35px;
+  height: 35px;
+  margin: auto 0px;
+}
+
+.user-info {
+  margin-left: 12px;
+}
+
+.main-title-sd {
+  font-size: 15px;
+  margin: 0px;
+  font-weight: bold;
+  color: #363636;
+}
+
+.email-txt {
+  margin: 0px;
+  font-size: 11px;
+  line-height: 23px;
+  color: #6c6c6c;
+}
+
+ion-item.item-sdmenu {
+  --background: #fff;
+}
+
+ion-item.item-sdmenu.item-has-start-slot.item.md.item-lines-none.item-fill-none.ion-activatable.ion-focusable.hydrated.item-label:hover {
+  --background: #e9f5ff;
+  border-radius: 9px;
+  color: #00539c !important;
+}
+
+ion-item.item-sdmenu.item-has-start-slot.item.md.item-lines-none.item-fill-none.hydrated.item-label:hover {
+  --background: #e9f5ff;
+  border-radius: 9px;
+  color: #00539c !important;
+}
+
+ion-menu.md ion-item.selected {
+  --background: rgba(var(--ion-color-primary-rgb), 0.14);
+}
+
+ion-menu.md ion-item.selected ion-icon {
+  color: #00539c;
+}
+
+ion-item.selected {
+  --color: var(--ion-color-primary);
+}
+
+ion-menu.ios ion-item.selected ion-icon {
+  color: var(--ion-color-primary);
+}
+
+.sd-lbl-txt {
+  font-family: Poppins;
+  font-size: 14px;
+  color: #1d1d1d;
+  margin-bottom: 16px;
+}
+.sd-lbl-txt:hover {
+  color: #00539c !important;
+}
+
+.sd-lbl-txt:active {
+  color: #00539c !important;
+}
+
+.border-line {
+  width: 100%;
+  background: #c9c9c950;
+  height: 0.4px;
+  margin: 8px 0px;
+}
+
+menu-user-card {
+  background: #c9c9c950;
+  border-radius: 10px;
+  display: flex;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.log-out {
+  margin-bottom: 3px !important;
+  cursor: pointer;
+}
+
+.sign-out-txt {
+  margin: auto 0px auto 6px;
+  font-size: 14px;
+}
+.ion-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+}

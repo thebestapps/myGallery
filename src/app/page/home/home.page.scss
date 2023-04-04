@@ -88,6 +88,7 @@
   right: 0;
   top: -10px;
   bottom: 0px;
+  background: white;
 }
 
 .photo-content {
@@ -359,4 +360,8 @@ code {
 .filter-icon {
   font-size: 22px;
   margin-left: 6px;
+}
+
+.text-content {
+  display: flex;
 }

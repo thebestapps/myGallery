@@ -1,9 +1,10 @@
 <ion-header *ngIf="ion_header">
   <ion-toolbar>
-    <!-- <div class="header-con"> -->
-    <ion-button class="menu-btn" slot="start">
-      <img class="menu-icon" src="../../../../assets/icon/menu-icon.svg" />
-    </ion-button>
+    <ion-menu-toggle slot="start">
+      <ion-button class="menu-btn">
+        <img class="menu-icon" src="../../../../assets/icon/menu-icon.svg" />
+      </ion-button>
+    </ion-menu-toggle>
 
     <div class="bar-slider">
       <p
@@ -27,7 +28,6 @@
     <ion-button class="menu-btn" slot="end">
       <img class="search-icon" src="../../../../assets/icon/Search-icon.svg" />
     </ion-button>
-    <!-- </div> -->
   </ion-toolbar>
 </ion-header>
 
@@ -40,18 +40,17 @@
         style="border-radius: 7px"
         [(ngModel)]="searchText"
       ></ion-searchbar>
-      <div class="header-txt-con">
-        <p class="qoutes-txt">"</p>
-        <p class="para-txt">
-          This is the Photo clicked with my cousins at sec. 118 Mohali,
-          Chandigarh This is the Photo clicked with my cousins at se...
-        </p>
-        <img
-          class="header-img"
-          src="../../../assets/img/onboarding-img-1.png"
-        />
+      <div *ngIf="user">
+        <div class="header-txt-con" *ngIf="header_data">
+          <div class="text-content">
+            <span class="qoutes-txt">"</span>
+            <p class="para-txt">{{header_data.data.note}}</p>
+          </div>
+          <img class="header-img" [src]="header_data.img" />
+        </div>
       </div>
-      <div class="photo-content">
+
+      <div class="photo-content" *ngIf="user && photo_data">
         <h1 class="heading">My photos</h1>
         <div class="flex-content">
           <div class="photo-date-details">
