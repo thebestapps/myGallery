@@ -1,7 +1,6 @@
 {
-  "name": "advanceGallery",
+  "name": "cheez-hospitality",
   "integrations": {
-    "capacitor": {},
     "cordova": {}
   },
   "type": "angular"

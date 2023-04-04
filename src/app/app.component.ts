@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from './common.function';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-root',
@@ -37,12 +36,6 @@ export class AppComponent implements OnInit {
     console.log(this.user);
   }
 
-  async signOut() {
-    await GoogleAuth.signOut();
-    this.user = '';
-    this.config.storageSave('user', this.user);
-    this.config.navigate('login');
-  }
   signIn() {
     this.config.navigate('login');
   }

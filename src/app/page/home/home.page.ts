@@ -40,7 +40,7 @@ export class HomePage {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-    if (this.user) {
+    // if (this.user) {
       this.photo_data = JSON.parse(
         this.config.storageGet('all_data')['__zone_symbol__value']
       );
@@ -48,11 +48,11 @@ export class HomePage {
       this.allFolder = JSON.parse(
         this.config.storageGet('allFolder')['__zone_symbol__value']
       );
-      if (this.photo_data) {
+      if (this.photo_data != null) {
         this.header_data =
           this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
       }
-    }
+    // }
     console.log(this.user);
   }
  
@@ -60,7 +60,7 @@ export class HomePage {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-    if (this.user) {
+    // if (this.user) {
       this.photo_data = JSON.parse(
         this.config.storageGet('all_data')['__zone_symbol__value']
       );
@@ -72,7 +72,7 @@ export class HomePage {
         this.header_data =
           this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
       }
-    }
+    // }
     // console.log(this.user);
   }
 
@@ -126,7 +126,7 @@ export class HomePage {
   }
 
   addPhotoToGallery() {
-    this.photoService.addNewToGallery();
+    // this.photoService.addNewToGallery();
   }
 
   SelectLogo(e, n) {

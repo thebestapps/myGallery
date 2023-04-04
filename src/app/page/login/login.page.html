@@ -39,7 +39,8 @@
       <p class="hello-txt">Hey, Again!</p>
       <p class="small-txt">Welcome back you’ve been missed!</p>
 
-      <div class="login-btn" (click)="signIn()">
+      <!-- <div class="login-btn" (click)="signIn()"> -->
+      <div class="login-btn" (click)="social_login('goggle')">
         <img class="login-icon" src="../../../assets/icon/Google-icon.svg" />
         <p class="login-txt">Continue With Google</p>
       </div>
@@ -49,7 +50,7 @@
         <p class="login-txt">Continue With Apple ID</p>
       </div>
 
-      <div class="login-btn" (click)="signInWithFB()">
+      <div class="login-btn" (click)="social_login('facebook')">
         <img class="login-icon" src="../../../assets/icon/facebook-icon.svg" />
         <p class="login-txt">Continue With Facebook</p>
       </div>
