@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { IonicStorageModule } from '@ionic/storage-angular';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
 import {
   GoogleLoginProvider,
@@ -18,7 +18,9 @@ import {
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com'),
+    provider: new GoogleLoginProvider(
+      '1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com'
+    ),
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -32,11 +34,13 @@ let config = new AuthServiceConfig([
     IonicModule,
     LoginPageRoutingModule,
     IonicStorageModule,
+    SharedModule,
     // SocialLoginModule,
     SocialLoginModule.initialize(config),
   ],
   declarations: [LoginPage],
 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     // {
     //   provide: 'SocialAuthServiceConfig',

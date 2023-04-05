@@ -59,6 +59,7 @@
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-googleplus": "^8.5.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
@@ -91,6 +92,11 @@
         "APP_NAME": "ProGallery",
         "FACEBOOK_HYBRID_APP_EVENTS": "false",
         "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.thebestapps.gallery",
+        "WEB_APPLICATION_CLIENT_ID": "1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
       }
     },
     "platforms": [
