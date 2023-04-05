@@ -5,6 +5,7 @@
   text-align: left;
   margin: auto auto auto 13px;
   font-size: 28px;
+  cursor: pointer;
 }
 .title-content {
   text-align: left;
@@ -15,6 +16,7 @@
   text-align: left;
   margin: auto 6px auto 0px;
   font-size: 22px;
+  cursor: pointer;
 }
 
 .three-dot-icon.autoMargin {
@@ -50,11 +52,13 @@
 
 .large-grid-icon {
   margin-left: 10px;
+  cursor: pointer;
 }
 
 .small-grid-icon {
   margin-left: 10px;
   margin-bottom: -3px;
+  cursor: pointer;
 }
 
 .view-item-page {
@@ -142,6 +146,7 @@
 }
 .option-txt {
   margin-bottom: 12px;
+  cursor: pointer;
 }
 .grid-content {
   position: relative;
@@ -151,4 +156,5 @@
   position: absolute;
   right: 5px;
   top: 5px;
+  cursor: pointer;
 }

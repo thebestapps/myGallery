@@ -72,12 +72,9 @@ export class ViewItemPage implements OnInit {
   }
 
   deleteSelectedItem() {
-    console.log(this.selectedItem);
-
     var un = this.photo_data.filter((val2) => {
-      return val2.id != this.selectedItem.id;
+      return this.selectedItem.every((y) => y.id !== val2.id);
     });
-    console.log(un);
 
     this.photo_data = un;
     this.config.storageSave('all_data', this.photo_data);

@@ -14,6 +14,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from 'angular4-social-login';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 let config = new AuthServiceConfig([
   {
@@ -63,6 +64,7 @@ let config = new AuthServiceConfig([
     //     },
     //   } as SocialAuthServiceConfig,
     // },
+    GooglePlus
   ],
 })
 export class LoginPageModule {}

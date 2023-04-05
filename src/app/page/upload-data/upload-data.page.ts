@@ -30,6 +30,7 @@ export class UploadDataPage implements OnInit {
   add_label = true;
   add_note = false;
   add_audio = false;
+  update_audio_section = false;
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -45,7 +46,7 @@ export class UploadDataPage implements OnInit {
   ngOnInit() {
     this.storage.create();
   }
-
+  updateurl: any;
   ionViewWillEnter() {
     if (this.config.editable_data != undefined) {
       this.editable_data = this.config.editable_data;
@@ -55,7 +56,7 @@ export class UploadDataPage implements OnInit {
       });
 
       this.selected_img = this.editable_data.img;
-      this.url = this.editable_data.audio;
+      this.updateurl = this.editable_data.audio;
       this.draft_update_btn = true;
     }
     if (!this.config.editable_data) {
@@ -65,11 +66,12 @@ export class UploadDataPage implements OnInit {
   }
 
   sanitize(url: string) {
-    console.log(url);
-    
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
-
+  
+  sanitizeUpdate(updateurl: string) {
+    return this.domSanitizer.bypassSecurityTrustUrl(updateurl);
+  }
   startRecording() {
     // debugger
     this.recording = true;

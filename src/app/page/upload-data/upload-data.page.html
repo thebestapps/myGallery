@@ -68,9 +68,18 @@
               class="mic-icon bg-color"
             />
           </div>
-          <audio class="audio-file" controls *ngIf="url">
-            <source [src]="sanitize(url)" type="audio/wav" />
-          </audio>
+          <div class="update-audio" >
+            
+            <audio class="audio-file" controls *ngIf="url">
+              <source [src]="sanitize(url)" type="audio/wav" />
+            </audio>
+          </div>
+          <div class="update-audio"*ngIf="updateurl" >
+            <!-- <p class="audio-txt">updated audio</p> -->
+            <audio class="audio-file" controls >
+              <source [src]="sanitizeUpdate(updateurl)" type="audio/wav" />
+            </audio>
+          </div>
         </div>
         <div class="center-algin">
           <div class="bottom-btn-grp">
