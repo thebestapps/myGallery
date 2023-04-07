@@ -9,25 +9,25 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider,
-} from 'angular4-social-login';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+// import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
+// import {
+//   GoogleLoginProvider,
+//   FacebookLoginProvider,
+// } from 'angular4-social-login';
+// import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
-let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(
-      '1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com'
-    ),
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('Facebook-App-Id'),
-  },
-]);
+// let config = new AuthServiceConfig([
+//   {
+//     id: GoogleLoginProvider.PROVIDER_ID,
+//     provider: new GoogleLoginProvider(
+//       '1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com'
+//     ),
+//   },
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     provider: new FacebookLoginProvider('Facebook-App-Id'),
+//   },
+// ]);
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +37,7 @@ let config = new AuthServiceConfig([
     IonicStorageModule,
     SharedModule,
     // SocialLoginModule,
-    SocialLoginModule.initialize(config),
+    // SocialLoginModule.initialize(config),
   ],
   declarations: [LoginPage],
 
