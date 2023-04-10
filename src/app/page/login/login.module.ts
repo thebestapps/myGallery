@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+=======
+import { NgModule } from '@angular/core';
+>>>>>>> 4c0fc0c (apk+++)
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +12,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { IonicStorageModule } from '@ionic/storage-angular';
+<<<<<<< HEAD
 import { SharedModule } from 'src/app/shared/shared.module';
 // import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
 // import {
@@ -28,6 +33,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 //     provider: new FacebookLoginProvider('Facebook-App-Id'),
 //   },
 // ]);
+=======
+>>>>>>> 4c0fc0c (apk+++)
 @NgModule({
   imports: [
     CommonModule,
@@ -35,6 +42,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     LoginPageRoutingModule,
     IonicStorageModule,
+<<<<<<< HEAD
     SharedModule,
     // SocialLoginModule,
     // SocialLoginModule.initialize(config),
@@ -66,5 +74,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     // },
     GooglePlus
   ],
+=======
+  ],
+  declarations: [LoginPage],
+
+  providers: [],
+>>>>>>> 4c0fc0c (apk+++)
 })
 export class LoginPageModule {}

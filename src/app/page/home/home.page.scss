@@ -128,6 +128,14 @@
   font-size: 10px;
   line-height: 15px;
   color: #747474;
+<<<<<<< HEAD
+=======
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+>>>>>>> 4c0fc0c (apk+++)
 }
 .mic-icon {
   background: #fff;
@@ -364,4 +372,12 @@ code {
 
 .text-content {
   display: flex;
+<<<<<<< HEAD
 }
+=======
+}
+
+.inp-c {
+  padding: 0px 0px 10px 0px;
+}
+>>>>>>> 4c0fc0c (apk+++)

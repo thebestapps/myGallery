@@ -68,6 +68,7 @@
               class="mic-icon bg-color"
             />
           </div>
+<<<<<<< HEAD
           <div class="update-audio" >
             
             <audio class="audio-file" controls *ngIf="url">
@@ -80,6 +81,11 @@
               <source [src]="sanitizeUpdate(updateurl)" type="audio/wav" />
             </audio>
           </div>
+=======
+          <audio class="audio-file" controls *ngIf="url">
+            <source [src]="sanitize(url)" type="audio/wav" />
+          </audio>
+>>>>>>> 4c0fc0c (apk+++)
         </div>
         <div class="center-algin">
           <div class="bottom-btn-grp">

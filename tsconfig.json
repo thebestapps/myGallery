@@ -29,8 +29,13 @@
     "target": "es2022",
     "module": "es2020",
     "lib": ["es2018", "dom"],
+<<<<<<< HEAD
     "useDefineForClassFields": false
 >>>>>>> 280733b (Initial commit)
+=======
+    "useDefineForClassFields": false,
+    "noImplicitAny": false
+>>>>>>> 4c0fc0c (apk+++)
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

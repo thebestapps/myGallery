@@ -30,7 +30,10 @@ export class UploadDataPage implements OnInit {
   add_label = true;
   add_note = false;
   add_audio = false;
+<<<<<<< HEAD
   update_audio_section = false;
+=======
+>>>>>>> 4c0fc0c (apk+++)
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -46,7 +49,11 @@ export class UploadDataPage implements OnInit {
   ngOnInit() {
     this.storage.create();
   }
+<<<<<<< HEAD
   updateurl: any;
+=======
+
+>>>>>>> 4c0fc0c (apk+++)
   ionViewWillEnter() {
     if (this.config.editable_data != undefined) {
       this.editable_data = this.config.editable_data;
@@ -56,7 +63,11 @@ export class UploadDataPage implements OnInit {
       });
 
       this.selected_img = this.editable_data.img;
+<<<<<<< HEAD
       this.updateurl = this.editable_data.audio;
+=======
+      this.url = this.editable_data.audio;
+>>>>>>> 4c0fc0c (apk+++)
       this.draft_update_btn = true;
     }
     if (!this.config.editable_data) {
@@ -66,12 +77,20 @@ export class UploadDataPage implements OnInit {
   }
 
   sanitize(url: string) {
+<<<<<<< HEAD
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
   
   sanitizeUpdate(updateurl: string) {
     return this.domSanitizer.bypassSecurityTrustUrl(updateurl);
   }
+=======
+    console.log(url);
+    
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+
+>>>>>>> 4c0fc0c (apk+++)
   startRecording() {
     // debugger
     this.recording = true;

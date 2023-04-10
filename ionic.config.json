@@ -6,7 +6,13 @@
   },
 =======
   "name": "myGallery",
+<<<<<<< HEAD
   "integrations": {},
 >>>>>>> 280733b (Initial commit)
+=======
+  "integrations": {
+    "capacitor": {}
+  },
+>>>>>>> 4c0fc0c (apk+++)
   "type": "angular"
 }
