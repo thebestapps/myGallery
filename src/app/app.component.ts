@@ -1,11 +1,17 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from './common.function';
+=======
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+>>>>>>> 280733b (Initial commit)
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
+<<<<<<< HEAD
 })
 export class AppComponent implements OnInit {
   user: any = null;
@@ -39,4 +45,11 @@ export class AppComponent implements OnInit {
   signIn() {
     this.config.navigate('login');
   }
+=======
+  standalone: true,
+  imports: [IonicModule],
+})
+export class AppComponent {
+  constructor() {}
+>>>>>>> 280733b (Initial commit)
 }

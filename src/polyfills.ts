@@ -42,6 +42,11 @@
  *
  */
 
+<<<<<<< HEAD
+=======
+import './zone-flags';
+
+>>>>>>> 280733b (Initial commit)
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */

@@ -16,6 +16,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+<<<<<<< HEAD
     "target": "es2015",
     "module": "es2020",
     "lib": [
@@ -24,13 +25,23 @@
     ],
     "useDefineForClassFields": false,
     "noImplicitAny": false
+=======
+    "target": "es2022",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
+    "useDefineForClassFields": false
+>>>>>>> 280733b (Initial commit)
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
+<<<<<<< HEAD
     "strictTemplates": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
+=======
+    "strictTemplates": true
+>>>>>>> 280733b (Initial commit)
   }
 }

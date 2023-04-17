@@ -1,7 +1,12 @@
 {
+<<<<<<< HEAD
   "name": "cheez-hospitality",
   "integrations": {
     "cordova": {}
   },
+=======
+  "name": "myGallery",
+  "integrations": {},
+>>>>>>> 280733b (Initial commit)
   "type": "angular"
 }

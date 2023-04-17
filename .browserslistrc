@@ -1,4 +1,8 @@
+<<<<<<< HEAD
     # This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
+=======
+# This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
+>>>>>>> 280733b (Initial commit)
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries
 
@@ -8,8 +12,17 @@
 # You can see what browsers were selected by your queries by running:
 #   npx browserslist
 
+<<<<<<< HEAD
 Chrome >=60
 Firefox >=63
 Edge >=79
 Safari >=13
 iOS >=13
+=======
+Chrome >=79
+ChromeAndroid >=79
+Firefox >=70
+Edge >=79
+Safari >=14
+iOS >=14
+>>>>>>> 280733b (Initial commit)

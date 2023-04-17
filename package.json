@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "cheez-hospitality",
+=======
+  "name": "myGallery",
+>>>>>>> 280733b (Initial commit)
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -19,6 +23,7 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+<<<<<<< HEAD
     "@ionic-native/google-plus": "^5.36.0",
     "@ionic/angular": "^6.1.9",
     "@ionic/cordova-builders": "^7.0.0",
@@ -38,20 +43,33 @@
     "ngx-rating": "^0.0.9",
     "ngx-star-rating": "^2.1.0",
     "recordrtc": "^5.6.2",
+=======
+    "@ionic/angular": "^7.0.0",
+    "ionicons": "^7.0.0",
+>>>>>>> 280733b (Initial commit)
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.0.0",
+<<<<<<< HEAD
     "@angular-eslint/builder": "^14.0.0",
     "@angular-eslint/eslint-plugin": "^14.0.0",
     "@angular-eslint/eslint-plugin-template": "^14.0.0",
     "@angular-eslint/template-parser": "^14.0.0",
+=======
+    "@angular-eslint/builder": "^15.0.0",
+    "@angular-eslint/eslint-plugin": "^15.0.0",
+    "@angular-eslint/eslint-plugin-template": "^15.0.0",
+    "@angular-eslint/template-parser": "^15.0.0",
+    "@angular-eslint/schematics": "^15.0.0",
+>>>>>>> 280733b (Initial commit)
     "@angular/cli": "^15.0.0",
     "@angular/compiler": "^15.0.0",
     "@angular/compiler-cli": "^15.0.0",
     "@angular/language-service": "^15.0.0",
+<<<<<<< HEAD
     "@ionic/angular-toolkit": "^7.0.0",
     "@types/jasmine": "~4.0.0",
     "@types/leaflet": "^1.9.0",
@@ -64,6 +82,13 @@
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
+=======
+    "@ionic/angular-toolkit": "^9.0.0",
+    "@types/jasmine": "~4.0.0",
+    "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "5.3.0",
+    "@typescript-eslint/parser": "5.3.0",
+>>>>>>> 280733b (Initial commit)
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -79,6 +104,7 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.8.4"
   },
+<<<<<<< HEAD
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
@@ -104,3 +130,7 @@
     ]
   }
 }
+=======
+  "description": "An Ionic project"
+}
+>>>>>>> 280733b (Initial commit)
