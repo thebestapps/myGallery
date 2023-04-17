@@ -1,6 +1,10 @@
 <ion-content>
   <div class="upload-data-page">
-    <ion-icon name="close-outline" class="close-icon" (click)="back()"></ion-icon>
+    <ion-icon
+      name="close-outline"
+      class="close-icon"
+      (click)="back()"
+    ></ion-icon>
     <form class="form-group" [formGroup]="form_details">
       <div class="center-tab">
         <div class="fixed-top-tab">
@@ -27,8 +31,12 @@
           ></ion-icon>
         </div>
       </div>
-      <div class="image-conytainer">
+      <div class="image-conytainer" *ngIf="upload_file">
         <img [src]="selected_img" class="selected-img" />
+      </div>
+
+      <div class="image-conytainer" *ngIf="take_file">
+        <img [src]="selected_img1" class="selected-img" />
       </div>
 
       <div class="form-container">
@@ -40,12 +48,21 @@
           ></ion-input>
         </div>
         <div class="inp-bx" *ngIf="add_note">
-          <ion-textarea
-            rows="5"
-            formControlName="note"
-            class="ion-input-textarea"
-            placeholder="Enter Note"
-          ></ion-textarea>
+          <div class="textarea-field">
+            <ion-textarea
+              rows="5"
+              formControlName="note"
+              class="ion-input-textarea"
+              placeholder="Enter Note"
+              #myInput
+              [maxlength]="maxChars"
+              (ngModelChange)="selectData($event)"
+            ></ion-textarea>
+            <span class="count-txt"
+              >{{ myInput.value?.length }} /{{ maxChars }}</span
+            >
+          </div>
+          <p class="invalid-msg" *ngIf="isMsg">Maximum Character 250</p>
         </div>
         <div class="audio-record-container" *ngIf="add_audio">
           <div class="audio-record" *ngIf="!recording">
@@ -87,6 +104,7 @@
           </audio>
 >>>>>>> 4c0fc0c (apk+++)
         </div>
+
         <div class="center-algin">
           <div class="bottom-btn-grp">
             <ion-icon

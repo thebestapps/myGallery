@@ -40,7 +40,7 @@
         style="border-radius: 7px"
         [(ngModel)]="searchText"
       ></ion-searchbar>
-      <div *ngIf="user">
+      <div *ngIf="photo_data">
         <div class="header-txt-con" *ngIf="header_data">
           <div class="text-content">
             <span class="qoutes-txt">"</span>
@@ -51,16 +51,20 @@
       </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <!-- <div class="photo-content" *ngIf="user && photo_data"> -->
         <div class="photo-content" *ngIf="photo_data">
 =======
       <div class="photo-content" *ngIf=" photo_data">
 >>>>>>> 4c0fc0c (apk+++)
+=======
+      <div class="photo-content" *ngIf="photo_data">
+>>>>>>> b1d1df0 (filter ++)
         <h1 class="heading">My photos</h1>
         <div class="flex-content">
           <div class="photo-date-details">
-            <p class="date-txt">6 Jan 2023</p>
-            <p class="day-txt">Wednesday</p>
+            <p class="date-txt">{{MyDate | date:'d MMM, y'}}</p>
+            <p class="day-txt">{{MyDate | date:'EEEE'}}</p>
           </div>
           <div class="photo-resize">
             <img
@@ -103,11 +107,12 @@
               size-md="6"
               size-lg="3"
               size-lx="3"
-              *ngFor="let item of photo_data | appFilter: searchText"
+              *ngFor="let item of filteredImages | appFilter: searchText"
             >
               <div class="card">
                 <div class="img content">
                   <img [src]="item.img" class="content-img" />
+                  <!-- <img *ngIf="!item.src" [src]="item.src" class="content-img" /> -->
                   <img
                     src="../../../assets/icon/pencil-icon.svg"
                     class="edit-icon"
@@ -115,7 +120,7 @@
                   />
                 </div>
                 <div class="txt-content">
-                  <div class="content">
+                  <div class="content-2">
                     <p class="tittle-txt">{{item.data.title}}</p>
                     <p class="note-txt">{{item.data.note}}</p>
                   </div>
@@ -143,9 +148,16 @@
               size-md="6"
               size-lg="3"
               size-lx="3"
-              *ngFor="let item of photo_data | appFilter: searchText"
+              *ngFor="let item of filteredImages | appFilter: searchText"
             >
               <img
+                *ngIf="item.img"
+                [src]="item.img"
+                class="grid-content-img"
+                (click)="edit_data(item)"
+              />
+              <img
+                *ngIf="!item.img"
                 [src]="item.img"
                 class="grid-content-img"
                 (click)="edit_data(item)"
@@ -171,13 +183,19 @@
         <p class="option-txt">Select items</p>
         <p class="option-txt" (click)="EditFolderName()">Edit folder</p>
       </div>
+
       <div
         class="all-folder-grid"
         *ngFor="let item of allFolder"
         (click)="navigateFolder( item,'open folder')"
       >
-        <div *ngIf="!item.img" class="not-img folder-img"></div>
-        <img *ngIf="item.img" [src]="item.img" alt="" class="folder-img" />
+        <div *ngIf="!header_data.img" class="not-img folder-img"></div>
+        <img
+          *ngIf="header_data.img"
+          [src]="header_data.img"
+          alt=""
+          class="folder-img"
+        />
         <div class="folder-content">
           <p class="folder-name">{{item.folder_name}}</p>
           <p class="image-number">{{item.total_img}} images</p>
@@ -230,6 +248,7 @@
             name="files"
             type="file"
             id="bannerImg"
+            accept="image/*"
             (change)="SelectLogo($event,'1')"
           />
         </ion-button>

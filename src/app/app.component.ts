@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from './common.function';
@@ -12,6 +13,18 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from './common.function';
 >>>>>>> 4c0fc0c (apk+++)
+=======
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
+import { CommonService } from './common.function';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+>>>>>>> b1d1df0 (filter ++)
 
 @Component({
   selector: 'app-root',
@@ -61,38 +74,65 @@ export class AppComponent {
 >>>>>>> 280733b (Initial commit)
 =======
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit, OnChanges {
   user: any = null;
   appPages: any = [];
 
-  constructor(public config: CommonService, private storage: Storage) {}
+  constructor(
+    public config: CommonService,
+    private storage: Storage,
+    private _changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.storage.create();
+    this._changeDetectorRef.detectChanges();
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
     console.log(this.user);
+    this._changeDetectorRef.detectChanges();
 
     // if (this.user) {
-      this.appPages = [
-        { title: 'Home', url: '/login', icon: 'paper-plane' },
-        { title: 'Contact Us', url: '/contacts', icon: 'heart' },
-      ];
+    this.appPages = [
+      { title: 'Home', url: '/login', icon: 'paper-plane' },
+      { title: 'Contact Us', url: '/contacts', icon: 'heart' },
+    ];
     // }
   }
-
-  ionViewWillEnter() {
+  ngOnChanges() {
+    this._changeDetectorRef.detectChanges();
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
+    this._changeDetectorRef.detectChanges();
+    console.log(this.user);
+  }
+
+  ngAfterViewInit() {
+    this._changeDetectorRef.detectChanges();
+    this.user = JSON.parse(
+      this.config.storageGet('user')['__zone_symbol__value']
+    );
+    this._changeDetectorRef.detectChanges();
+    console.log(this.user);
+  }
+
+  ionViewWillEnter() {
+    this._changeDetectorRef.detectChanges();
+    this.user = JSON.parse(
+      this.config.storageGet('user')['__zone_symbol__value']
+    );
+    this._changeDetectorRef.detectChanges();
     console.log(this.user);
   }
 
   async signOut() {
+    GoogleAuth.signOut().then(() => {
+      // this.config.navigate('login');
+    });
     this.user = '';
-    this.config.storageSave('user', this.user);
-    this.config.navigate('login');
+    this.config.storageRemoveItem('user');
   }
   signIn() {
     this.config.navigate('login');

@@ -4,6 +4,15 @@ import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
 import { ActionSheetController } from '@ionic/angular';
 import { DomSanitizer } from '@angular/platform-browser';
+
+const IMAGE_DIR = 'stored-images';
+
+interface LocalFile {
+  name: string;
+  path: string;
+  data: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -26,6 +35,30 @@ export class HomePage {
   user: any;
   searchText = '';
   allFolder: any = [];
+  MyDate: any;
+  header_data: any;
+  sixMonth: any;
+
+  filteredImages: any[] = [];
+  selectedInterval: string = '';
+  // photo_data: any[] = [
+  //   {
+  //     img: '../../../assets/img/home-header-img.svg',
+  //     createAt: new Date('2022-04-14T10:30:00Z'),
+  //   },
+  //   {
+  //     img: '../../../assets/img/home-header-img.svg',
+  //     createAt: new Date('2022-02-28T15:45:00Z'),
+  //   },
+  //   {
+  //     img: '../../../assets/img/home-header-img.svg',
+  //     createAt: new Date('2021-12-15T18:20:00Z'),
+  //   },
+  //   {
+  //     img: '../../../assets/img/home-header-img.svg',
+  //     createAt: new Date('2023-09-05T12:10:00Z'),
+  //   },
+  // ];
   constructor(
     public photoService: TakephotoService,
     public config: CommonService,
@@ -33,9 +66,10 @@ export class HomePage {
     private domSanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController
   ) {}
-  header_data: any;
+
   ngOnInit() {
     this.storage.create();
+<<<<<<< HEAD
 
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
@@ -80,6 +114,8 @@ export class HomePage {
 =======
     }
     console.log(this.user);
+=======
+>>>>>>> b1d1df0 (filter ++)
   }
 
   ionViewWillEnter() {
@@ -94,19 +130,22 @@ export class HomePage {
     this.allFolder = JSON.parse(
       this.config.storageGet('allFolder')['__zone_symbol__value']
     );
+
     if (this.photo_data) {
+      this.photo_data = JSON.parse(
+        this.config.storageGet('all_data')['__zone_symbol__value']
+      );
+      this.filteredImages = this.photo_data;
       this.header_data =
-        this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
+        this.filteredImages[Math.floor(Math.random() * this.filteredImages.length)];
+      this.MyDate = this.filteredImages[0].createAt;
     }
 >>>>>>> 4c0fc0c (apk+++)
     // }
-    // console.log(this.user);
   }
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
-      // header: 'Example header',
-      // subHeader: 'Example subheader',
       cssClass: 'my-custom-class',
       buttons: [
         {
@@ -116,9 +155,7 @@ export class HomePage {
             action: 'delete',
           },
           handler: () => {
-            this.photo_data.filter((item) => {
-              console.log(item);
-            });
+            this.filterImages('sixMonths');
           },
         },
         {
@@ -127,7 +164,7 @@ export class HomePage {
             action: 'share',
           },
           handler: () => {
-            console.log('1 Year');
+            this.filterImages('year');
           },
         },
         {
@@ -136,32 +173,69 @@ export class HomePage {
             action: 'share',
           },
           handler: () => {
-            console.log('2 Year');
+            this.filterImages('two-years');
           },
         },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          data: {
-            action: 'cancel',
-          },
-        },
+        // {
+        //   text: 'Cancel',
+        //   role: 'cancel',
+        //   data: {
+        //     action: 'cancel',
+        //   },
+        // handler: () => {
+        //   this.filteredImages = this.allImages;
+        // },
+        // },
       ],
     });
-
     actionSheet.present();
+  }
+
+  filterImages(interval: string) {
+    const currentDate = new Date();
+    switch (interval) {
+      case 'sixMonths':
+        this.filteredImages = this.photo_data.filter((image) => {
+          const imageMonth = image.createAt.getMonth();
+          const currentMonth = currentDate.getMonth();
+          return Math.abs(imageMonth - currentMonth) <= 6;
+        });
+        break;
+      case 'year':
+        this.filteredImages = this.photo_data.filter((image) => {
+          const imageYear = image.createAt.getFullYear();
+          const currentYear = currentDate.getFullYear();
+          return currentYear - imageYear === 1;
+        });
+        break;
+      case 'two-years':
+        this.filteredImages = this.photo_data.filter((image) => {
+          const imageYear = image.createAt.getFullYear();
+          const currentYear = currentDate.getFullYear();
+          return currentYear - imageYear <= 2;
+        });
+        break;
+      default:
+        this.filteredImages = this.photo_data;
+        break;
+    }
   }
 
   addPhotoToGallery() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     // this.photoService.addNewToGallery();
 =======
+=======
+    this.config.storageSave('choose_file', 2);
+>>>>>>> b1d1df0 (filter ++)
     this.photoService.addNewToGallery();
 >>>>>>> 4c0fc0c (apk+++)
   }
 
   SelectLogo(e, n) {
     if (n == 1) {
+      this.config.storageSave('choose_file', 1);
       if (e.target.files) {
         var render = new FileReader();
         render.readAsDataURL(e.target.files[0]);
@@ -175,6 +249,8 @@ export class HomePage {
   }
 
   edit_data(val) {
+    console.log(val);
+
     this.selectedId = val.id;
     this.config.navigate('upload-data');
     this.config.editable_data = val;

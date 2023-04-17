@@ -4,4 +4,10 @@
     <string name="title_activity_main">ProGallery</string>
     <string name="package_name">com.thebestapps.gallery</string>
     <string name="custom_url_scheme">com.thebestapps.gallery</string>
+
+
+    <string name="server_client_id">
+        1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">168147219362369</string>
+    <string name="facebook_client_token">[CLIENT_TOKEN]</string>
 </resources>

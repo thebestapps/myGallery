@@ -7,6 +7,7 @@
   position: absolute;
   top: 0px;
   z-index: -1000;
+  // width: 100%;
 }
 .lb-txt {
   margin-bottom: 5px;
@@ -152,4 +153,25 @@
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.65) 100%
   );
+}
+
+.inp-bx {
+  position: relative;
+}
+
+.count-txt {
+  position: absolute;
+  right: 11px;
+  z-index: 1000;
+  bottom: 6px;
+  color: #a7a7a7;
+  font-size: 13px;
+}
+
+.invalid-msg {
+  color: red;
+}
+
+.textarea-field {
+  position: relative;
 }

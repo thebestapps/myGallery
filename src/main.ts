@@ -15,10 +15,11 @@ import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
-
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 if (environment.production) {
   enableProdMode();
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -37,3 +38,10 @@ bootstrapApplication(AppComponent, {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 >>>>>>> 4c0fc0c (apk+++)
+=======
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.log(err));
+
+defineCustomElements(window);
+>>>>>>> b1d1df0 (filter ++)

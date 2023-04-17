@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <div class="header">
-      <ion-title>LOGO</ion-title>
+      <ion-title *ngIf="header_logo">LOGO</ion-title>
       <p
         slot="end"
         *ngIf="login_page"
@@ -19,6 +19,7 @@
     </div>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <div class="page-content">
@@ -43,11 +44,15 @@
       <p class="small-txt">Welcome back you’ve been missed!</p>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <!-- <div class="login-btn" (click)="signIn()"> -->
       <div class="login-btn" (click)="social_login('goggle')">
 =======
       <div class="login-btn" (click)="signIn()">
 >>>>>>> 4c0fc0c (apk+++)
+=======
+      <div class="login-btn" (click)="social_login('google')">
+>>>>>>> b1d1df0 (filter ++)
         <img class="login-icon" src="../../../assets/icon/Google-icon.svg" />
         <p class="login-txt">Continue With Google</p>
       </div>
@@ -58,10 +63,14 @@
       </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       <div class="login-btn" (click)="social_login('facebook')">
 =======
       <div class="login-btn">
 >>>>>>> 4c0fc0c (apk+++)
+=======
+      <div class="login-btn" (click)="social_login('facebook')">
+>>>>>>> b1d1df0 (filter ++)
         <img class="login-icon" src="../../../assets/icon/facebook-icon.svg" />
         <p class="login-txt">Continue With Facebook</p>
       </div>
