@@ -68,7 +68,44 @@ export class UploadDataPage implements OnInit {
   updateurl: any;
 =======
 
+<<<<<<< HEAD
 >>>>>>> 4c0fc0c (apk+++)
+=======
+  // mediaRecorder: MediaRecorder | any;
+  // recordedChunks: Blob[] = [];
+
+  // startRecording_() {
+  //   this.recording = true;
+  //   navigator.mediaDevices
+  //     .getUserMedia({ audio: true })
+  //     .then((stream) => {
+  //       this.mediaRecorder = new MediaRecorder(stream);
+  //       this.mediaRecorder.addEventListener('dataavailable', (event) => {
+  //         this.recordedChunks.push(event.data);
+  //       });
+  //       this.mediaRecorder.start();
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error accessing microphone:', error);
+  //     });
+  // }
+
+  // stopRecording_() {
+  //   this.recording = false;
+  //   if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+  //     this.mediaRecorder.stop();
+  //     this.mediaRecorder = null;
+  //   }
+  // }
+
+  // url_;
+  // playRecording() {
+  //   const blob = new Blob(this.recordedChunks, { type: 'audio/webm' });
+  //   this.url_ = URL.createObjectURL(blob);
+  //   console.log(this.url_);
+  // }
+
+>>>>>>> 242ed32 (filter ++)
   ionViewWillEnter() {
     this.selected_method = JSON.parse(
       this.config.storageGet('choose_file')['__zone_symbol__value']
@@ -126,6 +163,7 @@ export class UploadDataPage implements OnInit {
 
   sanitize(url: string) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
   
@@ -135,6 +173,8 @@ export class UploadDataPage implements OnInit {
 =======
     console.log(url);
 
+=======
+>>>>>>> 242ed32 (filter ++)
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
@@ -151,43 +191,21 @@ export class UploadDataPage implements OnInit {
   }
 
   successCallback(stream) {
-    console.log(stream);
-
     var options = {
-      mimeType: 'audio/wav',
-      // numberOfAudioChannels: 1,
-      // sampleRate: 16000,
-      bitsPerSecond: 128000,
-      bufferSize: 512,
-      numberOfAudioChannels: 1,
-      recorderType: StereoAudioRecorder,
+      mimeType: 'audio/mp3',
     };
-    console.log(options);
-
     var StereoAudioRecorder = RecordRTC.StereoAudioRecorder;
     this.record = new StereoAudioRecorder(stream, options);
-    console.log(this.record);
-
     this.record.record();
-    console.log(this.record);
-    // var internal = StereoAudioRecorder.getInternalRecorder();
-    // console.log(internal);
   }
 
   stopRecording() {
     this.recording = false;
-    this.record?.stop(this.processRecording.bind(this));
-    console.log(this.record);
+    this.record.stop(this.processRecording.bind(this));
   }
 
   processRecording(blob) {
-    if (blob.size == 2000000) {
-      console.log('ens');
-      this.stopRecording();
-    }
     this.url = URL.createObjectURL(blob);
-    console.log('blob', blob.size);
-    console.log('url', this.url);
   }
 
   errorCallback(error) {
@@ -261,6 +279,7 @@ export class UploadDataPage implements OnInit {
       this.add_audio = !this.add_audio;
     }
   }
+
   back() {
     this.config.navigate('home');
   }

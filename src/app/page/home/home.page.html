@@ -173,17 +173,31 @@
         <img
           src="../../../assets/icon/three-dot-icon.svg"
           class="three-dot-icon"
-          (click)="more_options()"
+          id="popover-button"
         />
       </div>
 
-      <div class="more-option-popup" *ngIf="folder_option">
+      <!-- <div class="more-option-popup"  *ngIf="folder_option">
         <p class="option-txt">Settings</p>
         <p class="option-txt">Favorites</p>
         <p class="option-txt">Select items</p>
         <p class="option-txt" (click)="EditFolderName()">Edit folder</p>
-      </div>
+      </div> -->
 
+      <ion-popover
+        class="ionic-popover"
+        trigger="popover-button"
+        [dismissOnSelect]="true"
+      >
+        <ng-template>
+          <ion-list class="ionic-list">
+            <p class="option-txt mb-12">Settings</p>
+            <p class="option-txt mb-12">Favorites</p>
+            <p class="option-txt mb-12">Select items</p>
+            <p class="option-txt" (click)="EditFolderName()">Edit folder</p>
+          </ion-list>
+        </ng-template>
+      </ion-popover>
       <div
         class="all-folder-grid"
         *ngFor="let item of allFolder"

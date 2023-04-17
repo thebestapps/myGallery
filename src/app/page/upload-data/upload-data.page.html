@@ -100,10 +100,39 @@
           </div>
 =======
           <audio class="audio-file" controls *ngIf="url">
-            <source [src]="sanitize(url)" type="audio/wav" />
+            <source [src]="sanitize(url)" type="audio/mp3" />
           </audio>
 >>>>>>> 4c0fc0c (apk+++)
         </div>
+        
+
+        <!-- <div class="audio-record-container" *ngIf="add_audio">
+          <div class="audio-record" *ngIf="!recording">
+            <p class="audio-placeholder" style="color: #1c50ff">
+              Click To Start Recording
+            </p>
+            <img
+              src="../../../assets/icon/mic-white-icon.svg"
+              (click)="startRecording_()"
+              class="mic-icon"
+            />
+          </div>
+          <div class="audio-record" *ngIf="recording">
+            <p class="audio-placeholder" style="color: red">
+              Click To Stop Recording
+            </p>
+            <img
+              src="../../../assets/icon/mic-white-icon.svg"
+              (click)="stopRecording_()"
+              class="mic-icon bg-color"
+            />
+
+          </div>
+          <button (click)="playRecording()">Play</button>
+          <audio class="audio-file" controls *ngIf="url_">
+            <source [src]="url_" type="audio/webm" />
+          </audio>
+        </div> -->
 
         <div class="center-algin">
           <div class="bottom-btn-grp">
