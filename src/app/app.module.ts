@@ -14,24 +14,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-<<<<<<< HEAD
-    IonicStorageModule.forRoot(),
-    AppRoutingModule,
-    SharedModule,
-    HttpClientModule
-  ],
-  providers: [
-    // HTTP,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  ],
-=======
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
     IonicStorageModule.forRoot()
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
->>>>>>> 4c0fc0c (apk+++)
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -69,12 +69,10 @@ export class HomePage {
 
   ngOnInit() {
     this.storage.create();
-<<<<<<< HEAD
 
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-<<<<<<< HEAD
     // if (this.user) {
       this.photo_data = JSON.parse(
         this.config.storageGet('all_data')['__zone_symbol__value']
@@ -91,32 +89,27 @@ export class HomePage {
     console.log(this.user);
   }
  
-  ionViewWillEnter() {
-    this.user = JSON.parse(
-      this.config.storageGet('user')['__zone_symbol__value']
-    );
-    // if (this.user) {
-=======
-    if (this.user) {
->>>>>>> 4c0fc0c (apk+++)
-      this.photo_data = JSON.parse(
-        this.config.storageGet('all_data')['__zone_symbol__value']
-      );
+  // ionViewWillEnter() {
+  //   this.user = JSON.parse(
+  //     this.config.storageGet('user')['__zone_symbol__value']
+  //   );
+  //   // if (this.user) {
+  //   if (this.user) {
+  //     this.photo_data = JSON.parse(
+  //       this.config.storageGet('all_data')['__zone_symbol__value']
+  //     );
 
-      this.allFolder = JSON.parse(
-        this.config.storageGet('allFolder')['__zone_symbol__value']
-      );
-      if (this.photo_data) {
-        this.header_data =
-          this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
-      }
-<<<<<<< HEAD
-=======
-    }
-    console.log(this.user);
-=======
->>>>>>> b1d1df0 (filter ++)
-  }
+  //     this.allFolder = JSON.parse(
+  //       this.config.storageGet('allFolder')['__zone_symbol__value']
+  //     );
+  //     if (this.photo_data) {
+  //       this.header_data =
+  //         this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
+  //     }
+
+  //   }
+  //   console.log(this.user);
+  // }
 
   ionViewWillEnter() {
     this.user = JSON.parse(
@@ -140,7 +133,6 @@ export class HomePage {
         this.filteredImages[Math.floor(Math.random() * this.filteredImages.length)];
       this.MyDate = this.filteredImages[0].createAt;
     }
->>>>>>> 4c0fc0c (apk+++)
     // }
   }
 
@@ -222,15 +214,9 @@ export class HomePage {
   }
 
   addPhotoToGallery() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // this.photoService.addNewToGallery();
-=======
-=======
+   
     this.config.storageSave('choose_file', 2);
->>>>>>> b1d1df0 (filter ++)
     this.photoService.addNewToGallery();
->>>>>>> 4c0fc0c (apk+++)
   }
 
   SelectLogo(e, n) {
@@ -257,14 +243,16 @@ export class HomePage {
   }
 
   deleteData(val) {
+    console.log(val);
+    
     this.selectedId = val.id;
-
     var un = this.photo_data.filter((val2) => {
       return val2.id !== val.id;
     });
     console.log(un);
 
     this.photo_data = un;
+    this.filteredImages = un;
     this.config.storageSave('all_data', this.photo_data);
   }
 

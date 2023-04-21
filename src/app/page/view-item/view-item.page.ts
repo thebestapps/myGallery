@@ -68,20 +68,13 @@ export class ViewItemPage implements OnInit {
 
   selectData(val) {
     this.selectedItem.push(val);
-<<<<<<< HEAD
-    console.log(this.selectedItem);
-=======
->>>>>>> 4c0fc0c (apk+++)
   }
 
   deleteSelectedItem() {
     var un = this.photo_data.filter((val2) => {
       return this.selectedItem.every((y) => y.id !== val2.id);
     });
-<<<<<<< HEAD
-=======
     console.log(un);
->>>>>>> 4c0fc0c (apk+++)
 
     this.photo_data = un;
     this.config.storageSave('all_data', this.photo_data);

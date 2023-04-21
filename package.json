@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "cheez-hospitality",
-=======
   "name": "myGallery",
->>>>>>> 280733b (Initial commit)
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -23,34 +19,7 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "@ionic-native/google-plus": "^5.36.0",
-    "@ionic/angular": "^6.1.9",
-    "@ionic/cordova-builders": "^7.0.0",
-    "@ionic/storage-angular": "^3.0.6",
-    "@mat-datetimepicker/core": "^11.0.1",
-    "angular4-social-login": "^1.1.1",
-    "angularx-social-login": "^4.1.0",
-    "cordova": "^11.1.0",
-    "cordova-android": "9.1.0",
-    "cordova-plugin-facebook4": "^6.4.0",
-    "ionicons": "^6.0.3",
-    "leaflet": "^1.9.3",
-    "moment": "^2.29.4",
-    "moment-timezone": "^0.5.39",
-    "ng-otp-input": "^1.8.5",
-    "ngx-daterangepicker-material": "^6.0.4",
-    "ngx-rating": "^0.0.9",
-    "ngx-star-rating": "^2.1.0",
-    "recordrtc": "^5.6.2",
-=======
-=======
-    "@capacitor/android": "4.7.3",
-=======
     "@capacitor/android": "^4.7.3",
->>>>>>> b1d1df0 (filter ++)
     "@capacitor/app": "4.1.1",
     "@capacitor/camera": "^4.1.4",
     "@capacitor/core": "4.7.3",
@@ -59,70 +28,35 @@
     "@capacitor/keyboard": "4.1.1",
     "@capacitor/preferences": "^4.0.2",
     "@capacitor/status-bar": "4.1.1",
-<<<<<<< HEAD
->>>>>>> 4c0fc0c (apk+++)
-=======
     "@codetrix-studio/capacitor-google-auth": "^3.2.2",
->>>>>>> b1d1df0 (filter ++)
     "@ionic/angular": "^7.0.0",
     "@ionic/pwa-elements": "^3.1.1",
     "@ionic/storage-angular": "^3.0.6",
     "capacitor-voice-recorder": "^4.0.2",
     "ionicons": "^7.0.0",
-<<<<<<< HEAD
->>>>>>> 280733b (Initial commit)
-=======
     "recordrtc": "^5.6.2",
->>>>>>> 4c0fc0c (apk+++)
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.0.0",
-<<<<<<< HEAD
-    "@angular-eslint/builder": "^14.0.0",
-    "@angular-eslint/eslint-plugin": "^14.0.0",
-    "@angular-eslint/eslint-plugin-template": "^14.0.0",
-    "@angular-eslint/template-parser": "^14.0.0",
-=======
     "@angular-eslint/builder": "^15.0.0",
     "@angular-eslint/eslint-plugin": "^15.0.0",
     "@angular-eslint/eslint-plugin-template": "^15.0.0",
     "@angular-eslint/schematics": "^15.0.0",
-<<<<<<< HEAD
->>>>>>> 280733b (Initial commit)
-=======
-    "@angular-eslint/template-parser": "^15.0.0",
->>>>>>> 4c0fc0c (apk+++)
+    "@angular-eslint/template-parser": "^14.0.0",
     "@angular/cli": "^15.0.0",
     "@angular/compiler": "^15.0.0",
     "@angular/compiler-cli": "^15.0.0",
     "@angular/language-service": "^15.0.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
+    "@capacitor/cli": "4.7.3",
     "@ionic/angular-toolkit": "^7.0.0",
     "@types/jasmine": "~4.0.0",
     "@types/leaflet": "^1.9.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
-    "cordova-plugin-device": "2.0.2",
-    "cordova-plugin-googleplus": "^8.5.2",
-    "cordova-plugin-ionic-keyboard": "^2.0.5",
-    "cordova-plugin-ionic-webview": "^5.0.0",
-    "cordova-plugin-splashscreen": "5.0.2",
-    "cordova-plugin-statusbar": "^2.4.2",
-=======
-=======
-    "@capacitor/cli": "4.7.3",
->>>>>>> 4c0fc0c (apk+++)
-    "@ionic/angular-toolkit": "^9.0.0",
-    "@types/jasmine": "~4.0.0",
-    "@types/node": "^12.11.1",
-    "@typescript-eslint/eslint-plugin": "5.3.0",
-    "@typescript-eslint/parser": "5.3.0",
->>>>>>> 280733b (Initial commit)
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -138,33 +72,5 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.8.4"
   },
-<<<<<<< HEAD
-  "description": "An Ionic project",
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-statusbar": {},
-      "cordova-plugin-device": {},
-      "cordova-plugin-splashscreen": {},
-      "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-facebook4": {
-        "APP_ID": "168147219362369",
-        "APP_NAME": "ProGallery",
-        "FACEBOOK_HYBRID_APP_EVENTS": "false",
-        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
-      },
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.thebestapps.gallery",
-        "WEB_APPLICATION_CLIENT_ID": "1036514703472-77fd85qdl3c58g34cgue0f74kpbv1ghu.apps.googleusercontent.com",
-        "PLAY_SERVICES_VERSION": "15.0.1"
-      }
-    },
-    "platforms": [
-      "android"
-    ]
-  }
-}
-=======
   "description": "An Ionic project"
 }
->>>>>>> 280733b (Initial commit)

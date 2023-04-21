@@ -46,20 +46,23 @@
             <span class="qoutes-txt">"</span>
             <p class="para-txt">{{header_data.data.note}}</p>
           </div>
-          <img class="header-img" [src]="header_data.img" />
+          <img
+            class="header-img"
+            *ngIf="header_data.img"
+            [src]="header_data.img"
+          />
+          <img
+            class="header-img"
+            *ngIf="!header_data.img"
+            [src]="header_data.takeImg"
+          />
         </div>
       </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
       <!-- <div class="photo-content" *ngIf="user && photo_data"> -->
-        <div class="photo-content" *ngIf="photo_data">
-=======
-      <div class="photo-content" *ngIf=" photo_data">
->>>>>>> 4c0fc0c (apk+++)
-=======
+      <!-- <div class="photo-content" *ngIf="photo_data">
+      <div class="photo-content" *ngIf=" photo_data"> -->
       <div class="photo-content" *ngIf="photo_data">
->>>>>>> b1d1df0 (filter ++)
         <h1 class="heading">My photos</h1>
         <div class="flex-content">
           <div class="photo-date-details">
@@ -111,8 +114,12 @@
             >
               <div class="card">
                 <div class="img content">
-                  <img [src]="item.img" class="content-img" />
-                  <!-- <img *ngIf="!item.src" [src]="item.src" class="content-img" /> -->
+                  <img *ngIf="item.img" [src]="item.img" class="content-img" />
+                  <img
+                    *ngIf="!item.img"
+                    [src]="item.takeImg"
+                    class="content-img"
+                  />
                   <img
                     src="../../../assets/icon/pencil-icon.svg"
                     class="edit-icon"
@@ -158,7 +165,7 @@
               />
               <img
                 *ngIf="!item.img"
-                [src]="item.img"
+                [src]="item.takeImg"
                 class="grid-content-img"
                 (click)="edit_data(item)"
               />

@@ -87,7 +87,8 @@
         >
           <div class="card">
             <div class="img content">
-              <img [src]="item.img" class="content-img" />
+              <img *ngIf="item.img" [src]="item.img" class="content-img" />
+              <img *ngIf="!item.img" [src]="item.takeImg" class="content-img" />
               <img
                 src="../../../assets/icon/pencil-icon.svg"
                 class="edit-icon"
@@ -133,7 +134,8 @@
               *ngIf="select_item"
               (click)="selectData(item)"
             />
-            <img [src]="item.img" class="grid-content-img" />
+            <img *ngIf="item.img" [src]="item.img" class="grid-content-img" />
+            <img *ngIf="!item.img" [src]="item.takeImg" class="grid-content-img" />
           </div>
         </ion-col>
       </ion-row>

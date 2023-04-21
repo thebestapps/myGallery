@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage-angular';
 
 import * as RecordRTC from 'recordrtc';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-upload-data',
@@ -31,12 +32,8 @@ export class UploadDataPage implements OnInit {
   add_label = true;
   add_note = false;
   add_audio = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   update_audio_section = false;
-=======
->>>>>>> 4c0fc0c (apk+++)
-=======
 
   recording_ = false;
   storedFileName: any = [];
@@ -47,12 +44,12 @@ export class UploadDataPage implements OnInit {
   isTextarea: any;
   isMsg = false;
 
->>>>>>> b1d1df0 (filter ++)
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
     private storage: Storage,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    public Api: ApiService
   ) {
     this.form_details = this.fb.group({
       title: [''],
@@ -64,13 +61,9 @@ export class UploadDataPage implements OnInit {
     this.storage.create();
     // VoiceRecorder.requestAudioRecordingPermission();
   }
-<<<<<<< HEAD
-  updateurl: any;
-=======
 
-<<<<<<< HEAD
->>>>>>> 4c0fc0c (apk+++)
-=======
+  updateurl: any;
+
   // mediaRecorder: MediaRecorder | any;
   // recordedChunks: Blob[] = [];
 
@@ -105,11 +98,12 @@ export class UploadDataPage implements OnInit {
   //   console.log(this.url_);
   // }
 
->>>>>>> 242ed32 (filter ++)
+  // >>>>>>> 242ed32 (filter ++)
   ionViewWillEnter() {
     this.selected_method = JSON.parse(
       this.config.storageGet('choose_file')['__zone_symbol__value']
     );
+    console.log('slected method', this.selected_method);
 
     if (this.config.editable_data != undefined) {
       this.editable_data = this.config.editable_data;
@@ -117,29 +111,23 @@ export class UploadDataPage implements OnInit {
         title: this.editable_data.data.title,
         note: this.editable_data.data.note,
       });
-      if (this.editable_data.img) {
-        this.upload_file = true;
-        this.take_file = false;
-        this.selected_img = this.editable_data.img;
-      }
-      if (this.editable_data.takeImg) {
-        this.upload_file = false;
-        this.take_file = true;
-        this.selected_img1 = this.editable_data.takeImg;
-      }
+      // if (this.editable_data.img) {
+      //   this.upload_file = true;
+      //   this.take_file = false;
+      //   this.selected_img = this.editable_data.img;
+      // }
+      // if (this.editable_data.takeImg) {
+      //   this.upload_file = false;
+      //   this.take_file = true;
+      //   this.selected_img1 = this.editable_data.takeImg;
+      // }
 
       console.log(this.selected_img);
       console.log(this.selected_img1);
 
-<<<<<<< HEAD
-      this.selected_img = this.editable_data.img;
-<<<<<<< HEAD
+      // this.selected_img = this.editable_data.img;
       this.updateurl = this.editable_data.audio;
-=======
-=======
->>>>>>> b1d1df0 (filter ++)
       this.url = this.editable_data.audio;
->>>>>>> 4c0fc0c (apk+++)
       this.draft_update_btn = true;
     }
     if (!this.config.editable_data) {
@@ -162,23 +150,13 @@ export class UploadDataPage implements OnInit {
   }
 
   sanitize(url: string) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
-  
+
   sanitizeUpdate(updateurl: string) {
     return this.domSanitizer.bypassSecurityTrustUrl(updateurl);
   }
-=======
-    console.log(url);
 
-=======
->>>>>>> 242ed32 (filter ++)
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
-  }
-
->>>>>>> 4c0fc0c (apk+++)
   startRecording() {
     this.recording = true;
     let mediaConstraints = {
@@ -229,6 +207,9 @@ export class UploadDataPage implements OnInit {
       takeImg: this.selected_img1,
       audio: this.url,
     };
+    this.Api.addUser(send).subscribe((response) => {
+      console.log(response);
+    });
     this.all_data.push(send);
     console.log(this.all_data);
     this.config.storageSave('all_data', this.all_data);

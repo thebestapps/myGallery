@@ -1,8 +1,4 @@
 <ion-app>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4c0fc0c (apk+++)
   <ion-split-pane contentId="main-content" #ionSplitPane>
     <ion-menu
       class="cus-menu-sty"
@@ -27,18 +23,9 @@
           </ion-col>
         </ion-row>
 
-<<<<<<< HEAD
         <ion-menu-toggle auto-hide="false">
           <ion-item
             *ngFor="let p of appPages; let i = index"
-=======
-        <ion-menu-toggle
-          auto-hide="false"
-          
-        >
-          <ion-item
-          *ngFor="let p of appPages; let i = index"
->>>>>>> 4c0fc0c (apk+++)
             class="item-sdmenu"
             routerDirection="root"
             [routerLink]="[p.url]"
@@ -54,22 +41,14 @@
 
           <ion-row>
             <ion-col size="12">
-<<<<<<< HEAD
               <!-- <div
                 class="menu-user-card log-out"
                 *ngIf="user"
                 (click)="signOut()"
               > -->
-              <div class="menu-user-card log-out" *ngIf="user">
-=======
-              <div
-                class="menu-user-card log-out"
-                *ngIf="user"
-                (click)="signOut()"
-              >
->>>>>>> 4c0fc0c (apk+++)
+              <div class="menu-user-card log-out" (click)="signOut()" *ngIf="user">
                 <!-- <img src="../assets/img/log-out.svg" class="log-out-img" /> -->
-                <p class="sign-out-txt">Sign Out</p>
+                <p class="sign-out-txt" >Sign Out</p>
               </div>
             </ion-col>
             <ion-col size="12">
@@ -84,19 +63,8 @@
             </ion-col>
           </ion-row>
         </ion-menu-toggle>
-<<<<<<< HEAD
-=======
-
-       
->>>>>>> 4c0fc0c (apk+++)
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
-<<<<<<< HEAD
-=======
-  <ion-router-outlet></ion-router-outlet>
->>>>>>> 280733b (Initial commit)
-=======
->>>>>>> 4c0fc0c (apk+++)
 </ion-app>

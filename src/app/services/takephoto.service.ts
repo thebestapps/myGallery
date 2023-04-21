@@ -1,50 +1,18 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-// import {
-//   Camera,
-//   CameraResultType,
-//   CameraSource,
-//   Photo,
-// } from '@capacitor/camera';
-// import { Filesystem, Directory } from '@capacitor/filesystem';
-// import { Preferences } from '@capacitor/preferences';
-=======
-import {
-  Camera,
-  CameraResultType,
-  CameraSource,
-  Photo,
-} from '@capacitor/camera';
-import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Preferences } from '@capacitor/preferences';
-<<<<<<< HEAD
->>>>>>> 4c0fc0c (apk+++)
-=======
+
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+
 import { CommonService } from '../common.function';
 import { Platform } from '@ionic/angular';
->>>>>>> b1d1df0 (filter ++)
 @Injectable({
   providedIn: 'root',
 })
 export class TakephotoService {
-<<<<<<< HEAD
-  constructor() {}
-<<<<<<< HEAD
-  // public async addNewToGallery() {
-  //   // Take a photo
-  //   const capturedPhoto = await Camera.getPhoto({
-  //     resultType: CameraResultType.Uri,
-  //     source: CameraSource.Camera,
-  //     quality: 100,
-  //   });
-  // }
-=======
-=======
+
   public photos: any = [];
   logo: any;
   constructor(public config: CommonService, private plt: Platform) {}
   capturedPhoto: any;
->>>>>>> b1d1df0 (filter ++)
   public async addNewToGallery() {
     // Take a photo
     this.capturedPhoto = await Camera.getPhoto({
@@ -69,9 +37,6 @@ export class TakephotoService {
     //   webviewPath: capturedPhoto.webPath,
     // });
   }
-<<<<<<< HEAD
->>>>>>> 4c0fc0c (apk+++)
-=======
 
   // private async readAsBase64(photo: Photo) {
   //   if (this.plt.is('hybrid')) {
@@ -103,5 +68,4 @@ export class TakephotoService {
         this.config.navigate('upload-data');
       };
     });
->>>>>>> b1d1df0 (filter ++)
 }

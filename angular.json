@@ -47,13 +47,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-<<<<<<< HEAD
-                  "maximumWarning": "150kb",
-                  "maximumError": "150kb"
-=======
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
->>>>>>> 4c0fc0c (apk+++)
                 }
               ],
               "fileReplacements": [
@@ -172,11 +167,7 @@
     "schematicCollections": [
       "@ionic/angular-toolkit"
     ],
-<<<<<<< HEAD
-    "analytics": "1728d377-1967-46cd-87da-25af865c3589"
-=======
     "analytics": false
->>>>>>> 4c0fc0c (apk+++)
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {

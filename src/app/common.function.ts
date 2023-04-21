@@ -34,6 +34,7 @@ export class CommonService {
   editable_data: any;
   selected_folder: any;
   Takeimg: any;
+  user: any;
   constructor(
     public alertController: AlertController,
     public navCtrl: NavController,

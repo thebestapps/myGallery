@@ -10,7 +10,7 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
-<<<<<<< HEAD
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
@@ -42,13 +42,12 @@ ion-action-sheet.my-custom-class {
   --ion-color-danger: #000000;
 }
 
-
 .searchbar-input-container.sc-ion-searchbar-md {
   --background: whitesmoke;
   --box-shadow: none;
   --border-radius: 8px;
 }
-=======
+
 @import "@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
@@ -63,9 +62,6 @@ ion-action-sheet.my-custom-class {
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
-<<<<<<< HEAD
->>>>>>> 280733b (Initial commit)
-=======
 
 * {
   font-family: "Kanit-regular";
@@ -88,4 +84,3 @@ ion-action-sheet.my-custom-class {
   --box-shadow: none;
   --border-radius: 8px;
 }
->>>>>>> 4c0fc0c (apk+++)
