@@ -258,7 +258,6 @@
       <div class="center-algin">
         <ion-button
           class="camera-btn left-radius-btn"
-          (change)="SelectLogo($event,'1')"
         >
           <img
             src="../../../assets/icon/image-upload-icon.svg"
@@ -269,8 +268,12 @@
             name="files"
             type="file"
             id="bannerImg"
+            ng2FileSelect
+            [uploader]="uploader"
+            multiple
+            (change)="SelectChn('propertyimage')"
             accept="image/*"
-            (change)="SelectLogo($event,'1')"
+         
           />
         </ion-button>
 

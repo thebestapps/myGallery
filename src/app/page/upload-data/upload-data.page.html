@@ -31,7 +31,7 @@
           ></ion-icon>
         </div>
       </div>
-      <div class="image-conytainer" *ngIf="upload_file">
+      <div class="image-conytainer"  *ngIf="upload_file">
         <img [src]="selected_img" class="selected-img" />
       </div>
 
@@ -85,20 +85,18 @@
               class="mic-icon bg-color"
             />
           </div>
-          <div class="update-audio" >
-            
+          <div class="update-audio">
             <audio class="audio-file" controls *ngIf="url">
               <source [src]="sanitize(url)" type="audio/wav" />
             </audio>
           </div>
-          <div class="update-audio"*ngIf="updateurl" >
+          <div class="update-audio" *ngIf="updateurl">
             <!-- <p class="audio-txt">updated audio</p> -->
-            <audio class="audio-file" controls >
+            <audio class="audio-file" controls>
               <source [src]="sanitizeUpdate(updateurl)" type="audio/wav" />
             </audio>
           </div>
         </div>
-        
 
         <!-- <div class="audio-record-container" *ngIf="add_audio">
           <div class="audio-record" *ngIf="!recording">

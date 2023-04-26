@@ -6,7 +6,10 @@ import { Storage } from '@ionic/storage-angular';
 import * as RecordRTC from 'recordrtc';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
-
+import { Preferences } from '@capacitor/preferences';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { FileUploader } from 'ng2-file-upload';
+const URL_ = '';
 @Component({
   selector: 'app-upload-data',
   templateUrl: './upload-data.page.html',
@@ -43,7 +46,7 @@ export class UploadDataPage implements OnInit {
   maxChars = 250;
   isTextarea: any;
   isMsg = false;
-
+  updateurl: any;
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -61,8 +64,6 @@ export class UploadDataPage implements OnInit {
     this.storage.create();
     // VoiceRecorder.requestAudioRecordingPermission();
   }
-
-  updateurl: any;
 
   // mediaRecorder: MediaRecorder | any;
   // recordedChunks: Blob[] = [];
@@ -98,8 +99,9 @@ export class UploadDataPage implements OnInit {
   //   console.log(this.url_);
   // }
 
-  // >>>>>>> 242ed32 (filter ++)
   ionViewWillEnter() {
+    console.log('rrrr');
+    
     this.selected_method = JSON.parse(
       this.config.storageGet('choose_file')['__zone_symbol__value']
     );
@@ -111,16 +113,16 @@ export class UploadDataPage implements OnInit {
         title: this.editable_data.data.title,
         note: this.editable_data.data.note,
       });
-      // if (this.editable_data.img) {
-      //   this.upload_file = true;
-      //   this.take_file = false;
-      //   this.selected_img = this.editable_data.img;
-      // }
-      // if (this.editable_data.takeImg) {
-      //   this.upload_file = false;
-      //   this.take_file = true;
-      //   this.selected_img1 = this.editable_data.takeImg;
-      // }
+      if (this.editable_data.img) {
+        this.upload_file = true;
+        this.take_file = false;
+        this.selected_img = this.editable_data.img;
+      }
+      if (this.editable_data.takeImg) {
+        this.upload_file = false;
+        this.take_file = true;
+        this.selected_img1 = this.editable_data.takeImg;
+      }
 
       console.log(this.selected_img);
       console.log(this.selected_img1);
@@ -132,11 +134,12 @@ export class UploadDataPage implements OnInit {
     }
     if (!this.config.editable_data) {
       if (this.selected_method == 1) {
-        console.log('1');
-
         this.upload_file = true;
         this.take_file = false;
-        this.selected_img = this.config.selected_img;
+        let img = this.config.selected_img;
+
+        this.selected_img = 'https://backend.myplotpic.com/uploads/' + img;
+        // 'http://localhost:8080/uploads/' + img;
         console.log(this.selected_img);
       }
 
@@ -207,9 +210,7 @@ export class UploadDataPage implements OnInit {
       takeImg: this.selected_img1,
       audio: this.url,
     };
-    this.Api.addUser(send).subscribe((response) => {
-      console.log(response);
-    });
+  
     this.all_data.push(send);
     console.log(this.all_data);
     this.config.storageSave('all_data', this.all_data);
@@ -272,5 +273,113 @@ export class UploadDataPage implements OnInit {
     } else {
       this.isMsg = false;
     }
+  }
+  EnableOneTime = false;
+  uploadingTrue = false;
+  PercenProgress = '0.0';
+  progress: number = 0;
+  configprogress: any;
+  propertyImages: any;
+  URL: any;
+  public uploader: FileUploader = new FileUploader({
+    url: URL_,
+  });
+  async SelectChn(selId, whichOne) {
+    this.EnableOneTime = true;
+
+    this.uploader.queue.forEach((element) => {
+      if (
+        'image/jpeg' == element.file.type ||
+        'image/png' == element.file.type
+      ) {
+        if (this.EnableOneTime) {
+          this.EnableOneTime = false;
+
+          if (whichOne == 'propertyimage') {
+            this.Update_files_IMAGES(element, selId);
+          }
+        }
+      } else {
+        alert('error');
+      }
+    });
+  }
+
+  async Update_files_IMAGES(n, selId) {
+    let formData = new FormData();
+    formData.append('files', n.file.rawFile, n.file.name);
+
+    let user_id_ = JSON.parse(
+      this.config.storageGet('user')['__zone_symbol__value']
+    );
+
+    let id_ = user_id_._id;
+
+    await this.Api.Post_data('api/' + id_ + '/updatefile', formData).subscribe(
+      (event: HttpEvent<any>) => {
+        this.uploadingTrue = true;
+        // this.config.uploadingTrue = this.uploadingTrue;
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            this.PercenProgress = '0.10';
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded * 100);
+
+            this.configprogress = (
+              Math.round(this.progress * 100) / 100
+            ).toFixed(2);
+
+            this.PercenProgress =
+              '0.' + JSON.stringify(this.progress).slice(0, 1);
+
+            break;
+          case HttpEventType.Response:
+            this.uploadingTrue = false;
+            // this.config.uploadingTrue = this.uploadingTrue;
+            this.configprogress = this.progress;
+            this.configprogress = (
+              Math.round(this.progress * 100) / 100
+            ).toFixed(2);
+
+            console.log(event);
+
+            this.uploader.queue.forEach((element) => {
+              if (element === n) {
+                console.log('89989789797798');
+
+                console.log(event.body.url[0]);
+
+                element.url = event.body.url[0];
+
+                this.propertyImages.forEach((element) => {
+                  console.log(element.id);
+                  console.log(selId);
+                  if (element.id == selId) {
+                    element.image = event.body.url[0];
+                  }
+                });
+
+                this.uploader.queue = [];
+                return event.body.url[0];
+              }
+            });
+
+            setTimeout(() => {
+              this.PercenProgress = '0.0';
+              this.progress = 0;
+            }, 1500);
+        }
+      },
+      (err) => {
+        this.config.alert_('Error');
+        console.log(JSON.stringify(err));
+        return false;
+      }
+    );
   }
 }

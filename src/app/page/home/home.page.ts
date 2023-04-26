@@ -4,9 +4,11 @@ import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
 import { ActionSheetController } from '@ionic/angular';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { ApiService } from '../../services/api.service';
+import { FileUploader } from 'ng2-file-upload';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 const IMAGE_DIR = 'stored-images';
-
+const URL_ = '';
 interface LocalFile {
   name: string;
   path: string;
@@ -64,7 +66,8 @@ export class HomePage {
     public config: CommonService,
     private storage: Storage,
     private domSanitizer: DomSanitizer,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    public Api: ApiService
   ) {}
 
   ngOnInit() {
@@ -74,21 +77,21 @@ export class HomePage {
       this.config.storageGet('user')['__zone_symbol__value']
     );
     // if (this.user) {
-      this.photo_data = JSON.parse(
-        this.config.storageGet('all_data')['__zone_symbol__value']
-      );
+    this.photo_data = JSON.parse(
+      this.config.storageGet('all_data')['__zone_symbol__value']
+    );
 
-      this.allFolder = JSON.parse(
-        this.config.storageGet('allFolder')['__zone_symbol__value']
-      );
-      if (this.photo_data != null) {
-        this.header_data =
-          this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
-      }
+    this.allFolder = JSON.parse(
+      this.config.storageGet('allFolder')['__zone_symbol__value']
+    );
+    if (this.photo_data != null) {
+      this.header_data =
+        this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
+    }
     // }
     console.log(this.user);
   }
- 
+
   // ionViewWillEnter() {
   //   this.user = JSON.parse(
   //     this.config.storageGet('user')['__zone_symbol__value']
@@ -130,12 +133,21 @@ export class HomePage {
       );
       this.filteredImages = this.photo_data;
       this.header_data =
-        this.filteredImages[Math.floor(Math.random() * this.filteredImages.length)];
+        this.filteredImages[
+          Math.floor(Math.random() * this.filteredImages.length)
+        ];
       this.MyDate = this.filteredImages[0].createAt;
     }
     // }
+
+    this.getObject();
   }
 
+  async getObject() {
+    await this.Api.read('create').then((data) => {
+      console.log(data);
+    });
+  }
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
       cssClass: 'my-custom-class',
@@ -214,25 +226,24 @@ export class HomePage {
   }
 
   addPhotoToGallery() {
-   
     this.config.storageSave('choose_file', 2);
     this.photoService.addNewToGallery();
   }
 
-  SelectLogo(e, n) {
-    if (n == 1) {
-      this.config.storageSave('choose_file', 1);
-      if (e.target.files) {
-        var render = new FileReader();
-        render.readAsDataURL(e.target.files[0]);
-        render.onload = (event: any) => {
-          this.logo = event.target.result;
-          this.config.selected_img = this.logo;
-          this.config.navigate('upload-data');
-        };
-      }
-    }
-  }
+  // SelectLogo(e, n) {
+  //   if (n == 1) {
+  //     this.config.storageSave('choose_file', 1);
+  //     if (e.target.files) {
+  //       var render = new FileReader();
+  //       render.readAsDataURL(e.target.files[0]);
+  //       render.onload = (event: any) => {
+  //         this.logo = event.target.result;
+  //         this.config.selected_img = this.logo;
+  //         this.config.navigate('upload-data');
+  //       };
+  //     }
+  //   }
+  // }
 
   edit_data(val) {
     console.log(val);
@@ -244,7 +255,7 @@ export class HomePage {
 
   deleteData(val) {
     console.log(val);
-    
+
     this.selectedId = val.id;
     var un = this.photo_data.filter((val2) => {
       return val2.id !== val.id;
@@ -365,5 +376,117 @@ export class HomePage {
     console.log(snd);
 
     snd.play();
+  }
+
+  EnableOneTime = false;
+  uploadingTrue = false;
+  PercenProgress = '0.0';
+  progress: number = 0;
+  configprogress: any;
+  propertyImages: any;
+  URL: any;
+  public uploader: FileUploader = new FileUploader({
+    url: URL_,
+  });
+  async SelectChn(whichOne) {
+    this.config.storageSave('choose_file', 1);
+    this.EnableOneTime = true;
+
+    this.uploader.queue.forEach((element) => {
+      if (
+        'image/jpeg' == element.file.type ||
+        'image/png' == element.file.type
+      ) {
+        if (this.EnableOneTime) {
+          this.EnableOneTime = false;
+
+          if (whichOne == 'propertyimage') {
+            this.Update_files_IMAGES(element);
+          }
+        }
+      } else {
+        alert('error');
+      }
+    });
+  }
+
+  async Update_files_IMAGES(n) {
+    let formData = new FormData();
+    formData.append('files', n.file.rawFile, n.file.name);
+
+    let user_id_ = JSON.parse(
+      this.config.storageGet('user')['__zone_symbol__value']
+    );
+
+    let id_ = '62ac84f3135844106228e4a1';
+
+    await this.Api.Post_data('api/' + id_ + '/updatefile', formData).subscribe(
+      (event: HttpEvent<any>) => {
+        this.uploadingTrue = true;
+        // this.config.uploadingTrue = this.uploadingTrue;
+        switch (event.type) {
+          case HttpEventType.Sent:
+            console.log('Request has been made!');
+            this.PercenProgress = '0.10';
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header has been received!');
+            break;
+          case HttpEventType.UploadProgress:
+            this.progress = Math.round(event.loaded * 100);
+
+            this.configprogress = (
+              Math.round(this.progress * 100) / 100
+            ).toFixed(2);
+
+            this.PercenProgress =
+              '0.' + JSON.stringify(this.progress).slice(0, 1);
+
+            break;
+          case HttpEventType.Response:
+            this.uploadingTrue = false;
+            // this.config.uploadingTrue = this.uploadingTrue;
+            this.configprogress = this.progress;
+            this.configprogress = (
+              Math.round(this.progress * 100) / 100
+            ).toFixed(2);
+
+            console.log(event);
+
+            this.uploader.queue.forEach((element) => {
+              if (element === n) {
+                console.log('89989789797798');
+
+                console.log(event.body.url[0]);
+
+                element.url = event.body.url[0];
+
+                this.logo =  element.url;
+                this.config.selected_img = this.logo;
+                this.config.navigate('upload-data');
+
+                // this.propertyImages.forEach((element) => {
+                //   console.log(element.id);
+
+                //   element.image = event.body.url[0];
+                // });
+
+                this.uploader.queue = [];
+                return event.body.url[0];
+              }
+            });
+
+            setTimeout(() => {
+              this.PercenProgress = '0.0';
+              this.progress = 0;
+            }, 1500);
+        }
+      },
+      (err) => {
+        this.config.alert_('Error');
+        console.log(JSON.stringify(err));
+        return false;
+      }
+    );
   }
 }

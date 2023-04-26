@@ -22,6 +22,7 @@ MERGED from [:capacitor-haptics] C:\Users\saurb\OneDrive\Desktop\redcrix\myGalle
 MERGED from [:capacitor-keyboard] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\keyboard\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:capacitor-preferences] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\preferences\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:capacitor-status-bar] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\status-bar\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:capacitor-storage] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:codetrix-studio-capacitor-google-auth] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@codetrix-studio\capacitor-google-auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-12:12
 MERGED from [:capacitor-voice-recorder] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\capacitor-voice-recorder\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:capacitor-android] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\android\capacitor\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -203,6 +204,8 @@ MERGED from [:capacitor-preferences] C:\Users\saurb\OneDrive\Desktop\redcrix\myG
 MERGED from [:capacitor-preferences] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\preferences\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-status-bar] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\status-bar\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-status-bar] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\status-bar\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:capacitor-storage] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:capacitor-storage] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@capacitor\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:codetrix-studio-capacitor-google-auth] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@codetrix-studio\capacitor-google-auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:codetrix-studio-capacitor-google-auth] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\@codetrix-studio\capacitor-google-auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-voice-recorder] C:\Users\saurb\OneDrive\Desktop\redcrix\myGallery\node_modules\capacitor-voice-recorder\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
