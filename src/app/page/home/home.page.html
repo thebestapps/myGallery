@@ -32,6 +32,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="spinner" *ngIf="isLoading">
+    <div class="bg-color">
+      <ion-spinner class="spin"></ion-spinner>
+      <p class="spinner-txt">Please Wait...</p>
+    </div>
+  </div>
   <div class="home-page">
     <div class="all-photos-section" *ngIf="all_photos">
       <ion-searchbar
@@ -256,9 +262,7 @@
   <div class="ion-footer" *ngIf="ion_footer">
     <div class="footer-toolbar">
       <div class="center-algin">
-        <ion-button
-          class="camera-btn left-radius-btn"
-        >
+        <ion-button class="camera-btn left-radius-btn">
           <img
             src="../../../assets/icon/image-upload-icon.svg"
             class="camera-img"
@@ -273,7 +277,6 @@
             multiple
             (change)="SelectChn('propertyimage')"
             accept="image/*"
-         
           />
         </ion-button>
 

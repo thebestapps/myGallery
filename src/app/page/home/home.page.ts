@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { FileUploader } from 'ng2-file-upload';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import * as ImageCompressor from 'image-compressor';
 const IMAGE_DIR = 'stored-images';
 const URL_ = '';
 interface LocalFile {
@@ -43,6 +44,8 @@ export class HomePage {
 
   filteredImages: any[] = [];
   selectedInterval: string = '';
+
+  isLoading = false;
   // photo_data: any[] = [
   //   {
   //     img: '../../../assets/img/home-header-img.svg',
@@ -393,9 +396,12 @@ export class HomePage {
     this.EnableOneTime = true;
 
     this.uploader.queue.forEach((element) => {
+      console.log(element.file.size);
+
       if (
         'image/jpeg' == element.file.type ||
-        'image/png' == element.file.type
+        'image/png' == element.file.type ||
+        1000000 > element.file.size
       ) {
         if (this.EnableOneTime) {
           this.EnableOneTime = false;
@@ -405,12 +411,13 @@ export class HomePage {
           }
         }
       } else {
-        alert('error');
+        this.config.presentToast('Image is not acceptable.', '');
       }
     });
   }
 
   async Update_files_IMAGES(n) {
+    this.isLoading = true;
     let formData = new FormData();
     formData.append('files', n.file.rawFile, n.file.name);
 
@@ -461,9 +468,10 @@ export class HomePage {
 
                 element.url = event.body.url[0];
 
-                this.logo =  element.url;
+                this.logo = element.url;
                 this.config.selected_img = this.logo;
                 this.config.navigate('upload-data');
+                this.isLoading = false;
 
                 // this.propertyImages.forEach((element) => {
                 //   console.log(element.id);

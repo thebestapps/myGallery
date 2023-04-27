@@ -19,5 +19,6 @@ import { FileUploadModule } from 'ng2-file-upload';
     FileUploadModule
   ],
   declarations: [HomePage],
+  providers:[]
 })
 export class HomePageModule {}
