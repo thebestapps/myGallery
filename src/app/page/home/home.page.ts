@@ -29,6 +29,7 @@ interface LocalFile {
   path: string;
   data: string;
 }
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -67,13 +68,14 @@ export class HomePage {
     private domSanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController,
     public Api: ApiService,
+    // private imgMaxService: ImgMaxSizeService,
     private platform: Platform,
     private Loading: LoadingController
   ) {}
 
   ngOnInit() {
     this.storage.create();
-
+    // this.loadFile();
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
@@ -90,7 +92,6 @@ export class HomePage {
         this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
     }
     // }
-    console.log(this.user);
   }
 
   // async loadFile() {
@@ -198,7 +199,6 @@ export class HomePage {
   myImg: any = [];
   getData: any = [];
   all_stored: any = [];
-
   ionViewWillEnter() {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
@@ -243,8 +243,6 @@ export class HomePage {
       this.MyDate = this.all_stored[0].createAt;
     }
     // }
-
-    // this.getObject();
   }
 
   removeDuplicates(myArray, Prop) {
@@ -252,11 +250,7 @@ export class HomePage {
       return arr.map((mapObj) => mapObj[Prop]).indexOf(obj[Prop]) === pos;
     });
   }
-  // async getObject() {
-  //   await this.Api.read('create').then((data) => {
-  //     console.log(data);
-  //   });
-  // }
+
   async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
       cssClass: 'my-custom-class',
@@ -355,7 +349,7 @@ export class HomePage {
   // }
 
   edit_data(val) {
-    console.log(val);
+    // console.log(val);
 
     this.selectedId = val.id;
     this.config.navigate('upload-data');
@@ -363,17 +357,51 @@ export class HomePage {
   }
 
   deleteData(val) {
-    console.log(val);
-
     this.selectedId = val.id;
+
     var un = this.photo_data.filter((val2) => {
       return val2.id !== val.id;
     });
-    console.log(un);
+    // this.photo_data = un;
 
-    this.photo_data = un;
     this.filteredImages = un;
-    this.config.storageSave('all_data', this.photo_data);
+    let arrDel = un;
+
+    console.log('all record', arrDel);
+
+    // this.config.storageSave('all_data', this.all_stored);
+    // this.photo_data = JSON.parse(
+    //   this.config.storageGet('all_data')['__zone_symbol__value']
+    // );
+
+    let arrr = this.removeDuplicates(arrDel, 'id');
+    console.log('remove duplicate', arrr);
+    this.config.storageSave('all_data', arrr);
+    // console.log('get daat', this.all_stored);
+    console.log('store Data', arrr);
+
+    let photo = JSON.parse(
+      this.config.storageGet('all_data')['__zone_symbol__value']
+    );
+
+    console.log('store Data 2222', photo);
+    // this.filteredImages = this.photo_data;
+    photo.forEach((res) => {
+      this.getData = res;
+      this.myImg = Capacitor.convertFileSrc(res.img);
+      console.log('loacl path', this.myImg);
+    });
+    let send = {
+      img: this.myImg,
+      createAt: this.getData.createAt,
+      data: this.getData.data,
+      id: this.getData.id,
+    };
+    this.all_stored.push(send);
+    console.log('stored img', this.all_stored);
+
+    this.all_stored = this.removeDuplicates(this.all_stored, 'id');
+    console.log('remove duplicate', this.all_stored);
   }
 
   navigate(n) {
@@ -442,7 +470,7 @@ export class HomePage {
         folder_name: this.folder_name,
       };
       this.allFolder.push(send);
-      console.log(this.allFolder);
+      // console.log(this.allFolder);
       this.config.storageSave('allFolder', this.allFolder);
       this.folder_name = '';
       this.Create_folder_form = false;
@@ -459,7 +487,7 @@ export class HomePage {
     const val = event.target.value;
 
     this.photo_data = this.photo_data.filter((item) => {
-      console.log(item);
+      // console.log(item);
 
       return item.title.toLocaleLowerCase().includes() > -1;
     });
@@ -473,16 +501,16 @@ export class HomePage {
     });
     this.audioSource = Aud;
 
-    console.log(this.audioSource);
+    // console.log(this.audioSource);
 
     const file = new File([this.audioSource], 'audio.mp3');
-    console.log(file);
+    // console.log(file);
 
     const frr = URL.createObjectURL(file);
-    console.log(frr);
+    // console.log(frr);
 
     var snd = new Audio(frr);
-    console.log(snd);
+    // console.log(snd);
 
     snd.play();
   }
@@ -497,35 +525,42 @@ export class HomePage {
   public uploader: FileUploader = new FileUploader({
     url: URL_,
   });
+  compressedImage: any;
   async SelectChn(whichOne) {
     this.config.storageSave('choose_file', 1);
     this.EnableOneTime = true;
 
     this.uploader.queue.forEach((element) => {
-      console.log(element.file.size);
+      // // console.log(element._file);
+      const file = element._file;
+      // this.imgMaxService.compressImage(file, 0.5).subscribe((result) => {
+      //   this.compressedImage = result;
+      //   // // console.log(this.compressedImage);
+      //   if (
+      //     'image/jpeg' == this.compressedImage.type ||
+      //     'image/png' == this.compressedImage.type
+      //   ) {
+      //     if (this.EnableOneTime) {
+      //       this.EnableOneTime = false;
 
-      if (
-        'image/jpeg' == element.file.type ||
-        'image/png' == element.file.type ||
-        1000000 > element.file.size
-      ) {
-        if (this.EnableOneTime) {
-          this.EnableOneTime = false;
-
-          if (whichOne == 'propertyimage') {
-            this.Update_files_IMAGES(element);
-          }
-        }
-      } else {
-        this.config.presentToast('Image is not acceptable.', '');
-      }
+      //       if (whichOne == 'propertyimage') {
+      //         this.Update_files_IMAGES(this.compressedImage);
+      //       }
+      //     }
+      //   } else {
+      //     this.config.presentToast('Image is not acceptable.', '');
+      //   }
+      // });
     });
   }
 
   async Update_files_IMAGES(n) {
+    // // console.log(n);
+
     this.isLoading = true;
     let formData = new FormData();
-    formData.append('files', n.file.rawFile, n.file.name);
+    formData.append('files', n);
+    // // console.log(formData);
 
     let user_id_ = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
@@ -539,11 +574,11 @@ export class HomePage {
         // this.config.uploadingTrue = this.uploadingTrue;
         switch (event.type) {
           case HttpEventType.Sent:
-            console.log('Request has been made!');
+            // // console.log('Request has been made!');
             this.PercenProgress = '0.10';
             break;
           case HttpEventType.ResponseHeader:
-            console.log('Response header has been received!');
+            // // console.log('Response header has been received!');
             break;
           case HttpEventType.UploadProgress:
             this.progress = Math.round(event.loaded * 100);
@@ -564,13 +599,13 @@ export class HomePage {
               Math.round(this.progress * 100) / 100
             ).toFixed(2);
 
-            console.log(event);
+            // // console.log(event);
 
             this.uploader.queue.forEach((element) => {
               if (element === n) {
-                console.log('89989789797798');
+                // // console.log('89989789797798');
 
-                console.log(event.body.url[0]);
+                // // console.log(event.body.url[0]);
 
                 element.url = event.body.url[0];
 
@@ -580,7 +615,7 @@ export class HomePage {
                 this.isLoading = false;
 
                 // this.propertyImages.forEach((element) => {
-                //   console.log(element.id);
+                //   // console.log(element.id);
 
                 //   element.image = event.body.url[0];
                 // });
@@ -598,7 +633,7 @@ export class HomePage {
       },
       (err) => {
         this.config.alert_('Error');
-        console.log(JSON.stringify(err));
+        // // console.log(JSON.stringify(err));
         return false;
       }
     );

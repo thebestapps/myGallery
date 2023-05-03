@@ -304,7 +304,9 @@ export class UploadDataPage implements OnInit {
     this.error = 'Can not play audio in your browser';
   }
 
-  save_data() {
+ async save_data() {
+    this.saveImage(this.img_);
+
     this.all_data = [];
     let all_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
@@ -312,21 +314,28 @@ export class UploadDataPage implements OnInit {
     if (all_data != undefined) {
       this.all_data = all_data;
     }
+    const loading = await this.Loading.create({
+      message: 'Loading Data...',
+    });
+    await loading.present();
 
-    let send = {
-      id: this.config.generateUniqueId(),
-      createAt: new Date(),
-      data: this.form_details.value,
-      img: this.selected_img,
-      takeImg: this.selected_img1,
-      audio: this.url,
-    };
-  
-    this.all_data.push(send);
-    console.log(this.all_data);
-    this.config.storageSave('all_data', this.all_data);
-    this.config.navigate('home');
-    this.form_details.reset();
+    setTimeout(() => {
+      let send = {
+        id: this.config.generateUniqueId(),
+        createAt: new Date(),
+        data: this.form_details.value,
+        img: this.savedUrl,
+        takeImg: this.selected_img1,
+        audio: this.url,
+      };
+
+      this.all_data.push(send);
+      this.config.storageSave('all_data', this.all_data);
+      this.config.navigate('home');
+      this.form_details.reset();
+    }, 100);
+
+    loading.dismiss();
   }
 
   update_data() {
