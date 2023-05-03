@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header">
+      <ion-title *ngIf="header_logo">LOGO</ion-title>
+      <p
+        slot="end"
+        *ngIf="login_page"
+        class="skip-btn"
+        (click)="social_login('skip')"
+      >
+        Skip now
+      </p>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="page-content">
+    <div class="onboarding-page" *ngIf="onboarding_page">
+      <div class="image-grp">
+        <img
+          class="onboarding-img"
+          src="../../../assets/img/onboarding-img-grp.png"
+        />
+      </div>
+      <div class="txt-content">
+        <h1 class="onboarding-heading">Explore your Capture.</h1>
+        <p class="small-txt">Share your capture with app name</p>
+        <ion-button class="start-btn" (click)="getStart()"
+          >Get Started</ion-button
+        >
+      </div>
+    </div>
+
+    <div class="login-page" *ngIf="login_page">
+      <p class="hello-txt">Hey, Again!</p>
+      <p class="small-txt">Welcome back you’ve been missed!</p>
+
+      <!-- <div class="login-btn" (click)="signIn()"> -->
+      <div class="login-btn" (click)="social_login('goggle')">
+        <img class="login-icon" src="../../../assets/icon/Google-icon.svg" />
+        <p class="login-txt">Continue With Google</p>
+      </div>
+
+      <!-- <div class="login-btn" (click)="social_login('apple')">
+        <img class="login-icon" src="../../../assets/icon/apple-icon.svg" />
+        <p class="login-txt">Continue With Apple ID</p>
+      </div>
+
+      <div class="login-btn" (click)="social_login('facebook')">
+        <img class="login-icon" src="../../../assets/icon/facebook-icon.svg" />
+        <p class="login-txt">Continue With Facebook</p>
+      </div> -->
+    </div>
+  </div>
+</ion-content>

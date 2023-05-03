@@ -1,0 +1,163 @@
+* {
+  margin: 0px;
+}
+
+.header {
+  display: flex;
+}
+.left-arrow-icon {
+  text-align: left;
+  margin: auto auto auto 13px;
+  font-size: 28px;
+}
+.title-content {
+  text-align: left;
+  margin: auto auto auto auto;
+  text-align: center;
+}
+.three-dot-icon {
+  text-align: left;
+  margin: auto 6px auto 0px;
+  font-size: 22px;
+}
+
+.three-dot-icon.autoMargin {
+  margin: auto 6px auto auto;
+}
+
+.item-number {
+  margin-top: -12px;
+  color: #bebebe;
+  font-size: 12px;
+}
+
+.folder-name {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: #000000;
+}
+
+.flex-content {
+  display: flex;
+}
+
+.date-txt,
+.day-txt {
+  font-size: 13px;
+  margin: 0px;
+}
+
+.photo-resize {
+  margin: auto 0px auto auto !important;
+}
+
+.large-grid-icon {
+  margin-left: 10px;
+}
+
+.small-grid-icon {
+  margin-left: 10px;
+  margin-bottom: -3px;
+}
+
+.view-item-page {
+  margin: 0px 20px;
+}
+
+.content {
+  width: 100%;
+}
+
+.card {
+  background: var(--ion-box-primary);
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.img.content {
+  position: relative;
+}
+
+.content-img {
+  width: 100%;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 6px;
+  background: white;
+}
+
+.edit-icon {
+  position: absolute;
+  right: 5px;
+  background: #fff3df;
+  top: 5px;
+  border-radius: 30px;
+  padding: 7px;
+}
+
+.txt-content {
+  display: flex;
+}
+
+.note-txt {
+  font-size: 10px;
+  line-height: 15px;
+  color: #747474;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.img-grp {
+  text-align: center;
+}
+
+.delete-icon {
+  background: #fff;
+  border-radius: 60px;
+  height: 18px;
+  width: 18px;
+  padding: 8px;
+  margin: auto auto 0px auto;
+}
+
+.mic-icon {
+  background: #fff;
+  border-radius: 60px;
+  height: 30px;
+  width: 30px;
+  padding: 4px;
+  margin: auto auto 0px auto;
+}
+
+.grid-content-img {
+  width: 100%;
+  height: 4.5rem;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.more-option-popup {
+  background: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  padding: 10px 30px 5px 20px;
+  position: absolute;
+  z-index: 1000;
+  right: 28px;
+}
+.option-txt {
+  margin-bottom: 12px;
+}
+.grid-content {
+  position: relative;
+}
+
+.input-checkbox {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
