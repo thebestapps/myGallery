@@ -342,7 +342,7 @@ export class UploadDataPage implements OnInit {
     let all_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
-
+  
     this.all_data = all_data;
     this.all_data.forEach((el) => {
       if (this.config.editable_data.id == el.id) {
@@ -357,7 +357,7 @@ export class UploadDataPage implements OnInit {
     this.config.storageSave('all_data', this.all_data);
     this.config.navigate('home');
   }
-
+  
   navigate(n: any) {
     if (n == '1') {
       // this.add_label = true;
@@ -381,7 +381,7 @@ export class UploadDataPage implements OnInit {
       this.add_audio = !this.add_audio;
     }
   }
-
+  
   back() {
     this.config.navigate('home');
   }

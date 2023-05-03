@@ -355,7 +355,7 @@ export class HomePage {
     this.config.navigate('upload-data');
     this.config.editable_data = val;
   }
-
+  localData: any = [];
   deleteData(val) {
     this.selectedId = val.id;
 
@@ -397,10 +397,10 @@ export class HomePage {
       data: this.getData.data,
       id: this.getData.id,
     };
-    this.all_stored.push(send);
-    console.log('stored img', this.all_stored);
+    this.localData.push(send);
+    console.log('stored img', this.localData);
 
-    this.all_stored = this.removeDuplicates(this.all_stored, 'id');
+    this.all_stored = this.removeDuplicates(this.localData, 'id');
     console.log('remove duplicate', this.all_stored);
   }
 
