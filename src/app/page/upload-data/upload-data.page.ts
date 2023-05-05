@@ -66,7 +66,8 @@ export class UploadDataPage implements OnInit {
   updateurl: any;
   images: LocalFile[] = [];
   img_: any;
-
+  savedUrl: any;
+  storeTakeImg: any;
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -131,6 +132,8 @@ export class UploadDataPage implements OnInit {
 
     if (this.config.editable_data != undefined) {
       this.editable_data = this.config.editable_data;
+      console.log('edit data', this.editable_data);
+
       this.form_details = this.fb.group({
         title: this.editable_data.data.title,
         note: this.editable_data.data.note,
@@ -151,7 +154,9 @@ export class UploadDataPage implements OnInit {
       this.url = this.editable_data.audio;
       this.draft_update_btn = true;
     }
-    if (!this.config.editable_data) {
+    if (this.config.editable_data = undefined) {
+      console.log('en');
+      
       if (this.selected_method == 1) {
         this.upload_file = true;
         this.take_file = false;
@@ -166,6 +171,8 @@ export class UploadDataPage implements OnInit {
         this.upload_file = false;
         this.take_file = true;
         this.selected_img1 = this.config.Takeimg;
+        this.storeTakeImg = this.config.storeTakeImg;
+        console.log('take img ', this.storeTakeImg);
       }
     }
   }
@@ -175,7 +182,7 @@ export class UploadDataPage implements OnInit {
     this.selected_img = `data:image/jpeg;base64,${this.selected_img}`;
     console.log('image---------------------', this.selected_img);
   }
-  savedUrl: any;
+
   async saveImage(photo: Photo) {
     // console.log('en-----------------------');
 
@@ -262,7 +269,6 @@ export class UploadDataPage implements OnInit {
     }
   }
 
-
   sanitize(url: string) {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
@@ -304,7 +310,7 @@ export class UploadDataPage implements OnInit {
     this.error = 'Can not play audio in your browser';
   }
 
- async save_data() {
+  async save_data() {
     this.saveImage(this.img_);
 
     this.all_data = [];
@@ -325,7 +331,7 @@ export class UploadDataPage implements OnInit {
         createAt: new Date(),
         data: this.form_details.value,
         img: this.savedUrl,
-        takeImg: this.selected_img1,
+        takeImg: this.storeTakeImg,
         audio: this.url,
       };
 
@@ -342,10 +348,14 @@ export class UploadDataPage implements OnInit {
     let all_data = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
-  
+
     this.all_data = all_data;
     this.all_data.forEach((el) => {
+      console.log(el.id);
+
       if (this.config.editable_data.id == el.id) {
+        console.log('en', this.config.editable_data.id);
+
         el.id = this.editable_data.id;
         el.data.title = this.form_details.controls['title'].value;
         el.data.note = this.form_details.controls['note'].value;
@@ -355,9 +365,11 @@ export class UploadDataPage implements OnInit {
       }
     });
     this.config.storageSave('all_data', this.all_data);
+    this.selected_img1 = '';
+    this.selected_img = '';
     this.config.navigate('home');
   }
-  
+
   navigate(n: any) {
     if (n == '1') {
       // this.add_label = true;
@@ -381,7 +393,7 @@ export class UploadDataPage implements OnInit {
       this.add_audio = !this.add_audio;
     }
   }
-  
+
   back() {
     this.config.navigate('home');
   }

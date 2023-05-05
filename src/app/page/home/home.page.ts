@@ -61,6 +61,10 @@ export class HomePage {
 
   isLoading = false;
   images: LocalFile[] = [];
+
+  myImg: any = [];
+  getData: any = [];
+  all_stored: any = [];
   constructor(
     public photoService: TakephotoService,
     public config: CommonService,
@@ -79,19 +83,17 @@ export class HomePage {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-    // if (this.user) {
-    this.photo_data = JSON.parse(
+    this.all_stored = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
 
     this.allFolder = JSON.parse(
       this.config.storageGet('allFolder')['__zone_symbol__value']
     );
-    if (this.photo_data != null) {
+    if (this.all_stored != null) {
       this.header_data =
-        this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
+        this.all_stored[Math.floor(Math.random() * this.all_stored.length)];
     }
-    // }
   }
 
   // async loadFile() {
@@ -145,32 +147,23 @@ export class HomePage {
       resultType: CameraResultType.Uri,
       source: CameraSource.Photos,
     });
-    // console.log('selected img-------',image);
     if (image) {
       this.config.storageSave('choose_file', 1);
-      // this.logo = image;
-
       this.config.selected_img = image;
-      // console.log('file----',this.config.selected_img);
       this.config.navigate('upload-data');
-      // this.saveImage(image);
     }
   }
 
   async saveImage(photo: Photo) {
     const base64Data: any = await this.readAsBase64(photo);
-    // console.log('based64 data-------',base64Data);
 
     const FileName = new Date().getTime() + '.jpeg';
-    // console.log('file name ------',FileName);
 
     const savedFile = await Filesystem.writeFile({
       directory: Directory.Data,
       path: `${IMAGE_DIR}/${FileName}`,
       data: base64Data,
     });
-    // console.log('save file', savedFile);
-    // this.loadFile();
   }
 
   async readAsBase64(photo: any) {
@@ -195,54 +188,53 @@ export class HomePage {
       };
       reader.readAsDataURL(blob);
     });
-
-  myImg: any = [];
-  getData: any = [];
-  all_stored: any = [];
+  takeImg: any;
   ionViewWillEnter() {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-    // if (this.user) {
-    this.photo_data = JSON.parse(
-      this.config.storageGet('all_data')['__zone_symbol__value']
-    );
+
+  
 
     this.allFolder = JSON.parse(
       this.config.storageGet('allFolder')['__zone_symbol__value']
     );
 
-    if (this.photo_data) {
-      this.photo_data = JSON.parse(
-        this.config.storageGet('all_data')['__zone_symbol__value']
-      );
+    this.all_stored = JSON.parse(
+      this.config.storageGet('all_data')['__zone_symbol__value']
+    );
+    console.log('get local data', this.all_stored);
+    if (this.all_stored) {
+      console.log('en---');
+
+      // this.all_stored = JSON.parse(
+      //   this.config.storageGet('all_data')['__zone_symbol__value']
+      // );
+      // console.log('get local data 222', this.all_stored);
       // this.filteredImages = this.photo_data;
-      this.photo_data.forEach((res) => {
+      this.all_stored.forEach((res) => {
         this.getData = res;
         this.myImg = Capacitor.convertFileSrc(res.img);
-        console.log('loacl path', this.myImg);
+        console.log('convert', this.myImg);
+
+        this.takeImg = Capacitor.convertFileSrc(res.takeImg);
+        console.log('convert takeImg', this.takeImg);
 
         let send = {
           img: this.myImg,
           createAt: this.getData.createAt,
           data: this.getData.data,
           id: this.getData.id,
+          takeImg: this.takeImg,
         };
-        this.all_stored.push(send);
-        console.log('stored img', this.all_stored);
+        this.localData.push(send);
+        this.all_stored = this.removeDuplicates(this.localData, 'id');
+        console.log('removed Dupli', this.all_stored);
+        this.header_data =
+          this.all_stored[Math.floor(Math.random() * this.all_stored.length)];
+        this.MyDate = this.all_stored[0].createAt;
       });
-
-      this.all_stored = this.removeDuplicates(this.all_stored, 'id');
-      console.log('remove duplicate', this.all_stored);
-
-      // Capacitor.convertFileSrc(this);
-      // console.log('home img', this.filteredImages);
-
-      this.header_data =
-        this.all_stored[Math.floor(Math.random() * this.all_stored.length)];
-      this.MyDate = this.all_stored[0].createAt;
     }
-    // }
   }
 
   removeDuplicates(myArray, Prop) {
@@ -349,17 +341,19 @@ export class HomePage {
   // }
 
   edit_data(val) {
-    // console.log(val);
-
     this.selectedId = val.id;
     this.config.navigate('upload-data');
     this.config.editable_data = val;
   }
+
   localData: any = [];
+  photo: any = [];
   deleteData(val) {
+    console.log(val);
+
     this.selectedId = val.id;
 
-    var un = this.photo_data.filter((val2) => {
+    var un = this.all_stored.filter((val2) => {
       return val2.id !== val.id;
     });
     // this.photo_data = un;
@@ -380,28 +374,30 @@ export class HomePage {
     // console.log('get daat', this.all_stored);
     console.log('store Data', arrr);
 
-    let photo = JSON.parse(
+    this.photo = JSON.parse(
       this.config.storageGet('all_data')['__zone_symbol__value']
     );
 
-    console.log('store Data 2222', photo);
+    console.log('store Data 2222', this.photo);
     // this.filteredImages = this.photo_data;
-    photo.forEach((res) => {
+    this.photo.forEach((res) => {
+      console.log('loop respone', res);
+
       this.getData = res;
       this.myImg = Capacitor.convertFileSrc(res.img);
-      console.log('loacl path', this.myImg);
+      // console.log('loacl path', this.myImg);
+      let send = {
+        img: this.myImg,
+        createAt: this.getData.createAt,
+        data: this.getData.data,
+        id: this.getData.id,
+      };
+      this.localData.push(send);
+      console.log('stored img', this.localData);
+      this.all_stored = this.removeDuplicates(this.localData, 'id');
+      console.log('remove duplicate', this.all_stored);
     });
-    let send = {
-      img: this.myImg,
-      createAt: this.getData.createAt,
-      data: this.getData.data,
-      id: this.getData.id,
-    };
-    this.localData.push(send);
-    console.log('stored img', this.localData);
-
     this.all_stored = this.removeDuplicates(this.localData, 'id');
-    console.log('remove duplicate', this.all_stored);
   }
 
   navigate(n) {

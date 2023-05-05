@@ -8,7 +8,7 @@ import { Platform } from '@ionic/angular';
   providedIn: 'root',
 })
 export class TakephotoService {
-
+  storeTakeImg: any;
   public photos: any = [];
   logo: any;
   constructor(public config: CommonService, private plt: Platform) {}
@@ -21,7 +21,9 @@ export class TakephotoService {
       quality: 100,
     });
 
-    console.log(this.capturedPhoto);
+    console.log('saved', this.capturedPhoto.path);
+    this.storeTakeImg = this.capturedPhoto;
+    this.config.storeTakeImg = this.capturedPhoto.path;
 
     const response = await fetch(this.capturedPhoto.webPath);
     console.log('convert', response);
@@ -65,6 +67,7 @@ export class TakephotoService {
 
         console.log('logo', this.logo);
         this.config.Takeimg = this.logo;
+    
         this.config.navigate('upload-data');
       };
     });

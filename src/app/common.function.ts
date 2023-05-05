@@ -35,6 +35,7 @@ export class CommonService {
   selected_folder: any;
   Takeimg: any;
   user: any;
+  storeTakeImg:any
   constructor(
     public alertController: AlertController,
     public navCtrl: NavController,
