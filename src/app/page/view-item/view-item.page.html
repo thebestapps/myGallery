@@ -37,8 +37,12 @@
   <div class="more-option-popup" *ngIf="folder_option">
     <p class="option-txt">Settings</p>
     <p class="option-txt">Favorites</p>
-    <p class="option-txt" *ngIf="!select_item" (click)="selectItem()">Select items</p>
-    <p class="option-txt"   *ngIf="select_item" (click)="selectItem()">Unselect items</p>
+    <p class="option-txt" *ngIf="!select_item" (click)="selectItem()">
+      Select items
+    </p>
+    <p class="option-txt" *ngIf="select_item" (click)="selectItem()">
+      Unselect items
+    </p>
     <p class="option-txt">Edit folder</p>
   </div>
   <div class="view-item-page">
@@ -76,6 +80,21 @@
     </div>
 
     <div class="content">
+      <ion-list>
+        <ion-item *ngFor="let file of images; let i = index">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="file.data"></ion-img>
+          </ion-thumbnail>
+          <ion-label class="ion-text-wrap"> {{ file.name }} </ion-label>
+          <ion-button slot="end" fill="clear">
+            <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" fill="clear" >
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
       <ion-row *ngIf="small_grid_active">
         <ion-col
           size-xs="6"
@@ -135,10 +154,36 @@
               (click)="selectData(item)"
             />
             <img *ngIf="item.img" [src]="item.img" class="grid-content-img" />
-            <img *ngIf="!item.img" [src]="item.takeImg" class="grid-content-img" />
+            <img
+              *ngIf="!item.img"
+              [src]="item.takeImg"
+              class="grid-content-img"
+            />
           </div>
         </ion-col>
       </ion-row>
     </div>
   </div>
+
+  <!-- footer tabs  ----- -->
+  <div class="ion-footer">
+    <div class="footer-toolbar">
+      <div class="center-algin">
+        <ion-button class="camera-btn left-radius-btn" (click)="SelectImage()">
+          <img
+            src="../../../assets/icon/image-upload-icon.svg"
+            class="camera-img"
+          />
+        </ion-button>
+
+        <ion-button
+          class="camera-btn right-radius-btn"
+          (click)="addPhotoToGallery()"
+        >
+          <img src="../../../assets/icon/camera-icon.svg" class="camera-img" />
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <!-- footer tabs  ----- -->
 </ion-content>

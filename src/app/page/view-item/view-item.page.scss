@@ -161,3 +161,38 @@
   right: 5px;
   top: 5px;
 }
+
+// footer tabs start
+
+.ion-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-toolbar {
+  position: fixed;
+  bottom: 35px;
+  justify-content: center;
+}
+
+.center-algin {
+  background: #1c50ff;
+  display: inline-flex;
+  border-radius: 28px;
+}
+
+.camera-btn {
+  --background: #1c50ff;
+  width: 78px;
+  height: 60px;
+  --box-shadow: none;
+}
+.left-radius-btn {
+  --border-radius: 28px 0px 0px 28px;
+}
+.right-radius-btn {
+  --border-radius: 0px 28px 28px 0px;
+}
+.footer-md::before {
+  background-image: none;
+}

@@ -90,40 +90,6 @@ export class UploadDataPage implements OnInit {
     // VoiceRecorder.requestAudioRecordingPermission();
   }
 
-  // mediaRecorder: MediaRecorder | any;
-  // recordedChunks: Blob[] = [];
-
-  // startRecording_() {
-  //   this.recording = true;
-  //   navigator.mediaDevices
-  //     .getUserMedia({ audio: true })
-  //     .then((stream) => {
-  //       this.mediaRecorder = new MediaRecorder(stream);
-  //       this.mediaRecorder.addEventListener('dataavailable', (event) => {
-  //         this.recordedChunks.push(event.data);
-  //       });
-  //       this.mediaRecorder.start();
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error accessing microphone:', error);
-  //     });
-  // }
-
-  // stopRecording_() {
-  //   this.recording = false;
-  //   if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
-  //     this.mediaRecorder.stop();
-  //     this.mediaRecorder = null;
-  //   }
-  // }
-
-  // url_;
-  // playRecording() {
-  //   const blob = new Blob(this.recordedChunks, { type: 'audio/webm' });
-  //   this.url_ = URL.createObjectURL(blob);
-  //   console.log(this.url_);
-  // }
-
   ionViewWillEnter() {
     // this.loadRecordFile();
     this.selected_method = JSON.parse(
@@ -154,9 +120,9 @@ export class UploadDataPage implements OnInit {
       this.url = this.editable_data.audio;
       this.draft_update_btn = true;
     }
-    if (this.config.editable_data = undefined) {
+    if ((this.config.editable_data = undefined)) {
       console.log('en');
-      
+
       if (this.selected_method == 1) {
         this.upload_file = true;
         this.take_file = false;
@@ -184,8 +150,6 @@ export class UploadDataPage implements OnInit {
   }
 
   async saveImage(photo: Photo) {
-    // console.log('en-----------------------');
-
     this.selected_img = await this.readAsBase64(photo);
     const FileName = new Date().getTime() + '.jpeg';
     const savedFile = await Filesystem.writeFile({
@@ -193,9 +157,7 @@ export class UploadDataPage implements OnInit {
       path: `${IMAGE_DIR}/${FileName}`,
       data: this.selected_img,
     });
-    console.log('save file', savedFile);
     this.savedUrl = savedFile.uri;
-    console.log('save file--------', this.savedUrl);
   }
 
   async readAsBase64(photo: any) {
@@ -203,7 +165,6 @@ export class UploadDataPage implements OnInit {
       const file = await Filesystem.readFile({
         path: photo.path,
       });
-      // console.log('filesystem-------', file);
 
       return file.data;
     } else {

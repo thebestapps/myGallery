@@ -46,9 +46,13 @@
                 *ngIf="user"
                 (click)="signOut()"
               > -->
-              <div class="menu-user-card log-out" (click)="signOut()" *ngIf="user">
+              <div
+                class="menu-user-card log-out"
+                (click)="signOut()"
+                *ngIf="user"
+              >
                 <!-- <img src="../assets/img/log-out.svg" class="log-out-img" /> -->
-                <p class="sign-out-txt" >Sign Out</p>
+                <p class="sign-out-txt">Sign Out</p>
               </div>
             </ion-col>
             <ion-col size="12">

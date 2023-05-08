@@ -13,6 +13,7 @@ import { FilterPipe } from './pipe/filter.pipe';
     FormsModule,
     FormsModule,
     ReactiveFormsModule,
+    
   ],
   exports: [HeaderComponent,FilterPipe],
 })

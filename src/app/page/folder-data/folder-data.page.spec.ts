@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FolderDataComponent } from './folder-data.component';
+import { FolderDataPage } from './folder-data.page';
 
-describe('FolderDataComponent', () => {
-  let component: FolderDataComponent;
-  let fixture: ComponentFixture<FolderDataComponent>;
+describe('FolderDataPage', () => {
+  let component: FolderDataPage;
+  let fixture: ComponentFixture<FolderDataPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FolderDataComponent ],
+      declarations: [ FolderDataPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FolderDataComponent);
+    fixture = TestBed.createComponent(FolderDataPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

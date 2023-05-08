@@ -31,6 +31,10 @@ const routes: Routes = [
         (m) => m.ViewItemPageModule
       ),
   },
+  {
+    path: 'folder-data',
+    loadChildren: () => import('./page/folder-data/folder-data.module').then( m => m.FolderDataPageModule)
+  },
 ];
 
 @NgModule({

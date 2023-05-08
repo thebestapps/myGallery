@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="create-folder-section">
+    <div class="folder-form-header">
+      <img
+        src="../../../assets/icon/left-arrow-back.svg"
+        (click)="CreateFolder('back')"
+        class="back-icon"
+      />
+      <p class="new-folder-txt">New Folder</p>
+    </div>
+    <div class="inp-bx">
+      <p class="lb-txt">Folder Name</p>
+      <ion-input
+        class="ion-input-field"
+        placeholder="Enter folder name"
+        [(ngModel)]="folder_name"
+        (ngModelChange)="selectData($event)"
+      ></ion-input>
+    </div>
+    <div class="btn-grp">
+      <ion-button class="create-folder-btn" (click)="CreateFolder('create')"
+        >Create folder</ion-button
+      >
+      <ion-button class="cancel-btn" (click)="CreateFolder('back')"
+        >Cancel</ion-button
+      >
+    </div>
+  </div>
+</ion-content>

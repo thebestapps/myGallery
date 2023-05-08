@@ -1,8 +1,7 @@
 import {
-  AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnChanges,
   OnInit,
 } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
@@ -13,6 +12,7 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   user: any = null;
@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
   ionViewWillEnter() {
     this._changeDetectorRef.detectChanges();
 
- 
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );

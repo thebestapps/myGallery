@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TakephotoService } from 'src/app/services/takephoto.service';
 import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
@@ -31,11 +31,11 @@ interface LocalFile {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-folder-data',
+  templateUrl: './folder-data.page.html',
+  styleUrls: ['./folder-data.page.scss'],
 })
-export class HomePage {
+export class FolderDataPage implements OnInit {
   result: any;
   logo: any;
   selectedId: any;
@@ -96,50 +96,6 @@ export class HomePage {
     }
   }
 
-  // async loadFile() {
-  //   this.images = [];
-  //   const loading = await this.Loading.create({
-  //     message: 'Loading Data...',
-  //   });
-  //   await loading.present();
-
-  //   Filesystem.readdir({
-  //     directory: Directory.Data,
-  //     path: IMAGE_DIR,
-  //   })
-  //     .then(
-  //       (result) => {
-  //         // console.log('Here', result);
-  //         this.loadFileData(result.files.map((x) => x.name));
-  //       },
-  //       async (err) => {
-  //         await Filesystem.mkdir({
-  //           directory: Directory.Data,
-  //           path: IMAGE_DIR,
-  //         });
-  //       }
-  //     )
-  //     .then((_) => {
-  //       loading.dismiss();
-  //     });
-  // }
-
-  // async loadFileData(fileNames: string[]) {
-  //   for (let f of fileNames) {
-  //     const filePath = `${IMAGE_DIR}/${f}`;
-  //     const readFile = await Filesystem.readFile({
-  //       directory: Directory.Data,
-  //       path: filePath,
-  //     });
-  //     this.images.push({
-  //       label: 'hello',
-  //       name: f,
-  //       path: filePath,
-  //       data: `data:image/jpeg;base64,${readFile.data}`,
-  //     });
-  //     // console.log('read', this.images);
-  //   }
-  // }
   async SelectImage() {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -193,8 +149,6 @@ export class HomePage {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-
-  
 
     this.allFolder = JSON.parse(
       this.config.storageGet('allFolder')['__zone_symbol__value']
@@ -275,16 +229,6 @@ export class HomePage {
             this.filterImages('two-years');
           },
         },
-        // {
-        //   text: 'Cancel',
-        //   role: 'cancel',
-        //   data: {
-        //     action: 'cancel',
-        //   },
-        // handler: () => {
-        //   this.filteredImages = this.allImages;
-        // },
-        // },
       ],
     });
     actionSheet.present();
@@ -324,21 +268,6 @@ export class HomePage {
     this.config.storageSave('choose_file', 2);
     this.photoService.addNewToGallery();
   }
-
-  // SelectLogo(e, n) {
-  //   if (n == 1) {
-  //     this.config.storageSave('choose_file', 1);
-  //     if (e.target.files) {
-  //       var render = new FileReader();
-  //       render.readAsDataURL(e.target.files[0]);
-  //       render.onload = (event: any) => {
-  //         this.logo = event.target.result;
-  //         this.config.selected_img = this.logo;
-  //         this.config.navigate('upload-data');
-  //       };
-  //     }
-  //   }
-  // }
 
   edit_data(val) {
     this.selectedId = val.id;
@@ -402,14 +331,10 @@ export class HomePage {
 
   navigate(n) {
     if (n == '1') {
-      // this.all_photos = true;
-      // this.all_folders = false;
-      this.config.navigate('home')
+      this.config.navigate('home');
     }
     if (n == '2') {
-      // this.all_photos = false;
-      // this.all_folders = true;
-      this.config.navigate('folder-data')
+      this.config.navigate('folder-data');
     }
   }
 
@@ -434,48 +359,10 @@ export class HomePage {
   more_options() {
     this.folder_option = !this.folder_option;
   }
-  folder_name: any;
-  selectData(dateVal) {
-    this.folder_name = dateVal;
-  }
 
   CreateFolder(n) {
     if (n == 'folder') {
-      this.Create_folder_form = true;
-      this.all_photos = false;
-      this.all_folders = false;
-      this.ion_header = false;
-      this.ion_footer = false;
-    }
-    if (n == 'back') {
-      this.Create_folder_form = false;
-      this.all_photos = false;
-      this.all_folders = true;
-      this.ion_header = true;
-      this.ion_footer = true;
-    }
-    if (n == 'create') {
-      this.allFolder = [];
-      let allFolder = JSON.parse(
-        this.config.storageGet('allFolder')['__zone_symbol__value']
-      );
-      if (allFolder != undefined) {
-        this.allFolder = allFolder;
-      }
-
-      let send = {
-        id: this.config.generateUniqueId(),
-        folder_name: this.folder_name,
-      };
-      this.allFolder.push(send);
-      // console.log(this.allFolder);
-      this.config.storageSave('allFolder', this.allFolder);
-      this.folder_name = '';
-      this.Create_folder_form = false;
-      this.all_photos = false;
-      this.all_folders = true;
-      this.ion_header = true;
-      this.ion_footer = true;
+      this.config.navigate('folder-data/create-folder');
     }
   }
 
@@ -483,13 +370,11 @@ export class HomePage {
 
   filterItems(event) {
     const val = event.target.value;
-
     this.photo_data = this.photo_data.filter((item) => {
-      // console.log(item);
-
       return item.title.toLocaleLowerCase().includes() > -1;
     });
   }
+
   audioSource: any;
   async stopPlay(val) {
     this.selectedId = val.id;
@@ -511,129 +396,5 @@ export class HomePage {
     // console.log(snd);
 
     snd.play();
-  }
-
-  EnableOneTime = false;
-  uploadingTrue = false;
-  PercenProgress = '0.0';
-  progress: number = 0;
-  configprogress: any;
-  propertyImages: any;
-  URL: any;
-  public uploader: FileUploader = new FileUploader({
-    url: URL_,
-  });
-  compressedImage: any;
-  async SelectChn(whichOne) {
-    this.config.storageSave('choose_file', 1);
-    this.EnableOneTime = true;
-
-    this.uploader.queue.forEach((element) => {
-      // // console.log(element._file);
-      const file = element._file;
-      // this.imgMaxService.compressImage(file, 0.5).subscribe((result) => {
-      //   this.compressedImage = result;
-      //   // // console.log(this.compressedImage);
-      //   if (
-      //     'image/jpeg' == this.compressedImage.type ||
-      //     'image/png' == this.compressedImage.type
-      //   ) {
-      //     if (this.EnableOneTime) {
-      //       this.EnableOneTime = false;
-
-      //       if (whichOne == 'propertyimage') {
-      //         this.Update_files_IMAGES(this.compressedImage);
-      //       }
-      //     }
-      //   } else {
-      //     this.config.presentToast('Image is not acceptable.', '');
-      //   }
-      // });
-    });
-  }
-
-  async Update_files_IMAGES(n) {
-    // // console.log(n);
-
-    this.isLoading = true;
-    let formData = new FormData();
-    formData.append('files', n);
-    // // console.log(formData);
-
-    let user_id_ = JSON.parse(
-      this.config.storageGet('user')['__zone_symbol__value']
-    );
-
-    let id_ = '62ac84f3135844106228e4a1';
-
-    await this.Api.Post_data('api/' + id_ + '/updatefile', formData).subscribe(
-      (event: HttpEvent<any>) => {
-        this.uploadingTrue = true;
-        // this.config.uploadingTrue = this.uploadingTrue;
-        switch (event.type) {
-          case HttpEventType.Sent:
-            // // console.log('Request has been made!');
-            this.PercenProgress = '0.10';
-            break;
-          case HttpEventType.ResponseHeader:
-            // // console.log('Response header has been received!');
-            break;
-          case HttpEventType.UploadProgress:
-            this.progress = Math.round(event.loaded * 100);
-
-            this.configprogress = (
-              Math.round(this.progress * 100) / 100
-            ).toFixed(2);
-
-            this.PercenProgress =
-              '0.' + JSON.stringify(this.progress).slice(0, 1);
-
-            break;
-          case HttpEventType.Response:
-            this.uploadingTrue = false;
-            // this.config.uploadingTrue = this.uploadingTrue;
-            this.configprogress = this.progress;
-            this.configprogress = (
-              Math.round(this.progress * 100) / 100
-            ).toFixed(2);
-
-            // // console.log(event);
-
-            this.uploader.queue.forEach((element) => {
-              if (element === n) {
-                // // console.log('89989789797798');
-
-                // // console.log(event.body.url[0]);
-
-                element.url = event.body.url[0];
-
-                this.logo = element.url;
-                this.config.selected_img = this.logo;
-                this.config.navigate('upload-data');
-                this.isLoading = false;
-
-                // this.propertyImages.forEach((element) => {
-                //   // console.log(element.id);
-
-                //   element.image = event.body.url[0];
-                // });
-
-                this.uploader.queue = [];
-                return event.body.url[0];
-              }
-            });
-
-            setTimeout(() => {
-              this.PercenProgress = '0.0';
-              this.progress = 0;
-            }, 1500);
-        }
-      },
-      (err) => {
-        this.config.alert_('Error');
-        // // console.log(JSON.stringify(err));
-        return false;
-      }
-    );
   }
 }

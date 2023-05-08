@@ -1,0 +1,52 @@
+* {
+  margin: 0px;
+}
+
+.create-folder-section {
+  margin: 15px 18px !important;
+}
+
+.folder-form-header {
+  display: flex;
+}
+.new-folder-txt {
+  margin-left: 20px;
+  font-size: 18px;
+  color: #000000;
+}
+
+.ion-input-field {
+  height: var(--ion-btn-height);
+  background: var(--ion-flied-primary);
+  border-radius: 18px;
+  padding: 0px 10px !important;
+  color: var(--ion-color-step-500);
+  font-weight: normal;
+}
+.inp-bx {
+  margin: 50px 0px 10px 0px;
+}
+.lb-txt {
+  margin-bottom: 8px;
+}
+.btn-grp {
+  display: grid;
+}
+
+.create-folder-btn {
+  --background: #1c50ff;
+  --border-radius: 15px;
+  height: var(--ion-btn-height);
+  margin-top: 12px;
+  --box-shadow: none;
+  text-transform: capitalize;
+}
+.cancel-btn {
+  --background: var(--ion-flied-primary);
+  --border-radius: 15px;
+  height: var(--ion-btn-height);
+  margin-top: 12px;
+  --box-shadow: none;
+  color: #000;
+  text-transform: capitalize;
+}

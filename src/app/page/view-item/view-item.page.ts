@@ -1,5 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../common.function';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { TakephotoService } from 'src/app/services/takephoto.service';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+
+const IMAGE_DIR = 'stored-images';
+
+interface LocalFile {
+  name: string;
+  path: string;
+  data: string;
+}
 @Component({
   selector: 'app-view-item',
   templateUrl: './view-item.page.html',
@@ -15,9 +28,18 @@ export class ViewItemPage implements OnInit {
   selectedId: any;
   select_item = false;
   selectedItem: any = [];
-  constructor(public config: CommonService) {}
+  constructor(
+    public config: CommonService,
+    public photoService: TakephotoService,
+    private plt: Platform,
+    private http: HttpClient,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadFiles();
+  }
 
   ionViewWillEnter() {
     this.selected_folder = this.config.selected_folder;
@@ -54,7 +76,7 @@ export class ViewItemPage implements OnInit {
   }
 
   back() {
-    this.config.navigate('home');
+    this.config.navigate('folder-data');
   }
 
   more_options() {
@@ -78,5 +100,114 @@ export class ViewItemPage implements OnInit {
 
     this.photo_data = un;
     this.config.storageSave('all_data', this.photo_data);
+  }
+
+  addPhotoToGallery() {
+    this.config.storageSave('choose_file', 2);
+    this.photoService.addNewToGallery();
+  }
+
+  async SelectImage() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Photos,
+    });
+    if (image) {
+      this.config.storageSave('choose_file', 1);
+      this.saveImage(image);
+    }
+  }
+
+  async saveImage(photo: Photo) {
+    const base64Data = await this.readAsBase64(photo);
+
+    const fileName = new Date().getTime() + '.jpeg';
+    const savedFile = await Filesystem.writeFile({
+      path: `${IMAGE_DIR}/${fileName}`,
+      data: base64Data,
+      directory: Directory.Data,
+    });
+
+    // Reload the file list
+    // Improve by only loading for the new image and unshifting array!
+    this.loadFiles();
+  }
+
+  private async readAsBase64(photo: any) {
+    if (this.plt.is('hybrid')) {
+      const file = await Filesystem.readFile({
+        path: photo.path,
+      });
+
+      return file.data;
+    } else {
+      // Fetch the photo, read as a blob, then convert to base64 format
+      const response = await fetch(photo.webPath);
+      const blob = await response.blob();
+
+      return (await this.convertBlobToBase64(blob)) as string;
+    }
+  }
+
+  // Helper function
+  convertBlobToBase64 = (blob: Blob) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.readAsDataURL(blob);
+    });
+
+  images: LocalFile[] = [];
+  async loadFiles() {
+    this.images = [];
+
+    const loading = await this.loadingCtrl.create({
+      message: 'Loading data...',
+    });
+    await loading.present();
+
+    Filesystem.readdir({
+      path: IMAGE_DIR,
+      directory: Directory.Data,
+    })
+      .then(
+        (result) => {
+          this.loadFileData(result.files.map((x) => x.name));
+        },
+        async (err) => {
+          // Folder does not yet exists!
+          await Filesystem.mkdir({
+            path: IMAGE_DIR,
+            directory: Directory.Data,
+          });
+        }
+      )
+      .then((_) => {
+        loading.dismiss();
+      });
+  }
+
+  // Get the actual base64 data of an image
+  // base on the name of the file
+  async loadFileData(fileNames: string[]) {
+    for (let f of fileNames) {
+      const filePath = `${IMAGE_DIR}/${f}`;
+
+      const readFile = await Filesystem.readFile({
+        path: filePath,
+        directory: Directory.Data,
+      });
+
+      this.images.push({
+        name: f,
+        path: filePath,
+        data: `data:image/jpeg;base64,${readFile.data}`,
+      });
+    }
   }
 }
