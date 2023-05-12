@@ -1,0 +1,176 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="header">
+      <ion-icon
+        name="arrow-back-outline"
+        class="left-arrow-icon"
+        (click)="back()"
+      ></ion-icon>
+      <div class="title-content" *ngIf="selected_folder">
+        <h2 class="folder-name">{{selected_folder.folder_name }}</h2>
+        <p class="item-number">{{selected_folder.total_img}} items</p>
+      </div>
+      <ion-icon
+        name="share-social"
+        *ngIf="select_item"
+        class="three-dot-icon"
+      ></ion-icon>
+      <ion-icon
+        name="trash"
+        class="three-dot-icon"
+        *ngIf="select_item"
+        (click)=" deleteSelectedItem()"
+      ></ion-icon>
+      <ion-icon
+        name="ellipsis-vertical"
+        class="three-dot-icon"
+        (click)="more_options()"
+        [ngClass]="{autoMargin:select_item ==false}"
+      ></ion-icon>
+    </div>
+
+    <!-- <ion-title>view-item</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="more-option-popup" *ngIf="folder_option">
+    <p class="option-txt">Settings</p>
+    <p class="option-txt">Favorites</p>
+    <p class="option-txt" *ngIf="!select_item" (click)="selectItem()">
+      Select items
+    </p>
+    <p class="option-txt" *ngIf="select_item" (click)="selectItem()">
+      Unselect items
+    </p>
+    <p class="option-txt">Edit folder</p>
+  </div>
+
+  <div class="view-item-page" *ngIf="groupedItems">
+    <div class="photo-resize">
+      <img
+        *ngIf="!large_grid_active"
+        src="../../../assets/icon/large-grid-img-active.svg"
+        class="large-grid-icon"
+        (click)="active_grid('1')"
+      />
+      <img
+        *ngIf="large_grid_active"
+        src="../../../assets/icon/large-grid-img.svg"
+        class="large-grid-icon"
+        (click)="active_grid('1')"
+      />
+      <img
+        *ngIf="!small_grid_active"
+        src="../../../assets/icon/small-grid-img.svg"
+        class="small-grid-icon"
+        (click)="active_grid('2')"
+      />
+      <img
+        *ngIf="small_grid_active"
+        src="../../../assets/icon/small-grid-img-active.svg"
+        class="small-grid-icon"
+        (click)="active_grid('2')"
+      />
+    </div>
+    <div *ngFor="let group of groupedItems">
+      <div class="flex-content">
+        <div class="photo-date-details">
+          <p class="date-txt">{{ group.date | date:'d MMM, y'}}</p>
+          <p class="day-txt">{{ group.date | date:'EEEE'}}</p>
+        </div>
+      </div>
+      <div class="content">
+        <ion-row *ngIf="small_grid_active">
+          <ion-col
+            size-xs="6"
+            size-sm="6"
+            size-md="6"
+            size-lg="3"
+            size-lx="3"
+            *ngFor="let item of group.items | appFilter: searchText"
+          >
+            <div class="card">
+              <div class="img content">
+                <img *ngIf="item.img" [src]="item.img" class="content-img" />
+                <img
+                  *ngIf="!item.img"
+                  [src]="item.takeImg"
+                  class="content-img"
+                />
+                <img
+                  src="../../../assets/icon/pencil-icon.svg"
+                  class="edit-icon"
+                  (click)="edit_data(item)"
+                />
+              </div>
+              <div class="txt-content">
+                <div class="content-2">
+                  <p class="tittle-txt">{{item.data.title}}</p>
+                  <p class="note-txt">{{item.data.note}}</p>
+                </div>
+                <div class="img-grp">
+                  <ion-icon
+                    name="trash-outline"
+                    (click)="deleteData(item)"
+                    class="delete-icon"
+                  ></ion-icon>
+                  <img
+                    src="../../../assets/icon/home-mic-icon.svg"
+                    class="mic-icon"
+                  />
+                </div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="large_grid_active">
+          <ion-col
+            size-xs="3"
+            size-sm="3"
+            size-md="6"
+            size-lg="3"
+            size-lx="3"
+            *ngFor="let item of group.items | appFilter: searchText"
+          >
+            <img
+              *ngIf="item.img"
+              [src]="item.img"
+              class="grid-content-img"
+              (click)="edit_data(item)"
+            />
+            <img
+              *ngIf="!item.img"
+              [src]="item.takeImg"
+              class="grid-content-img"
+              (click)="edit_data(item)"
+            />
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer tabs  ----- -->
+  <div class="ion-footer">
+    <div class="footer-toolbar">
+      <div class="center-algin">
+        <ion-button class="camera-btn left-radius-btn" (click)="SelectImage()">
+          <img
+            src="../../../assets/icon/image-upload-icon.svg"
+            class="camera-img"
+          />
+        </ion-button>
+
+        <ion-button
+          class="camera-btn right-radius-btn"
+          (click)="addPhotoToGallery()"
+        >
+          <img src="../../../assets/icon/camera-icon.svg" class="camera-img" />
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <!-- footer tabs  ----- -->
+</ion-content>
