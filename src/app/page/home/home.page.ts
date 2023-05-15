@@ -213,6 +213,7 @@ export class HomePage {
   myImg: any = [];
   getData: any = [];
   all_stored: any = [];
+  getAudio: any = [];
   ionViewWillEnter() {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
@@ -236,12 +237,16 @@ export class HomePage {
         this.myImg = Capacitor.convertFileSrc(res.img);
         console.log('loacl path', this.myImg);
         this.takeImg = Capacitor.convertFileSrc(res.takeImg);
+        this.getAudio = Capacitor.convertFileSrc(res.audio);
+        console.log('load loacl audio', this.getAudio);
+
         let send = {
           img: this.myImg,
           createAt: this.getData.createAt,
           data: this.getData.data,
           id: this.getData.id,
           takeImg: this.takeImg,
+          audio: this.getAudio,
         };
         this.all_stored.push(send);
         console.log('stored img', this.all_stored);
@@ -514,7 +519,6 @@ export class HomePage {
     });
   }
 
-  
   // audioSource: any;
   // async stopPlay(val) {
   //   this.selectedId = val.id;

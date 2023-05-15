@@ -86,6 +86,7 @@ export class UploadDataPage implements OnInit {
   }
 
   url_: any;
+  url2_: any;
   playRecording() {}
   ionViewWillEnter() {
     // this.loadRecordFile();
@@ -98,6 +99,7 @@ export class UploadDataPage implements OnInit {
       console.log('editable data');
 
       this.editable_data = this.config.editable_data;
+      this.url2_ = this.editable_data.audio;
       this.form_details = this.fb.group({
         title: this.editable_data.data.title,
         note: this.editable_data.data.note,
@@ -174,21 +176,22 @@ export class UploadDataPage implements OnInit {
   }
   startRecording_() {
     console.log('en start');
-
+   
     if (this.recording_) {
       return;
     }
     this.recording_ = true;
     VoiceRecorder.startRecording();
   }
-
+  GetAudioURL: any;
   stopRecording_() {
+    this.url2_ = false;
     console.log('en stop');
     if (!this.recording_) {
       return;
     }
 
-    VoiceRecorder.stopRecording().then(async (res: RecordingData) => {
+    VoiceRecorder.stopRecording().then((res: RecordingData) => {
       console.log('stop res', res);
 
       if (res.value && res.value.recordDataBase64) {
@@ -197,10 +200,15 @@ export class UploadDataPage implements OnInit {
         this.url_ = `data:image/jpeg;base64,${recordData}`;
         console.log('image---------------------', this.url_);
         const fileName = new Date().getTime() + '.wav';
-        await Filesystem.writeFile({
+        const audioFIle = Filesystem.writeFile({
           path: fileName,
           directory: Directory.Data,
           data: recordData,
+        });
+
+        let file = audioFIle.then((res) => {
+          console.log('Auido FILE__________', res.uri);
+          this.GetAudioURL = res.uri;
         });
         this.audioLoad();
       }
@@ -279,6 +287,8 @@ export class UploadDataPage implements OnInit {
   }
 
   async loadFileData(fileNames: string[]) {
+    console.log('file name of image', fileNames);
+
     for (let f of fileNames) {
       const filePath = `${IMAGE_DIR}/${f}`;
       const readFile = await Filesystem.readFile({
@@ -359,7 +369,7 @@ export class UploadDataPage implements OnInit {
         data: this.form_details.value,
         img: this.savedUrl,
         takeImg: this.storeTakeImg,
-        audio: this.url,
+        audio: this.GetAudioURL,
       };
 
       this.all_data.push(send);
@@ -379,13 +389,15 @@ export class UploadDataPage implements OnInit {
 
     this.all_data = all_data;
     this.all_data.forEach((el) => {
+      console.log('update----------------------',el);
+      
       if (this.config.editable_data.id == el.id) {
         el.id = this.editable_data.id;
         el.data.title = this.form_details.controls['title'].value;
         el.data.note = this.form_details.controls['note'].value;
         el.img = this.selected_img;
         el.takeImg = this.selected_img1;
-        el.audio = this.url;
+        el.audio = this.url_;
       }
     });
     this.config.storageSave('all_data', this.all_data);

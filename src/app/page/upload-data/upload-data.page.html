@@ -118,6 +118,9 @@
               class="mic-icon bg-color"
             />
           </div>
+          <audio class="audio-file editable" controls *ngIf="url2_">
+            <source [src]="url2_" type="audio/webm" />
+          </audio>
           <audio class="audio-file" controls *ngIf="url_">
             <source [src]="url_" type="audio/webm" />
           </audio>
