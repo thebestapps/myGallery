@@ -65,6 +65,11 @@ export class UploadDataPage implements OnInit {
   storeTakeImg: any;
   savedUrl: any;
   myDate: any = new Date();
+
+  url_: any;
+  url2_: any;
+  audioData: any = [];
+  GetAudioURL: any;
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -92,8 +97,6 @@ export class UploadDataPage implements OnInit {
     VoiceRecorder.requestAudioRecordingPermission();
   }
 
-  url_: any;
-  url2_: any;
   playRecording() {}
   ionViewWillEnter() {
     // this.loadRecordFile();
@@ -160,7 +163,7 @@ export class UploadDataPage implements OnInit {
       this.AudioloadFileData(result.files.map((x) => x.uri));
     });
   }
-  audioData: any = [];
+
   async AudioloadFileData(fileNames: string[]) {
     console.log('file name', fileNames);
 
@@ -190,7 +193,7 @@ export class UploadDataPage implements OnInit {
     this.recording_ = true;
     VoiceRecorder.startRecording();
   }
-  GetAudioURL: any;
+
   stopRecording_() {
     this.url2_ = false;
     console.log('en stop');

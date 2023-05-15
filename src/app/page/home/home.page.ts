@@ -57,6 +57,13 @@ export class HomePage {
   sixMonth: any;
 
   selectedInterval: string = '';
+  myImg: any = [];
+  getData: any = [];
+  all_stored: any = [];
+  getAudio: any = [];
+  Filter_Date: any = [];
+  localData: any = [];
+  folder_name: any;
   filteredImages: any[] = [
     {
       src: './../../assets/icon/left-arrow-back.svg',
@@ -182,11 +189,6 @@ export class HomePage {
       reader.readAsDataURL(blob);
     });
 
-  myImg: any = [];
-  getData: any = [];
-  all_stored: any = [];
-  getAudio: any = [];
-  Filter_Date: any = [];
   ionViewWillEnter() {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
@@ -315,7 +317,7 @@ export class HomePage {
   //   });
   //   actionSheet.present();
   // }
-  
+
   //new
   // filterImages(startDate: string, endDate: string) {
   //   let groupedItems = this.Filter_Date.filter((image) => {
@@ -445,7 +447,7 @@ export class HomePage {
     this.config.editable_data = val;
     console.log('isEditable Data ava', this.config.editable_data);
   }
-  localData: any = [];
+
   deleteData(val) {
     this.selectedId = val.id;
 
@@ -529,7 +531,7 @@ export class HomePage {
   more_options() {
     this.folder_option = !this.folder_option;
   }
-  folder_name: any;
+
   selectData(dateVal) {
     this.folder_name = dateVal;
   }
