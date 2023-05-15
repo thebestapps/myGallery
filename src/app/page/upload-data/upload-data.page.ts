@@ -12,6 +12,7 @@ import { LoadingController, Platform } from '@ionic/angular';
 import { Photo } from '@capacitor/camera';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder';
+import { DatePipe } from '@angular/common';
 
 const IMAGE_DIR = 'stored-images';
 interface LocalFile {
@@ -25,6 +26,7 @@ const URL_ = '';
   selector: 'app-upload-data',
   templateUrl: './upload-data.page.html',
   styleUrls: ['./upload-data.page.scss'],
+  providers: [DatePipe],
 })
 export class UploadDataPage implements OnInit {
   title = 'micRecorder';
@@ -62,6 +64,7 @@ export class UploadDataPage implements OnInit {
   img_: any;
   storeTakeImg: any;
   savedUrl: any;
+  myDate: any = new Date();
   constructor(
     public config: CommonService,
     public fb: FormBuilder,
@@ -70,8 +73,12 @@ export class UploadDataPage implements OnInit {
     public Api: ApiService,
     private platform: Platform,
     private Loading: LoadingController,
-    public changeDef: ChangeDetectorRef
+    public changeDef: ChangeDetectorRef,
+    private datePipe: DatePipe
   ) {
+    this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    console.log('new Date----------------', this.myDate);
+
     this.form_details = this.fb.group({
       title: [''],
       note: [''],
@@ -176,7 +183,7 @@ export class UploadDataPage implements OnInit {
   }
   startRecording_() {
     console.log('en start');
-   
+
     if (this.recording_) {
       return;
     }
@@ -365,7 +372,7 @@ export class UploadDataPage implements OnInit {
     setTimeout(() => {
       let send = {
         id: this.config.generateUniqueId(),
-        createAt: new Date(),
+        createAt: '2019-04-12',
         data: this.form_details.value,
         img: this.savedUrl,
         takeImg: this.storeTakeImg,
@@ -389,8 +396,6 @@ export class UploadDataPage implements OnInit {
 
     this.all_data = all_data;
     this.all_data.forEach((el) => {
-      console.log('update----------------------',el);
-      
       if (this.config.editable_data.id == el.id) {
         el.id = this.editable_data.id;
         el.data.title = this.form_details.controls['title'].value;

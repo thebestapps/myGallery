@@ -56,8 +56,43 @@ export class HomePage {
   header_data: any;
   sixMonth: any;
 
-  filteredImages: any[] = [];
   selectedInterval: string = '';
+  filteredImages: any[] = [
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2023-05-14',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2022-08-28',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2021-12-15',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2021-09-05',
+    },
+  ];
+  allImages: any[] = [
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2023-05-14',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2022-08-28',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2021-12-15',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2021-09-05',
+    },
+  ];
 
   isLoading = false;
   images: LocalFile[] = [];
@@ -75,7 +110,6 @@ export class HomePage {
     public photoService: TakephotoService,
     public config: CommonService,
     private storage: Storage,
-    private domSanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController,
     public Api: ApiService,
     // private imgMaxService: ImgMaxSizeService,
@@ -85,70 +119,8 @@ export class HomePage {
 
   ngOnInit() {
     this.storage.create();
-
-    // this.loadFile();
-    this.user = JSON.parse(
-      this.config.storageGet('user')['__zone_symbol__value']
-    );
-    // if (this.user) {
-    this.photo_data = JSON.parse(
-      this.config.storageGet('all_data')['__zone_symbol__value']
-    );
-
-    this.allFolder = JSON.parse(
-      this.config.storageGet('allFolder')['__zone_symbol__value']
-    );
-    if (this.photo_data != null) {
-      this.header_data =
-        this.photo_data[Math.floor(Math.random() * this.photo_data.length)];
-    }
-    // }
   }
 
-  // async loadFile() {
-  //   this.images = [];
-  //   const loading = await this.Loading.create({
-  //     message: 'Loading Data...',
-  //   });
-  //   await loading.present();
-
-  //   Filesystem.readdir({
-  //     directory: Directory.Data,
-  //     path: IMAGE_DIR,
-  //   })
-  //     .then(
-  //       (result) => {
-  //         // console.log('Here', result);
-  //         this.loadFileData(result.files.map((x) => x.name));
-  //       },
-  //       async (err) => {
-  //         await Filesystem.mkdir({
-  //           directory: Directory.Data,
-  //           path: IMAGE_DIR,
-  //         });
-  //       }
-  //     )
-  //     .then((_) => {
-  //       loading.dismiss();
-  //     });
-  // }
-
-  // async loadFileData(fileNames: string[]) {
-  //   for (let f of fileNames) {
-  //     const filePath = `${IMAGE_DIR}/${f}`;
-  //     const readFile = await Filesystem.readFile({
-  //       directory: Directory.Data,
-  //       path: filePath,
-  //     });
-  //     this.images.push({
-  //       label: 'hello',
-  //       name: f,
-  //       path: filePath,
-  //       data: `data:image/jpeg;base64,${readFile.data}`,
-  //     });
-  //     // console.log('read', this.images);
-  //   }
-  // }
   async SelectImage() {
     debugger;
     const image = await Camera.getPhoto({
@@ -214,31 +186,27 @@ export class HomePage {
   getData: any = [];
   all_stored: any = [];
   getAudio: any = [];
+  Filter_Date: any = [];
   ionViewWillEnter() {
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
     // if (this.user) {
-    this.photo_data = JSON.parse(
-      this.config.storageGet('all_data')['__zone_symbol__value']
-    );
-
     this.allFolder = JSON.parse(
       this.config.storageGet('allFolder')['__zone_symbol__value']
     );
 
+    this.photo_data = [];
+    this.photo_data = JSON.parse(
+      this.config.storageGet('all_data')['__zone_symbol__value']
+    );
+    this.all_stored = [];
     if (this.photo_data) {
-      this.photo_data = JSON.parse(
-        this.config.storageGet('all_data')['__zone_symbol__value']
-      );
-      // this.filteredImages = this.photo_data;
       this.photo_data.forEach((res) => {
         this.getData = res;
         this.myImg = Capacitor.convertFileSrc(res.img);
-        console.log('loacl path', this.myImg);
         this.takeImg = Capacitor.convertFileSrc(res.takeImg);
         this.getAudio = Capacitor.convertFileSrc(res.audio);
-        console.log('load loacl audio', this.getAudio);
 
         let send = {
           img: this.myImg,
@@ -252,19 +220,12 @@ export class HomePage {
         console.log('stored img', this.all_stored);
       });
 
-      this.all_stored = this.removeDuplicates(this.all_stored, 'id');
-      console.log('remove duplicate', this.all_stored);
-
-      // Capacitor.convertFileSrc(this);
-      // console.log('home img', this.filteredImages);
-
       this.header_data =
         this.all_stored[Math.floor(Math.random() * this.all_stored.length)];
       this.MyDate = this.all_stored[0].createAt;
     }
 
     this.groupItemsByDate();
-    // }
   }
 
   groupItemsByDate() {
@@ -279,7 +240,8 @@ export class HomePage {
     this.groupedItems = Object.keys(groupedItems).map((date) => {
       return { date, items: groupedItems[date] };
     });
-    console.log('filter data load', this.groupedItems);
+    this.Filter_Date = this.groupedItems;
+    console.log('group item data', this.groupedItems);
   }
 
   removeDuplicates(myArray, Prop) {
@@ -288,81 +250,185 @@ export class HomePage {
     });
   }
 
-  async presentActionSheet() {
+  // async presentActionSheet() {
+  //   const actionSheet = await this.actionSheetCtrl.create({
+  //     cssClass: 'my-custom-class',
+  //     buttons: [
+  //       {
+  //         text: '6 Month',
+  //         role: 'destructive',
+  //         data: {
+  //           action: 'delete',
+  //         },
+  //         handler: () => {
+  //           const endDate = new Date().toISOString().substr(0, 10); // Current date
+  //           const startDate = new Date();
+  //           startDate.setMonth(startDate.getMonth() - 1);
+  //           const formattedStartDate = startDate.toISOString().substr(0, 10);
+  //           this.filterImages(formattedStartDate, endDate);
+  //         },
+  //       },
+  //       {
+  //         text: '1 Year Ago',
+  //         data: {
+  //           action: 'share',
+  //         },
+  //         handler: () => {
+  //           const endDate = new Date().toISOString().substr(0, 10); // Current date
+  //           const startDate = new Date();
+  //           startDate.setFullYear(startDate.getFullYear() - 1);
+  //           const formattedStartDate = startDate.toISOString().substr(0, 10);
+  //           this.filterImages(formattedStartDate, endDate);
+  //         },
+  //       },
+  //       {
+  //         text: '2 Year Ago',
+  //         data: {
+  //           action: 'share',
+  //         },
+  //         handler: () => {
+  //           const endDate = new Date().toISOString().substr(0, 10); // Current date
+  //           const startDate = new Date();
+  //           startDate.setFullYear(startDate.getFullYear() - 2);
+  //           const formattedStartDate = startDate.toISOString().substr(0, 10);
+  //           this.filterImages(formattedStartDate, endDate);
+  //         },
+  //       },
+  //       {
+  //         text: 'Clear Filter',
+  //         role: 'cancel',
+  //         handler: () => {
+  //           this.groupedItems = this.Filter_Date;
+  //         },
+  //       },
+  //       // {
+  //       //   text: 'Cancel',
+  //       //   role: 'cancel',
+  //       //   data: {
+  //       //     action: 'cancel',
+  //       //   },
+  //       // handler: () => {
+  //       //   this.filteredImages = this.allImages;
+  //       // },
+  //       // },
+  //     ],
+  //   });
+  //   actionSheet.present();
+  // }
+  
+  //new
+  // filterImages(startDate: string, endDate: string) {
+  //   let groupedItems = this.Filter_Date.filter((image) => {
+  //     return image.date >= startDate && image.date <= endDate;
+  //   });
+  //   this.groupedItems = groupedItems;
+  //   console.log(' this.groupedItems ', this.groupedItems);
+  // }
+
+  //old
+  // filterImages(interval: string) {
+  //   const currentDate = new Date();
+  //   switch (interval) {
+  //     case 'sixMonths':
+  //       this.groupedItems = this.all_stored.filter((image) => {
+  //         console.log(image);
+
+  //         const imageMonth = image.createAt.getMonth();
+  //         console.log('month', imageMonth);
+
+  //         const currentMonth = currentDate.getMonth();
+  //         return Math.abs(imageMonth - currentMonth) <= 6;
+  //       });
+  //       console.log('data', this.groupedItems);
+
+  //       break;
+  //     case 'year':
+  //       this.groupedItems = this.all_stored.filter((image) => {
+  //         console.log(image);
+
+  //         const imageYear = image.createAt.getFullYear();
+  //         console.log('imageYear', imageYear);
+  //         const currentYear = currentDate.getFullYear();
+  //         return currentYear - imageYear === 1;
+  //       });
+  //       console.log('data', this.groupedItems);
+
+  //       break;
+  //     case 'two-years':
+  //       this.groupedItems = this.all_stored.filter((image) => {
+  //         console.log(image);
+
+  //         const imageYear = image.createAt.getFullYear();
+  //         console.log('imageYear', imageYear);
+  //         const currentYear = currentDate.getFullYear();
+  //         return currentYear - imageYear <= 2;
+  //       });
+  //       console.log('data', this.groupedItems);
+
+  //       break;
+  //     default:
+  //       this.groupedItems = this.allImages;
+  //       console.log('data', this.groupedItems);
+
+  //       break;
+  //   }
+  // }
+
+  async openFilterActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
-      cssClass: 'my-custom-class',
+      header: 'Filter Images',
       buttons: [
         {
-          text: '6 Month',
-          role: 'destructive',
-          data: {
-            action: 'delete',
-          },
+          text: 'Two Years Old',
           handler: () => {
-            this.filterImages('sixMonths');
+            this.filteredImages = this.filterImagesByDate(2);
+            console.log('two year data', this.filteredImages);
           },
         },
         {
-          text: '1 Year Ago',
-          data: {
-            action: 'share',
-          },
+          text: 'one Years Old',
           handler: () => {
-            this.filterImages('year');
+            this.filteredImages = this.filterImagesByDate(1);
+            console.log('one year data', this.filteredImages);
           },
         },
         {
-          text: '2 Year Ago',
-          data: {
-            action: 'share',
-          },
+          text: 'Six Month Old',
           handler: () => {
-            this.filterImages('two-years');
+            this.filteredImages = this.filterImagesByDate(0.5);
+            console.log('six data', this.filteredImages);
           },
         },
-        // {
-        //   text: 'Cancel',
-        //   role: 'cancel',
-        //   data: {
-        //     action: 'cancel',
-        //   },
-        // handler: () => {
-        //   this.filteredImages = this.allImages;
-        // },
-        // },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.filteredImages = this.allImages;
+            console.log('clear data', this.filteredImages);
+          },
+        },
       ],
     });
-    actionSheet.present();
+
+    await actionSheet.present();
   }
 
-  filterImages(interval: string) {
+  filterImagesByDate(yearsOld: number): any[] {
+    console.log('slected year', yearsOld);
+
     const currentDate = new Date();
-    switch (interval) {
-      case 'sixMonths':
-        this.filteredImages = this.photo_data.filter((image) => {
-          const imageMonth = image.createAt.getMonth();
-          const currentMonth = currentDate.getMonth();
-          return Math.abs(imageMonth - currentMonth) <= 6;
-        });
-        break;
-      case 'year':
-        this.filteredImages = this.photo_data.filter((image) => {
-          const imageYear = image.createAt.getFullYear();
-          const currentYear = currentDate.getFullYear();
-          return currentYear - imageYear === 1;
-        });
-        break;
-      case 'two-years':
-        this.filteredImages = this.photo_data.filter((image) => {
-          const imageYear = image.createAt.getFullYear();
-          const currentYear = currentDate.getFullYear();
-          return currentYear - imageYear <= 2;
-        });
-        break;
-      default:
-        this.filteredImages = this.photo_data;
-        break;
-    }
+    const filterDate = new Date();
+    filterDate.setFullYear(currentDate.getFullYear() - yearsOld);
+
+    const filteredImages = this.allImages.filter((image) => {
+      const imageDate = new Date(image.date);
+      return (
+        imageDate.getTime() <= currentDate.getTime() &&
+        imageDate.getTime() >= filterDate.getTime()
+      );
+    });
+
+    return filteredImages;
   }
 
   addPhotoToGallery() {
@@ -389,7 +455,8 @@ export class HomePage {
     // this.photo_data = un;
     this.all_stored = un;
     this.config.storageSave('all_data', this.all_stored);
-
+    console.log(this.all_stored);
+    this.groupItemsByDate();
     // this.filteredImages = un;
     // let arrDel = un;
 

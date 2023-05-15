@@ -46,6 +46,19 @@
         style="border-radius: 7px"
         [(ngModel)]="searchText"
       ></ion-searchbar>
+      <!-- <ion-button (click)="openFilterActionSheet()">Filter Images</ion-button> -->
+
+      <!-- <ion-list>
+        <ion-item *ngFor="let image of filteredImages">
+          <ion-thumbnail slot="start">
+            <img [src]="image.url" alt="Image">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ image.title }}</h2>
+            <p>{{ image.date }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list> -->
 
       <div *ngIf="photo_data">
         <div class="header-txt-con" *ngIf="header_data">
@@ -65,7 +78,6 @@
           />
         </div>
       </div>
-
       <div class="photo-content" *ngIf="groupedItems">
         <h1 class="heading">My photos</h1>
         <div class="photo-resize">
@@ -97,7 +109,7 @@
           <ion-icon
             name="filter-outline"
             class="filter-icon"
-            (click)="presentActionSheet()"
+            (click)="openFilterActionSheet()"
           ></ion-icon>
         </div>
         <div *ngFor="let group of groupedItems">
