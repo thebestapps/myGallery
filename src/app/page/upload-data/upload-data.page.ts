@@ -375,7 +375,7 @@ export class UploadDataPage implements OnInit {
     setTimeout(() => {
       let send = {
         id: this.config.generateUniqueId(),
-        createAt: '2019-04-12',
+        createAt: this.myDate,
         data: this.form_details.value,
         img: this.savedUrl,
         takeImg: this.storeTakeImg,

@@ -71,15 +71,19 @@ export class HomePage {
     },
     {
       src: './../../assets/icon/left-arrow-back.svg',
-      date: '2022-08-28',
+      date: '2022-06-28',
     },
     {
       src: './../../assets/icon/left-arrow-back.svg',
-      date: '2021-12-15',
+      date: '2021-03-28',
     },
     {
       src: './../../assets/icon/left-arrow-back.svg',
-      date: '2021-09-05',
+      date: '2020-02-15',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2023-02-05',
     },
   ];
   allImages: any[] = [
@@ -89,15 +93,19 @@ export class HomePage {
     },
     {
       src: './../../assets/icon/left-arrow-back.svg',
-      date: '2022-08-28',
+      date: '2022-06-28',
     },
     {
       src: './../../assets/icon/left-arrow-back.svg',
-      date: '2021-12-15',
+      date: '2021-03-28',
     },
     {
       src: './../../assets/icon/left-arrow-back.svg',
-      date: '2021-09-05',
+      date: '2020-02-15',
+    },
+    {
+      src: './../../assets/icon/left-arrow-back.svg',
+      date: '2023-02-05',
     },
   ];
 
@@ -383,30 +391,30 @@ export class HomePage {
         {
           text: 'Two Years Old',
           handler: () => {
-            this.filteredImages = this.filterImagesByDate(2);
-            console.log('two year data', this.filteredImages);
+            this.groupedItems = this.filterImagesByDate(2);
+            console.log('two year data', this.groupedItems);
           },
         },
         {
           text: 'one Years Old',
           handler: () => {
-            this.filteredImages = this.filterImagesByDate(1);
-            console.log('one year data', this.filteredImages);
+            this.groupedItems = this.filterImagesByDate(1);
+            console.log('one year data', this.groupedItems);
           },
         },
         {
           text: 'Six Month Old',
           handler: () => {
-            this.filteredImages = this.filterImagesByDate(0.5);
-            console.log('six data', this.filteredImages);
+            this.groupedItems = this.filterImagesByDate(0.5);
+            console.log('six data', this.groupedItems);
           },
         },
         {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            this.filteredImages = this.allImages;
-            console.log('clear data', this.filteredImages);
+            this.groupedItems = this.Filter_Date;
+            console.log('clear data', this.groupedItems);
           },
         },
       ],
@@ -422,15 +430,20 @@ export class HomePage {
     const filterDate = new Date();
     filterDate.setFullYear(currentDate.getFullYear() - yearsOld);
 
-    const filteredImages = this.allImages.filter((image) => {
-      const imageDate = new Date(image.date);
-      return (
-        imageDate.getTime() <= currentDate.getTime() &&
-        imageDate.getTime() >= filterDate.getTime()
-      );
-    });
+    // const filteredImages = this.allImages.filter((image) => {
+    //   const imageDate = new Date(image.date);
+    //   return (
+    //     imageDate.getTime() <= currentDate.getTime() &&
+    //     imageDate.getTime() >= filterDate.getTime()
+    //   );
+    // });
 
-    return filteredImages;
+    // return filteredImages;
+
+    return this.Filter_Date.filter((image) => {
+      const imageDate = new Date(image.date);
+      return imageDate <= filterDate;
+    });
   }
 
   addPhotoToGallery() {

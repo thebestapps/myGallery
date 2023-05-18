@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared/Guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
       import('./page/home/home.module').then((m) => m.HomePageModule),
+
+    canActivate: [AuthGuard],
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -31,6 +34,11 @@ const routes: Routes = [
         (m) => m.ViewItemPageModule
       ),
   },
+  {
+    path: 'welcome-page',
+    loadChildren: () => import('./page/welcome-page/welcome-page.module').then( m => m.WelcomePagePageModule)
+  },
+
 ];
 
 @NgModule({
@@ -38,5 +46,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   exports: [RouterModule],
+  providers: [AuthGuard],
 })
 export class AppRoutingModule {}
