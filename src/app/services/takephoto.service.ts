@@ -8,7 +8,7 @@ import { Platform } from '@ionic/angular';
   providedIn: 'root',
 })
 export class TakephotoService {
-  storeTakeImg:any
+  storeTakeImg: any;
   public photos: any = [];
   logo: any;
   constructor(public config: CommonService, private plt: Platform) {}
@@ -21,7 +21,7 @@ export class TakephotoService {
       quality: 100,
     });
 
-    console.log(this.capturedPhoto);
+    console.log('serve-------------',this.capturedPhoto);
 
     this.storeTakeImg = this.capturedPhoto;
     this.config.storeTakeImg = this.capturedPhoto.path;

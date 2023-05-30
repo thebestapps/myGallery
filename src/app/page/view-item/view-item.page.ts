@@ -22,7 +22,9 @@ export class ViewItemPage implements OnInit {
   constructor(
     public config: CommonService,
     public photoService: TakephotoService
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit() {}
 

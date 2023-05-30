@@ -2,16 +2,8 @@ import { Component } from '@angular/core';
 import { TakephotoService } from 'src/app/services/takephoto.service';
 import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
-import {
-  ActionSheetController,
-  LoadingController,
-  Platform,
-} from '@ionic/angular';
-import { DomSanitizer } from '@angular/platform-browser';
+import { ActionSheetController, Platform } from '@ionic/angular';
 import { ApiService } from '../../services/api.service';
-import { FileUploader } from 'ng2-file-upload';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-// import { ImgMaxSizeService } from 'ng2-img-max';
 const URL_ = '';
 
 import {
@@ -29,7 +21,7 @@ interface LocalFile {
   path: string;
   data: string;
 }
-
+import { Share } from '@capacitor/share';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -127,9 +119,7 @@ export class HomePage {
     private storage: Storage,
     private actionSheetCtrl: ActionSheetController,
     public Api: ApiService,
-    // private imgMaxService: ImgMaxSizeService,
-    private platform: Platform,
-    private Loading: LoadingController
+    private platform: Platform
   ) {}
 
   ngOnInit() {
@@ -139,12 +129,11 @@ export class HomePage {
   async SelectImage() {
     debugger;
     const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
+      quality: 100,
       resultType: CameraResultType.Uri,
       source: CameraSource.Photos,
     });
-    // console.log('selected img-------',image);
+    console.log('selected img-------', image);
     if (image) {
       console.log('isImage', image);
 
@@ -213,6 +202,8 @@ export class HomePage {
     this.all_stored = [];
     if (this.photo_data) {
       this.photo_data.forEach((res) => {
+        console.log(res);
+
         this.getData = res;
         this.myImg = Capacitor.convertFileSrc(res.img);
         this.takeImg = Capacitor.convertFileSrc(res.takeImg);
@@ -223,7 +214,11 @@ export class HomePage {
           createAt: this.getData.createAt,
           data: this.getData.data,
           id: this.getData.id,
+          shareimg: res.shareimg,
+          sharetakeImg: res.sharetakeImg,
+
           takeImg: this.takeImg,
+          shareAudio: res.shareAudio,
           audio: this.getAudio,
         };
         this.all_stored.push(send);
@@ -578,7 +573,6 @@ export class HomePage {
         folder_name: this.folder_name,
       };
       this.allFolder.push(send);
-      // console.log(this.allFolder);
       this.config.storageSave('allFolder', this.allFolder);
       this.folder_name = '';
       this.Create_folder_form = false;
@@ -593,12 +587,41 @@ export class HomePage {
 
   filterItems(event) {
     const val = event.target.value;
-
     this.photo_data = this.photo_data.filter((item) => {
-      // console.log(item);
-
       return item.title.toLocaleLowerCase().includes() > -1;
     });
+  }
+
+  async shareData(n) {
+    console.log(n);
+    if (n.sharetakeImg) {
+      console.log('111111111111111');
+      try {
+        await Share.share({
+          title: n.data.title,
+          text: n.data.note,
+          url: n.shareAudio,
+          dialogTitle: 'Share',
+        });
+      } catch (error) {
+        console.error('Error sharing audio:', error);
+      }
+    }
+    if (n.shareimg) {
+      console.log('22222222222222222');
+      const audio = n.shareAudio;
+
+      try {
+        await Share.share({
+          title: n.data.title,
+          text: n.data.note,
+          url: n.shareAudio,
+          dialogTitle: 'Share',
+        });
+      } catch (error) {
+        console.error('Error sharing audio:', error);
+      }
+    }
   }
 
   // audioSource: any;

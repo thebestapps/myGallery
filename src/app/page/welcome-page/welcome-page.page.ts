@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/common.function';
 import { Storage } from '@ionic/storage-angular';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-welcome-page',
@@ -16,18 +15,12 @@ export class WelcomePagePage implements OnInit {
   header_logo = true;
   loggedIn!: boolean;
   fristTime: any;
-  constructor(public config: CommonService, private storage: Storage) {
-    // if (!isPlatform('capacitor')) {
-    //   GoogleAuth.initialize();
-    // }
-  }
+  constructor(public config: CommonService, private storage: Storage) {}
 
   ngOnInit() {
     this.storage.create();
   }
   ionViewDidEnter() {
-    GoogleAuth.initialize();
-
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
@@ -60,40 +53,7 @@ export class WelcomePagePage implements OnInit {
   }
 
   getStart() {
-    this.login_page = true;
-    this.onboarding_page = false;
+    this.config.navigate('login');
     this.config.storageSave('pageDisplayed', true);
-  }
-
-  async social_login(n) {
-    // if (n == 'goggle') {
-    //   // this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    //   this.googlePlus.login({})
-    //   .then(result => this.userData = result)
-    //   .catch(err => this.userData = `Error ${JSON.stringify(err)}`);
-    //   // this.config.navigate('home');
-
-    if (n == 'goggle') {
-      this.user = await GoogleAuth.signIn();
-      console.log(this.user);
-
-      if (this.user.authentication.idToken != 'undefined') {
-        this.config.user = this.user;
-        this.config.storageSave('user', this.user);
-        this.config.navigate('home');
-      }
-      // this.config.navigate('home');
-    }
-    if (n == 'apple') {
-      this.config.navigate('home');
-    }
-    if (n == 'facebook') {
-      // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-
-      this.config.navigate('home');
-    }
-    if (n == 'skip') {
-      this.config.navigate('home');
-    }
   }
 }

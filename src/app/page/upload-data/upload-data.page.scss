@@ -2,12 +2,16 @@
   margin: 0px;
 }
 .selected-img {
-  height: 100vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0px;
-  z-index: -1000;
+  // height: 100vh;
+  // object-fit: cover;
+  // position: absolute;
+  // top: 0px;
+  // z-index: -1000;
+  // width: 100%;
+
+  height: 70vh;
   width: 100%;
+  object-fit: cover;
 }
 .lb-txt {
   margin-bottom: 5px;
@@ -24,7 +28,7 @@
 .ion-input-textarea {
   background: var(--ion-flied-primary);
   border-radius: 18px;
-  padding: 12px 10px !important;
+  padding: 12px 10px 25px 10px !important;
   color: var(--ion-color-step-500);
   font-weight: normal;
 }
@@ -55,7 +59,7 @@
 .save-btn {
   --background: var(--ion-btn-primary);
   width: 100%;
-  margin: 0px auto 10px auto;
+  margin: 0 6px 10px 0px;
   height: var(--ion-btn-height);
   --border-radius: 15px;
   text-transform: capitalize;
@@ -64,12 +68,11 @@
 .cancel-btn {
   --background: var(--ion-flied-primary);
   width: 100%;
-  margin: 0px auto 10px auto;
+  margin: 0 0px 10px 6px;
   height: var(--ion-btn-height);
   --border-radius: 15px;
-  color: #000;
+  --color: #000;
   text-transform: capitalize;
-
   --box-shadow: none;
 }
 
@@ -112,6 +115,8 @@
   font-size: 20px;
   margin: 12px;
   cursor: pointer;
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .active-tab {
@@ -122,14 +127,17 @@
 }
 
 .bottom-btn-grp {
-  position: absolute;
+  // position: absolute;
   width: 100%;
-  bottom: 0px;
-  padding: 0px 20px;
+  // bottom: 0px;
+  // padding: 0px 20px;
+  display: flex;
+  margin: 0px 20px;
 }
 .center-algin {
   justify-content: center;
   display: flex;
+  margin-top: 1rem;
 }
 
 .save-btn-icon {
@@ -172,6 +180,10 @@
   position: relative;
 }
 
-.start{
+.start {
   margin: 0px 5px;
+}
+
+.footer-md::before {
+  background-image: none;
 }

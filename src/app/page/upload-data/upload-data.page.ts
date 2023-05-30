@@ -6,13 +6,12 @@ import { Storage } from '@ionic/storage-angular';
 import * as RecordRTC from 'recordrtc';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { FileUploader } from 'ng2-file-upload';
-import { LoadingController, Platform } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { Photo } from '@capacitor/camera';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { RecordingData, VoiceRecorder } from 'capacitor-voice-recorder';
 import { DatePipe } from '@angular/common';
+import { Share } from '@capacitor/share';
 
 const IMAGE_DIR = 'stored-images';
 interface LocalFile {
@@ -42,6 +41,7 @@ export class UploadDataPage implements OnInit {
   all_data: any = [];
   editable_data: any;
   audioSource1: any;
+
   draft_update_btn = false;
   audio_: any;
 
@@ -79,11 +79,10 @@ export class UploadDataPage implements OnInit {
     private platform: Platform,
     private Loading: LoadingController,
     public changeDef: ChangeDetectorRef,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private alertController: AlertController
   ) {
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    console.log('new Date----------------', this.myDate);
-
     this.form_details = this.fb.group({
       title: [''],
       note: [''],
@@ -96,7 +95,7 @@ export class UploadDataPage implements OnInit {
     this.audioLoad();
     VoiceRecorder.requestAudioRecordingPermission();
   }
-
+  upload_Img: any;
   playRecording() {}
   ionViewWillEnter() {
     // this.loadRecordFile();
@@ -136,6 +135,9 @@ export class UploadDataPage implements OnInit {
         this.upload_file = true;
         this.take_file = false;
         this.img_ = this.config.selected_img;
+        console.log('load img23232323-----', this.img_.path);
+        this.upload_Img = this.img_.path;
+        console.log('load img23232323-----', this.upload_Img);
         this.readFile(this.img_);
 
         // let img = this.config.selected_img;
@@ -150,6 +152,15 @@ export class UploadDataPage implements OnInit {
         console.log('load img3333', this.storeTakeImg);
       }
     }
+  }
+
+  async shareData() {
+    await Share.share({
+      title: 'this.form_details.title.value',
+      text: 'this.form_details.note.value',
+      url: this.storeTakeImg,
+      dialogTitle: 'Share',
+    });
   }
 
   audioLoad() {
@@ -184,22 +195,27 @@ export class UploadDataPage implements OnInit {
       // console.log('read', this.images);
     }
   }
-  startRecording_() {
+  async startRecording_() {
     console.log('en start');
-
-    if (this.recording_) {
-      return;
+    if (this.url_ || this.url2_) {
+      this.AudioDiscardAlert();
+    } else {
+      if (this.recording_) {
+        return;
+      }
+      this.recording_ = true;
+      VoiceRecorder.startRecording();
     }
-    this.recording_ = true;
-    VoiceRecorder.startRecording();
   }
 
   stopRecording_() {
     this.url2_ = false;
+
     console.log('en stop');
     if (!this.recording_) {
       return;
     }
+    this.recording_ = false;
 
     VoiceRecorder.stopRecording().then((res: RecordingData) => {
       console.log('stop res', res);
@@ -209,20 +225,41 @@ export class UploadDataPage implements OnInit {
         console.log(recordData);
         this.url_ = `data:image/jpeg;base64,${recordData}`;
         console.log('image---------------------', this.url_);
-        const fileName = new Date().getTime() + '.wav';
+        const fileName = new Date().getTime() + '.mp3';
         const audioFIle = Filesystem.writeFile({
           path: fileName,
           directory: Directory.Data,
           data: recordData,
         });
+        console.log('Auido FILE__________', audioFIle);
 
         let file = audioFIle.then((res) => {
-          console.log('Auido FILE__________', res.uri);
+          console.log('Auido FILE__________2222', res.uri);
           this.GetAudioURL = res.uri;
         });
         this.audioLoad();
       }
     });
+  }
+
+  async AudioDiscardAlert() {
+    const loading = await this.alertController.create({
+      message: 'Do You Want Delete Exiting Audio',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: '',
+        },
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.url_ = undefined;
+            this.url2_ = undefined;
+          },
+        },
+      ],
+    });
+    await loading.present();
   }
 
   async readFile(photo: Photo) {
@@ -377,9 +414,12 @@ export class UploadDataPage implements OnInit {
         id: this.config.generateUniqueId(),
         createAt: this.myDate,
         data: this.form_details.value,
-        img: this.savedUrl,
+        img: this.upload_Img,
+        shareimg: this.upload_Img,
+        sharetakeImg: this.storeTakeImg,
         takeImg: this.storeTakeImg,
         audio: this.GetAudioURL,
+        shareAudio: this.GetAudioURL,
       };
 
       this.all_data.push(send);
@@ -404,6 +444,7 @@ export class UploadDataPage implements OnInit {
         el.data.title = this.form_details.controls['title'].value;
         el.data.note = this.form_details.controls['note'].value;
         el.img = this.selected_img;
+        el.sharetakeImg = this.editable_data.sharetakeImg;
         el.takeImg = this.selected_img1;
         el.audio = this.url_;
       }

@@ -146,6 +146,11 @@
                       class="edit-icon"
                       (click)="edit_data(item)"
                     />
+                    <img
+                      src="../../../assets/icon/share-black-icon.svg"
+                      class="share-icon"
+                      (click)="shareData(item)"
+                    />
                   </div>
                   <div class="txt-content">
                     <div class="content-2">
@@ -283,17 +288,6 @@
             class="camera-img"
             (click)="SelectImage()"
           />
-          <!-- <input
-            class="file-upload-btn"
-            name="files"
-            type="file"
-            id="bannerImg"
-            ng2FileSelect
-            [uploader]="uploader"
-            multiple
-            (change)="SelectChn('propertyimage')"
-            accept="image/*"
-          /> -->
         </ion-button>
 
         <ion-button

@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/common.function';
-
 import { Storage } from '@ionic/storage-angular';
-
-// import { AuthService } from "angular4-social-login";
-// import { FacebookLoginProvider, GoogleLoginProvider } from "angular4-social-login";
-// import { GooglePlus } from '@ionic-native/google-plus/ngx';
-
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { isPlatform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -35,10 +28,17 @@ export class LoginPage implements OnInit {
   ionViewDidEnter() {
     GoogleAuth.initialize();
 
+    let pageDisplayed = JSON.parse(
+      this.config.storageGet('pageDisplayed')['__zone_symbol__value']
+    );
+    if (pageDisplayed == true) {
+      this.login_page = true;
+      this.onboarding_page = false;
+    }
     this.user = JSON.parse(
       this.config.storageGet('user')['__zone_symbol__value']
     );
-    this.config.user = this.user
+    this.config.user = this.user;
     if (this.user) {
       this.onboarding_page = false;
       this.login_page = false;
@@ -46,7 +46,7 @@ export class LoginPage implements OnInit {
       this.config.navigate('home');
     }
     if (!this.user) {
-      // this.onboarding_page = true;
+      this.onboarding_page = true;
       this.login_page = true;
       this.header_logo = true;
     }

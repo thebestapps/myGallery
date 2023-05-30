@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>welcome-page</ion-title>
+    <div class="header">
+      <ion-title *ngIf="header_logo">LOGO</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="page-content">
+    <div class="onboarding-page">
+      <div class="image-grp">
+        <img
+          class="onboarding-img"
+          src="../../../assets/img/onboarding-img-grp.png"
+        />
+      </div>
+      <div class="txt-content">
+        <h1 class="onboarding-heading">Explore your Capture.</h1>
+        <p class="small-txt">Share your capture with app name</p>
+        <ion-button class="start-btn" (click)="getStart()"
+          >Get Started</ion-button
+        >
+      </div>
+    </div>
+  </div>
 </ion-content>

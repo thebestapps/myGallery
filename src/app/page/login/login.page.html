@@ -2,14 +2,7 @@
   <ion-toolbar>
     <div class="header">
       <ion-title *ngIf="header_logo">LOGO</ion-title>
-      <p
-        slot="end"
-        *ngIf="login_page"
-        class="skip-btn"
-        (click)="social_login('skip')"
-      >
-        Skip now
-      </p>
+      <p slot="end" class="skip-btn" (click)="social_login('skip')">Skip now</p>
     </div>
   </ion-toolbar>
 </ion-header>

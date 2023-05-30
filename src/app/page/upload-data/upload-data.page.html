@@ -1,11 +1,32 @@
 <ion-content>
   <div class="upload-data-page">
-    <ion-icon
+    <!-- <ion-icon
       name="close-outline"
       class="close-icon"
       (click)="back()"
-    ></ion-icon>
+    ></ion-icon> -->
     <form class="form-group" [formGroup]="form_details">
+      <div class="tool-grp">
+        <ion-icon
+          name="close-outline"
+          class="close-icon"
+          (click)="back()"
+        ></ion-icon>
+        <div class="img-grp">
+          <div class="image-conytainer" *ngIf="upload_file">
+            <img [src]="selected_img" class="selected-img" />
+          </div>
+
+          <div class="image-conytainer" *ngIf="take_file">
+            <img [src]="selected_img1" class="selected-img" />
+          </div>
+        </div>
+      </div>
+      <!-- <img
+        src="../../../assets/icon/share-black-icon.svg"
+        class="share-icon"
+        (click)="shareData()"
+      /> -->
       <div class="center-tab">
         <div class="fixed-top-tab">
           <ion-icon
@@ -31,13 +52,6 @@
           ></ion-icon>
         </div>
       </div>
-      <div class="image-conytainer" *ngIf="upload_file">
-        <img [src]="selected_img" class="selected-img" />
-      </div>
-
-      <div class="image-conytainer" *ngIf="take_file">
-        <img [src]="selected_img1" class="selected-img" />
-      </div>
 
       <div class="form-container">
         <div class="inp-bx" *ngIf="add_label">
@@ -55,6 +69,7 @@
               class="ion-input-textarea"
               placeholder="Enter Note"
               #myInput
+              rows="2"
               [maxlength]="maxChars"
               (ngModelChange)="selectData($event)"
             ></ion-textarea>
@@ -125,42 +140,43 @@
             <source [src]="url_" type="audio/webm" />
           </audio>
         </div>
-
-        <div class="center-algin">
-          <div class="bottom-btn-grp">
-            <ion-icon
-              name="chevron-forward-outline"
-              *ngIf="add_label"
-              class="save-btn-icon"
-              (click)="navigate('2')"
-            ></ion-icon>
-            <ion-icon
-              name="chevron-forward-outline"
-              *ngIf="add_note"
-              class="save-btn-icon"
-              (click)="navigate('3')"
-            ></ion-icon>
-            <ion-button
-              *ngIf="!draft_update_btn"
-              class="save-btn"
-              (click)="save_data()"
-            >
-              Save
-            </ion-button>
-            <ion-button
-              *ngIf="draft_update_btn"
-              class="save-btn"
-              (click)="update_data()"
-            >
-              Update
-            </ion-button>
-
-            <ion-button class="cancel-btn" (click)=" back()">
-              Cancel
-            </ion-button>
-          </div>
-        </div>
       </div>
     </form>
   </div>
 </ion-content>
+<ion-footer class="ion-footer">
+  <ion-toolbar class="ion-footer-toolbar">
+    <div class="center-algin">
+      <div class="bottom-btn-grp">
+        <!-- <ion-icon
+          name="chevron-forward-outline"
+          *ngIf="add_label"
+          class="save-btn-icon"
+          (click)="navigate('2')"
+        ></ion-icon> -->
+        <!-- <ion-icon
+          name="chevron-forward-outline"
+          *ngIf="add_note"
+          class="save-btn-icon"
+          (click)="navigate('3')"
+        ></ion-icon> -->
+        <ion-button
+          *ngIf="!draft_update_btn"
+          class="save-btn"
+          (click)="save_data()"
+        >
+          Save
+        </ion-button>
+        <ion-button
+          *ngIf="draft_update_btn"
+          class="save-btn"
+          (click)="update_data()"
+        >
+          Update
+        </ion-button>
+
+        <ion-button class="cancel-btn" (click)=" back()"> Cancel </ion-button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
